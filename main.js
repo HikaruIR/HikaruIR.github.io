@@ -1,5 +1,5 @@
 /* ==========================================================================
-   HIKARUIR - SHOWCASE MAIN LOGIC
+   HIKARUIR - MAIN SHOWCASE LOGIC
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -45,8 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressFill = document.getElementById('progress-fill');
   const currentTimeEl = document.getElementById('current-time');
   const totalDurationEl = document.getElementById('total-duration');
-  const musicWidget = document.getElementById('music-widget');
-  
+  const musicCard = document.getElementById('music-widget');
+  const termNowPlaying = document.getElementById('term-nowplaying');
+
   // Volume Controls
   const volumeToggleBtn = document.getElementById('volume-toggle');
   const volumeIcon = document.getElementById('volume-icon');
@@ -67,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Initialize Volume
   audio.volume = savedVolume;
   updateVolumeUI(savedVolume);
 
@@ -102,6 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
     playerArt.src = track.art;
     progressFill.style.width = '0%';
     currentTimeEl.textContent = '0:00';
+    if (termNowPlaying) {
+      termNowPlaying.textContent = `${track.title} - ${track.artist}`;
+    }
   }
 
   function playTrack() {
@@ -109,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       isPlaying = true;
       playIcon.classList.remove('fa-play');
       playIcon.classList.add('fa-pause');
-      musicWidget.classList.add('playing');
+      musicCard.classList.add('playing');
     }).catch(err => {
       console.warn('Playback error / Autoplay blocked:', err);
     });
@@ -120,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     isPlaying = false;
     playIcon.classList.remove('fa-pause');
     playIcon.classList.add('fa-play');
-    musicWidget.classList.remove('playing');
+    musicCard.classList.remove('playing');
   }
 
   playPauseBtn.addEventListener('click', () => {
@@ -175,11 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.currentTime = seekTime;
   });
 
-  // Initialize First Track
   loadTrack(0);
 
   // ---------------------------------------------------------------------------
-  // 2. ENTER SCREEN
+  // 2. ENTER SCREEN OVERLAY
   // ---------------------------------------------------------------------------
   const enterScreen = document.getElementById('enter-screen');
   if (enterScreen) {
@@ -189,34 +191,34 @@ document.addEventListener('DOMContentLoaded', () => {
       animateSkills();
       setTimeout(() => {
         enterScreen.remove();
-      }, 900);
+      }, 700);
     });
   }
 
   // ---------------------------------------------------------------------------
-  // 3. TAB NAVIGATION & ANIMATIONS
+  // 3. SEGMENTED CONTROL TAB NAVIGATION
   // ---------------------------------------------------------------------------
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  const tabPanes = document.querySelectorAll('.tab-pane');
+  const tabPills = document.querySelectorAll('.tab-pill');
+  const tabPanels = document.querySelectorAll('.tab-panel');
 
   function animateSkills() {
-    const progressBars = document.querySelectorAll('.skill-progress-bar');
-    progressBars.forEach(bar => {
-      const target = bar.style.getPropertyValue('--target-width') || '0%';
+    const barFills = document.querySelectorAll('.skill-bar-fill');
+    barFills.forEach(bar => {
+      const target = bar.style.getPropertyValue('--bar-width') || '0%';
       bar.style.width = target;
     });
   }
 
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabBtns.forEach(b => b.classList.remove('active'));
-      tabPanes.forEach(p => p.classList.remove('active'));
+  tabPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      tabPills.forEach(p => p.classList.remove('active'));
+      tabPanels.forEach(panel => panel.classList.remove('active'));
 
-      btn.classList.add('active');
-      const targetId = btn.getAttribute('data-tab');
-      const targetPane = document.getElementById(targetId);
-      if (targetPane) {
-        targetPane.classList.add('active');
+      pill.classList.add('active');
+      const targetId = pill.getAttribute('data-tab');
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
       }
 
       if (targetId === 'skills-tab') {
@@ -233,7 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const terminalCopyBtn = document.getElementById('terminal-copy');
   const termUptime = document.getElementById('term-uptime');
 
-  // Dynamic uptime
   const startTime = Date.now();
   setInterval(() => {
     const diff = Math.floor((Date.now() - startTime) / 1000);
@@ -251,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
     help: () => `Available commands:
   • help       - Show this command reference
   • whoami     - Display identity and info
+  • bio        - Display personal motto
   • skills     - Show all mastered software & languages
   • music      - Show current track & playlist
   • games      - List favorite gaming titles
@@ -263,9 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
     whoami: () => `Identity: HikaruIR
 Name: Mohammad
 Age: 15 years old
-Role: Video Editor, Developer, Cybercore Enthusiast
-Location: Cyberspace
-Philosophy: "Precision in editing, elegance in code."`,
+Bio: "You can win game without Queen"
+Role: Video Editor, Developer, Creative
+Location: Cyberspace`,
+
+    bio: () => `“You can win game without Queen”`,
 
     skills: () => `Proficiency Breakdown:
   [Photoshop]      97% | Graphics, Composites, Cybercore
@@ -328,20 +332,20 @@ Playlist Tracks:
         termInput.value = '';
 
         const cmdLine = document.createElement('div');
-        cmdLine.className = 'term-line prompt-line';
-        cmdLine.innerHTML = `<span class="term-prompt">guest@hikaru:~$</span> <span class="term-cmd">${escapeHtml(cmdRaw)}</span>`;
+        cmdLine.className = 'term-row prompt-row';
+        cmdLine.innerHTML = `<span class="prompt-user">guest@hikaru:~$</span> <span class="prompt-text">${escapeHtml(cmdRaw)}</span>`;
         
-        const interactiveRow = termBody.querySelector('.term-interactive-line');
+        const interactiveRow = termBody.querySelector('.term-input-row');
         termBody.insertBefore(cmdLine, interactiveRow);
 
         if (cmd === 'clear') {
           terminalCommands.clear();
         } else {
           const outDiv = document.createElement('div');
-          outDiv.className = 'term-line';
+          outDiv.className = 'term-row';
           outDiv.style.color = '#cbd5e1';
           outDiv.style.whiteSpace = 'pre-wrap';
-          outDiv.style.marginBottom = '12px';
+          outDiv.style.marginBottom = '10px';
 
           if (terminalCommands[cmd]) {
             outDiv.textContent = terminalCommands[cmd]();
@@ -377,7 +381,6 @@ Playlist Tracks:
     return div.innerHTML;
   }
 
-  // Copy Terminal Output
   if (terminalCopyBtn) {
     terminalCopyBtn.addEventListener('click', () => {
       const textToCopy = termBody.innerText;
@@ -391,13 +394,13 @@ Playlist Tracks:
   }
 
   // ---------------------------------------------------------------------------
-  // 5. CRT SCANLINE TOGGLE & TOP CLOCK
+  // 5. SCANLINE TOGGLE & TOP CLOCK
   // ---------------------------------------------------------------------------
-  const scanlineToggle = document.getElementById('scanline-toggle');
-  const scanlines = document.querySelector('.scanlines');
-  if (scanlineToggle && scanlines) {
-    scanlineToggle.addEventListener('click', () => {
-      scanlines.classList.toggle('disabled');
+  const scanlineBtn = document.getElementById('scanline-btn');
+  const scanlinesLayer = document.getElementById('scanlines-layer');
+  if (scanlineBtn && scanlinesLayer) {
+    scanlineBtn.addEventListener('click', () => {
+      scanlinesLayer.classList.toggle('disabled');
     });
   }
 
@@ -411,27 +414,37 @@ Playlist Tracks:
   setInterval(updateClock, 1000);
 
   // ---------------------------------------------------------------------------
-  // 6. CURSOR GLOW EFFECT & CARD 3D TILT
+  // 6. CUSTOM CURSOR FOLLOWER & CARD 3D TILT
   // ---------------------------------------------------------------------------
-  const cursorGlow = document.getElementById('cursor-glow');
+  const cursorDot = document.getElementById('cursor-dot');
+  const cursorRing = document.getElementById('cursor-ring');
   const profileCard = document.getElementById('profile-card');
 
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let ringX = mouseX;
+  let ringY = mouseY;
+
   window.addEventListener('mousemove', (e) => {
-    if (cursorGlow) {
-      cursorGlow.style.left = `${e.clientX}px`;
-      cursorGlow.style.top = `${e.clientY}px`;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (cursorDot) {
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top = `${mouseY}px`;
     }
 
+    // 3D Tilt on profile card
     if (profileCard && window.innerWidth > 900) {
       const rect = profileCard.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
 
       const isInside = (
-        e.clientX >= rect.left - 40 &&
-        e.clientX <= rect.right + 40 &&
-        e.clientY >= rect.top - 40 &&
-        e.clientY <= rect.bottom + 40
+        e.clientX >= rect.left - 30 &&
+        e.clientX <= rect.right + 30 &&
+        e.clientY >= rect.top - 30 &&
+        e.clientY <= rect.bottom + 30
       );
 
       if (isInside) {
@@ -444,8 +457,39 @@ Playlist Tracks:
     }
   });
 
+  // Smooth Ring Follower loop
+  function updateCursorRing() {
+    if (cursorRing) {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      cursorRing.style.left = `${ringX}px`;
+      cursorRing.style.top = `${ringY}px`;
+    }
+    requestAnimationFrame(updateCursorRing);
+  }
+  updateCursorRing();
+
+  // Hover expansion on interactive elements
+  const interactives = document.querySelectorAll('a, button, input, .social-btn, .media-card-box');
+  interactives.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      if (cursorRing) {
+        cursorRing.style.width = '48px';
+        cursorRing.style.height = '48px';
+        cursorRing.style.borderColor = 'rgba(147, 197, 253, 0.7)';
+      }
+    });
+    el.addEventListener('mouseleave', () => {
+      if (cursorRing) {
+        cursorRing.style.width = '32px';
+        cursorRing.style.height = '32px';
+        cursorRing.style.borderColor = 'rgba(147, 197, 253, 0.4)';
+      }
+    });
+  });
+
   // ---------------------------------------------------------------------------
-  // 7. PARTICLES BACKGROUND CANVAS
+  // 7. FLOATING PARTICLES CANVAS
   // ---------------------------------------------------------------------------
   const canvas = document.getElementById('particles-canvas');
   if (canvas) {
@@ -459,7 +503,7 @@ Playlist Tracks:
     });
 
     const particles = [];
-    const particleCount = 40;
+    const particleCount = 38;
 
     class Particle {
       constructor() {
@@ -468,10 +512,10 @@ Playlist Tracks:
       reset() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = -Math.random() * 0.4 - 0.15;
-        this.radius = Math.random() * 1.8 + 0.6;
-        this.alpha = Math.random() * 0.4 + 0.15;
+        this.vx = (Math.random() - 0.5) * 0.25;
+        this.vy = -Math.random() * 0.35 - 0.15;
+        this.radius = Math.random() * 1.6 + 0.6;
+        this.alpha = Math.random() * 0.35 + 0.15;
         this.color = Math.random() > 0.5 ? '#bfdbfe' : '#93c5fd';
       }
       update() {
@@ -486,7 +530,7 @@ Playlist Tracks:
         ctx.save();
         ctx.globalAlpha = this.alpha;
         ctx.fillStyle = this.color;
-        ctx.shadowBlur = 6;
+        ctx.shadowBlur = 5;
         ctx.shadowColor = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
