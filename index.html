@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HikaruIR</title>
+  <meta name="description" content="HikaruIR - 15yo Developer, Editor & Cybercore Enthusiast. Welcome to my personal cyberspace.">
+  <link rel="icon" type="image/jpeg" href="assets/images/avatar.jpg">
+  
+  <!-- Font Awesome & Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Click to Enter Screen (Iconic cyber style) -->
+  <div id="enter-screen" class="enter-screen">
+    <div class="enter-content">
+      <div class="enter-pulse-ring"></div>
+      <p class="enter-glitch-text" data-text="[ CLICK ANYWHERE TO ENTER ]">[ CLICK ANYWHERE TO ENTER ]</p>
+      <div class="enter-subtext">
+        <i class="fa-solid fa-volume-high"></i> Audio will play automatically
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Layer -->
+  <div class="bg-wrapper">
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+    <div class="scanlines"></div>
+    <canvas id="particles-canvas"></canvas>
+  </div>
+
+  <!-- Custom Cursor Glow -->
+  <div class="cursor-glow" id="cursor-glow"></div>
+
+  <!-- Top Global Controls -->
+  <header class="top-bar">
+    <div class="brand-tag">
+      <span class="live-dot"></span>
+      <span class="sys-clock" id="sys-clock">00:00:00 UTC</span>
+    </div>
+    <div class="top-actions">
+      <button class="top-btn" id="volume-toggle" title="Toggle Sound">
+        <i class="fa-solid fa-volume-high" id="volume-icon"></i>
+      </button>
+      <button class="top-btn" id="scanline-toggle" title="Toggle CRT Scanlines">
+        <i class="fa-solid fa-tv"></i>
+      </button>
+      <div class="view-counter">
+        <i class="fa-solid fa-eye"></i>
+        <span id="view-count">1,337</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <div class="profile-card" id="profile-card">
+      
+      <!-- Card Banner -->
+      <div class="card-banner">
+        <img src="assets/images/banner.jpg" alt="Profile Banner" class="banner-img">
+        <div class="banner-gradient"></div>
+        <div class="badge-cluster">
+          <span class="badge badge-cyber"><i class="fa-solid fa-shield-halved"></i> Verified</span>
+          <span class="badge badge-dev"><i class="fa-solid fa-code"></i> Developer</span>
+          <span class="badge badge-editor"><i class="fa-solid fa-wand-magic-sparkles"></i> VFX Editor</span>
+        </div>
+      </div>
+
+      <!-- Profile Header / Bio -->
+      <div class="card-header">
+        <div class="avatar-wrapper">
+          <img src="assets/images/avatar.jpg" alt="HikaruIR Avatar" class="avatar-img">
+          <div class="status-indicator online" title="Status: Online"></div>
+        </div>
+
+        <div class="profile-identity">
+          <div class="name-row">
+            <h1 class="user-handle">HikaruIR</h1>
+            <span class="check-mark" title="Verified Presence"><i class="fa-solid fa-circle-check"></i></span>
+          </div>
+          <p class="user-meta">
+            <span class="meta-tag"><i class="fa-solid fa-user-astronaut"></i> 15 y/o</span>
+            <span class="meta-divider">•</span>
+            <span class="meta-tag"><i class="fa-solid fa-terminal"></i> Student & Creator</span>
+            <span class="meta-divider">•</span>
+            <span class="meta-tag"><i class="fa-solid fa-location-dot"></i> Cyberspace</span>
+          </p>
+          <p class="user-bio">
+            Editor, developer & anime connoisseur. Crafting visual rhythms & code in the dark.
+          </p>
+        </div>
+
+        <!-- Social Links (cyber style button pill row) -->
+        <div class="social-row">
+          <a href="https://discord.gg/RgrXHQayCG" target="_blank" rel="noopener noreferrer" class="social-chip discord-chip" title="Join Discord">
+            <i class="fa-brands fa-discord"></i>
+            <span>Discord</span>
+          </a>
+          <a href="https://github.com/HikaruIR" target="_blank" rel="noopener noreferrer" class="social-chip github-chip" title="GitHub Profile">
+            <i class="fa-brands fa-github"></i>
+            <span>GitHub</span>
+          </a>
+          <a href="https://www.youtube.com/@Mamad214-11" target="_blank" rel="noopener noreferrer" class="social-chip youtube-chip" title="YouTube Channel">
+            <i class="fa-brands fa-youtube"></i>
+            <span>YouTube</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Music Player Widget (cyber style) -->
+      <div class="music-widget" id="music-widget">
+        <div class="music-art-wrap">
+          <img src="assets/images/song_d4vd.jpg" alt="Track Art" class="music-art" id="player-art">
+          <div class="music-disc-spin" id="music-disc-spin"></div>
+        </div>
+        <div class="music-info">
+          <div class="music-title-wrap">
+            <span class="music-title" id="player-title">Here With Me</span>
+            <span class="music-artist" id="player-artist">d4vd</span>
+          </div>
+          <div class="music-progress-bar" id="progress-container">
+            <div class="music-progress-fill" id="progress-fill"></div>
+          </div>
+          <div class="music-time-row">
+            <span id="current-time">0:00</span>
+            <div class="visualizer-bars" id="visualizer-bars">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <span id="total-duration">4:02</span>
+          </div>
+        </div>
+        <div class="music-controls">
+          <button class="music-ctrl-btn" id="prev-track" title="Previous Track"><i class="fa-solid fa-backward-step"></i></button>
+          <button class="music-ctrl-btn play-btn" id="play-pause" title="Play / Pause"><i class="fa-solid fa-play" id="play-icon"></i></button>
+          <button class="music-ctrl-btn" id="next-track" title="Next Track"><i class="fa-solid fa-forward-step"></i></button>
+        </div>
+        <audio id="audio-element" preload="auto"></audio>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="terminal-tab">
+          <i class="fa-solid fa-terminal"></i>
+          <span>Terminal</span>
+        </button>
+        <button class="tab-btn" data-tab="skills-tab">
+          <i class="fa-solid fa-microchip"></i>
+          <span>Skills</span>
+        </button>
+        <button class="tab-btn" data-tab="games-tab">
+          <i class="fa-solid fa-gamepad"></i>
+          <span>Games</span>
+        </button>
+        <button class="tab-btn" data-tab="anime-tab">
+          <i class="fa-solid fa-film"></i>
+          <span>Anime</span>
+        </button>
+        <button class="tab-btn" data-tab="crushes-tab">
+          <i class="fa-solid fa-heart"></i>
+          <span>Crushes</span>
+        </button>
+      </nav>
+
+      <!-- Tab Content Area -->
+      <div class="tab-content-container">
+
+        <!-- 1. Terminal Tab -->
+        <section class="tab-pane active" id="terminal-tab">
+          <div class="terminal-window">
+            <div class="terminal-bar">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="terminal-title">hikaru@cybercore:~ (bash)</div>
+              <div class="terminal-copy-btn" id="terminal-copy" title="Copy output">
+                <i class="fa-regular fa-copy"></i>
+              </div>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+              <div class="term-line prompt-line">
+                <span class="term-prompt">hikaru@cybercore:~$</span>
+                <span class="term-cmd">neofetch --welcome</span>
+              </div>
+              <div class="term-output" id="term-output">
+                <!-- Neofetch styled cyber greeting -->
+                <div class="neofetch-grid">
+                  <div class="neofetch-ascii">
+                    <pre>
+   /\_/\  
+  ( o.o ) 
+   > ^ <  
+ [CYBERCORE]
+                    </pre>
+                  </div>
+                  <div class="neofetch-info">
+                    <p><span class="key">User:</span> <span class="val">HikaruIR (Mohammad)</span></p>
+                    <p><span class="key">Age:</span> <span class="val">15 years old</span></p>
+                    <p><span class="key">OS:</span> <span class="val">CyberOS x86_64 v2.4</span></p>
+                    <p><span class="key">Host:</span> <span class="val">HikaruIR.github.io</span></p>
+                    <p><span class="key">Uptime:</span> <span class="val" id="term-uptime">Online</span></p>
+                    <p><span class="key">Focus:</span> <span class="val">Video Editing & Fullstack Code</span></p>
+                    <p><span class="key">Status:</span> <span class="val highlight">"Vibing to d4vd in the shadows"</span></p>
+                  </div>
+                </div>
+                <div class="welcome-box">
+                  <i class="fa-solid fa-sparkles"></i>
+                  <span><strong>Welcome to my personal cyberspace!</strong> Feel free to explore my skills, playlists, favorite games, and anime collections. Type <code>help</code> below to execute interactive commands.</span>
+                </div>
+              </div>
+              <div class="term-interactive-line">
+                <span class="term-prompt">guest@hikaru:~$</span>
+                <input type="text" id="term-input" class="term-input" placeholder="type 'help' or command..." autocomplete="off" spellcheck="false">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Skills Tab -->
+        <section class="tab-pane" id="skills-tab">
+          <div class="skills-grid">
+            
+            <!-- Photoshop -->
+            <div class="skill-card">
+              <div class="skill-header">
+                <div class="skill-name-wrap">
+                  <i class="fa-solid fa-palette skill-icon ps-color"></i>
+                  <span class="skill-title">Adobe Photoshop</span>
+                </div>
+                <span class="skill-pct">97%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar ps-bar" style="--target-width: 97%;"></div>
+              </div>
+              <span class="skill-desc">Thumbnails, banners, cybercore graphics & composites</span>
+            </div>
+
+            <!-- Premiere -->
+            <div class="skill-card">
+              <div class="skill-header">
+                <div class="skill-name-wrap">
+                  <i class="fa-solid fa-video skill-icon pr-color"></i>
+                  <span class="skill-title">Adobe Premiere Pro</span>
+                </div>
+                <span class="skill-pct">89%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar pr-bar" style="--target-width: 89%;"></div>
+              </div>
+              <span class="skill-desc">Video montage, audio sync & multi-layer timeline editing</span>
+            </div>
+
+            <!-- Java -->
+            <div class="skill-card">
+              <div class="skill-header">
+                <div class="skill-name-wrap">
+                  <i class="fa-brands fa-java skill-icon java-color"></i>
+                  <span class="skill-title">Java</span>
+                </div>
+                <span class="skill-pct">80%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar java-bar" style="--target-width: 80%;"></div>
+              </div>
+              <span class="skill-desc">Object-oriented programming, algorithms & backend tools</span>
+            </div>
+
+            <!-- After Effects -->
+            <div class="skill-card">
+              <div class="skill-header">
+                <div class="skill-name-wrap">
+                  <i class="fa-solid fa-wand-magic-sparkles skill-icon ae-color"></i>
+                  <span class="skill-title">Adobe After Effects</span>
+                </div>
+                <span class="skill-pct">76%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar ae-bar" style="--target-width: 76%;"></div>
+              </div>
+              <span class="skill-desc">AMV editing, motion tracking, transitions & particle VFX</span>
+            </div>
+
+            <!-- JavaScript -->
+            <div class="skill-card">
+              <div class="skill-header">
+                <div class="skill-name-wrap">
+                  <i class="fa-brands fa-js skill-icon js-color"></i>
+                  <span class="skill-title">JavaScript</span>
+                </div>
+                <span class="skill-pct">67%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar js-bar" style="--target-width: 67%;"></div>
+              </div>
+              <span class="skill-desc">Interactive web dynamics, DOM manipulation & client APIs</span>
+            </div>
+
+            <!-- Python -->
+            <div class="skill-card">
+              <div class="skill-header">
+                <div class="skill-name-wrap">
+                  <i class="fa-brands fa-python skill-icon py-color"></i>
+                  <span class="skill-title">Python</span>
+                </div>
+                <span class="skill-pct">45%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar py-bar" style="--target-width: 45%;"></div>
+              </div>
+              <span class="skill-desc">Automation bots, Discord APIs & script utility workflows</span>
+            </div>
+
+            <!-- CSS -->
+            <div class="skill-card">
+              <div class="skill-header">
+                <div class="skill-name-wrap">
+                  <i class="fa-brands fa-css3-alt skill-icon css-color"></i>
+                  <span class="skill-title">CSS3 & Styling</span>
+                </div>
+                <span class="skill-pct">23%</span>
+              </div>
+              <div class="skill-progress-track">
+                <div class="skill-progress-bar css-bar" style="--target-width: 23%;"></div>
+              </div>
+              <span class="skill-desc">Glassmorphism layouts, flexbox, grid & keyframes</span>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 3. Games Tab -->
+        <section class="tab-pane" id="games-tab">
+          <div class="media-grid">
+            
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/game_cs2.jpg" alt="Counter-Strike 2" loading="lazy">
+                <span class="media-badge">Competitive</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Counter-Strike 2</h3>
+                <span class="media-sub">Tactical FPS • Valve</span>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/game_rdr2.jpg" alt="Red Dead Redemption 2" loading="lazy">
+                <span class="media-badge">Masterpiece</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Red Dead Redemption 2</h3>
+                <span class="media-sub">Open World • Rockstar Games</span>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/game_minecraft.jpg" alt="Minecraft" loading="lazy">
+                <span class="media-badge">Sandbox</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Minecraft</h3>
+                <span class="media-sub">Survival & Creativity • Mojang</span>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/game_nfs_unbound.jpg" alt="NFS Unbound" loading="lazy">
+                <span class="media-badge">Racing</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">NFS Unbound</h3>
+                <span class="media-sub">Street Racing & Graffiti Art • EA</span>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/game_farcry5.jpg" alt="Far Cry 5" loading="lazy">
+                <span class="media-badge">Action</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Far Cry 5</h3>
+                <span class="media-sub">FPS Adventure • Ubisoft</span>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/game_ghostoftsushima.jpg" alt="Ghost of Tsushima" loading="lazy">
+                <span class="media-badge">Samurai</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Ghost of Tsushima</h3>
+                <span class="media-sub">Action-Adventure • Sucker Punch</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 4. Anime Tab -->
+        <section class="tab-pane" id="anime-tab">
+          <div class="media-grid">
+            
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/anime_fragrant_flower.jpg" alt="The Fragrant Flower Blooms with Dignity" loading="lazy">
+                <span class="media-badge romance">Romance</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">The Fragrant Flower Blooms with Dignity</h3>
+                <span class="media-sub">Kaoru Hana wa Rin to Saku</span>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/anime_roshidere.jpg" alt="Alya Sometimes Hides Her Feelings in Russian" loading="lazy">
+                <span class="media-badge comedy">RomCom</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Alya Sometimes Hides Her Feelings in Russian</h3>
+                <span class="media-sub">Roshidere • Doga Kobo</span>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/anime_demonslayer.jpg" alt="Demon Slayer" loading="lazy">
+                <span class="media-badge shonen">Shonen</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Demon Slayer</h3>
+                <span class="media-sub">Kimetsu no Yaiba • Ufotable</span>
+              </div>
+            </div>
+
+            <div class="media-card">
+              <div class="media-poster">
+                <img src="assets/images/anime_aot.jpg" alt="Attack on Titan" loading="lazy">
+                <span class="media-badge dark">Dark Fantasy</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Attack on Titan</h3>
+                <span class="media-sub">Shingeki no Kyojin • Wit / MAPPA</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 5. Crushes Tab -->
+        <section class="tab-pane" id="crushes-tab">
+          <div class="media-grid crush-grid">
+            
+            <div class="media-card crush-card">
+              <div class="media-poster crush-poster">
+                <img src="assets/images/crush_masha.jpg" alt="Masha Kujou" loading="lazy">
+                <span class="media-badge crush-badge"><i class="fa-solid fa-heart"></i> S-Tier</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Masha Kujou (Mariya)</h3>
+                <span class="media-sub">Alya Sometimes Hides Her Feelings in Russian</span>
+                <p class="crush-quote">"Gentle, caring elder sister with the warmest smile."</p>
+              </div>
+            </div>
+
+            <div class="media-card crush-card">
+              <div class="media-poster crush-poster">
+                <img src="assets/images/crush_waguri.jpg" alt="Kaoruko Waguri" loading="lazy">
+                <span class="media-badge crush-badge"><i class="fa-solid fa-heart"></i> S-Tier</span>
+              </div>
+              <div class="media-details">
+                <h3 class="media-title">Kaoruko Waguri</h3>
+                <span class="media-sub">The Fragrant Flower Blooms with Dignity</span>
+                <p class="crush-quote">"Pure heart, bright energy, and unwavering warmth."</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Card Footer -->
+      <footer class="card-footer">
+        <div class="footer-left">
+          <span>HikaruIR</span>
+          <span class="dot-sep">•</span>
+          <span>github.io</span>
+        </div>
+        <div class="footer-right">
+          <span class="host-quote"><i class="fa-solid fa-code-branch"></i> Hosted with GitHub Pages</span>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
