@@ -1,17 +1,15 @@
 /* ==========================================================================
-   HIKARUIR - GUNS.LOL AESTHETIC PROFILE
-   Soft Light Blue Theme • Authentic Badges • Integrated Media
+   HIKARUIR - AUTHENTIC PROFILE RECTANGLE & CRISP BACKGROUND
    ========================================================================== */
 
 :root {
-  /* Soft Light Blue Theme Baseline */
-  --bg-dark: #080c14;
-  --bg-deep: #05070c;
-  --card-bg: rgba(13, 18, 28, 0.78);
+  /* Soft Light Blue Minimal / Frost Palette */
+  --bg-dark: #070a10;
+  --card-bg: rgba(10, 14, 22, 0.68);
   --card-border: rgba(186, 215, 245, 0.12);
-  --card-glow: rgba(147, 197, 253, 0.08);
+  --card-glow: rgba(147, 197, 253, 0.06);
 
-  /* Soft Light Blue Primary Accents */
+  /* Primary Soft Blue Accents */
   --accent-soft-blue: #93c5fd;     /* Baby blue */
   --accent-light-blue: #bfdbfe;    /* Frost blue */
   --accent-sky: #60a5fa;          /* Sky blue */
@@ -38,10 +36,10 @@
   --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --radius-xl: 22px;
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
+  --radius-card: 20px;
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
   --radius-full: 9999px;
 
   --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -81,7 +79,7 @@ html, body {
 }
 
 /* ==========================================================================
-   CUSTOM CURSOR (GUNS.LOL MINIMAL DOT & FOLLOWER)
+   CUSTOM CURSOR
    ========================================================================== */
 @media (hover: hover) and (pointer: fine) {
   body {
@@ -105,8 +103,8 @@ html, body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border: 1px solid rgba(147, 197, 253, 0.4);
     border-radius: 50%;
     pointer-events: none;
@@ -128,8 +126,8 @@ html, body {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: radial-gradient(circle at center, rgba(14, 20, 32, 0.95), #060910);
-  backdrop-filter: blur(30px);
+  background: radial-gradient(circle at center, rgba(10, 14, 24, 0.94), #05080f);
+  backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,17 +147,16 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .enter-avatar-preview {
-  width: 72px;
-  height: 72px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   padding: 2px;
   background: linear-gradient(135deg, var(--accent-light-blue), rgba(147, 197, 253, 0.3));
-  box-shadow: 0 0 24px rgba(147, 197, 253, 0.25);
-  margin-bottom: 6px;
+  box-shadow: 0 0 20px rgba(147, 197, 253, 0.25);
 }
 
 .enter-avatar-preview img {
@@ -171,21 +168,21 @@ html, body {
 
 .enter-prompt {
   font-family: var(--font-mono);
-  font-size: 1.05rem;
+  font-size: 1rem;
   letter-spacing: 3px;
   color: #fff;
-  text-shadow: 0 0 12px rgba(147, 197, 253, 0.45);
+  text-shadow: 0 0 10px rgba(147, 197, 253, 0.5);
   font-weight: 500;
   animation: prompt-pulse 2s ease-in-out infinite alternate;
 }
 
 @keyframes prompt-pulse {
   0% { transform: translateY(0); opacity: 0.85; }
-  100% { transform: translateY(-3px); opacity: 1; text-shadow: 0 0 18px rgba(147, 197, 253, 0.7); }
+  100% { transform: translateY(-2px); opacity: 1; }
 }
 
 .enter-subtext {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-dim);
   display: flex;
   align-items: center;
@@ -194,7 +191,7 @@ html, body {
 }
 
 /* ==========================================================================
-   BACKGROUND & PARTICLES
+   BACKGROUND & PARTICLES (LOW BLUR - CRISP ARTWORK)
    ========================================================================== */
 .bg-wrapper {
   position: fixed;
@@ -206,28 +203,29 @@ html, body {
 
 .bg-image {
   position: absolute;
-  inset: -20px;
+  inset: -10px;
   background-image: url('assets/images/background.jpg');
   background-size: cover;
   background-position: center;
-  filter: blur(14px) brightness(0.28) saturate(0.85);
-  transform: scale(1.05);
+  /* REDUCED BLUR FROM 14px TO 2px FOR CRISP VISUALS */
+  filter: blur(2px) brightness(0.42) saturate(1.05);
+  transform: scale(1.02);
 }
 
 .bg-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 20%, rgba(18, 28, 44, 0.4) 0%, rgba(7, 10, 16, 0.92) 100%);
+  background: radial-gradient(circle at 50% 30%, rgba(10, 15, 24, 0.45) 0%, rgba(6, 9, 14, 0.88) 100%);
 }
 
 .scanlines {
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(18, 24, 38, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+  background: linear-gradient(rgba(18, 24, 38, 0) 50%, rgba(0, 0, 0, 0.12) 50%);
   background-size: 100% 4px;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.35;
+  opacity: 0.25;
   transition: opacity 0.3s ease;
 }
 
@@ -249,8 +247,8 @@ html, body {
 .top-nav {
   position: relative;
   z-index: 10;
-  max-width: 660px;
-  margin: 22px auto 0 auto;
+  max-width: 510px;
+  margin: 20px auto 0 auto;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -261,22 +259,22 @@ html, body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(14, 20, 32, 0.65);
-  backdrop-filter: blur(16px);
+  background: rgba(12, 16, 26, 0.6);
+  backdrop-filter: blur(14px);
   border: 1px solid var(--card-border);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   color: var(--text-dim);
 }
 
 .pulse-indicator {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: var(--accent-soft-blue);
-  box-shadow: 0 0 8px rgba(147, 197, 253, 0.7);
+  box-shadow: 0 0 6px rgba(147, 197, 253, 0.7);
   animation: pulse-dot 2.5s infinite;
 }
 
@@ -292,12 +290,12 @@ html, body {
 }
 
 .icon-btn {
-  background: rgba(14, 20, 32, 0.65);
-  backdrop-filter: blur(16px);
+  background: rgba(12, 16, 26, 0.6);
+  backdrop-filter: blur(14px);
   border: 1px solid var(--card-border);
   color: var(--text-dim);
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -316,49 +314,53 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(14, 20, 32, 0.65);
-  backdrop-filter: blur(16px);
+  background: rgba(12, 16, 26, 0.6);
+  backdrop-filter: blur(14px);
   border: 1px solid var(--card-border);
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: var(--radius-full);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   color: var(--text-dim);
 }
 
 /* ==========================================================================
-   MAIN PROFILE CARD WRAPPER
+   MAIN PROFILE WRAPPER & RECTANGLE GEOMETRY (GUNS.LOL PROPORTIONS)
    ========================================================================== */
 .profile-wrapper {
   position: relative;
   z-index: 10;
-  max-width: 660px;
-  margin: 16px auto 60px auto;
+  max-width: 510px; /* CLASSIC GUNS.LOL RECTANGLE WIDTH */
+  margin: 14px auto 50px auto;
   padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .glass-card {
+  width: 100%;
   background: var(--card-bg);
-  backdrop-filter: blur(28px) saturate(170%);
-  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
   border: 1px solid var(--card-border);
-  border-radius: var(--radius-xl);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px var(--card-glow);
+  border-radius: var(--radius-card);
+  box-shadow: 0 24px 48px -8px rgba(0, 0, 0, 0.7), 0 0 30px var(--card-glow);
   overflow: hidden;
-  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.15s ease-out;
+  transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.15s ease-out;
 }
 
 .glass-card:hover {
-  border-color: rgba(147, 197, 253, 0.28);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 45px rgba(147, 197, 253, 0.12);
+  border-color: rgba(147, 197, 253, 0.25);
+  box-shadow: 0 28px 56px -8px rgba(0, 0, 0, 0.78), 0 0 40px rgba(147, 197, 253, 0.1);
 }
 
 /* ==========================================================================
-   CARD BANNER
+   CARD BANNER (FLUSH SLEEK HEADER)
    ========================================================================== */
 .card-banner {
   position: relative;
   width: 100%;
-  height: 180px;
+  height: 150px;
   overflow: hidden;
 }
 
@@ -367,27 +369,27 @@ html, body {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s ease;
   filter: saturate(0.95);
 }
 
 .glass-card:hover .banner-img {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .banner-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(13, 18, 28, 0.05) 0%, rgba(13, 18, 28, 0.8) 80%, var(--card-bg) 100%);
+  background: linear-gradient(180deg, rgba(10, 14, 22, 0.02) 0%, rgba(10, 14, 22, 0.7) 75%, var(--card-bg) 100%);
 }
 
 /* ==========================================================================
    PROFILE HEADER & IDENTITY
    ========================================================================== */
 .profile-header {
-  padding: 0 28px 20px 28px;
+  padding: 0 22px 18px 22px;
   position: relative;
-  margin-top: -60px;
+  margin-top: -50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -396,18 +398,18 @@ html, body {
 
 .avatar-container {
   position: relative;
-  width: 108px;
-  height: 108px;
-  margin-bottom: 12px;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 10px;
 }
 
 .avatar-ring {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  padding: 3px;
-  background: linear-gradient(135deg, var(--accent-light-blue), #60a5fa, rgba(13, 18, 28, 0.7));
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(147, 197, 253, 0.22);
+  padding: 2.5px;
+  background: linear-gradient(135deg, var(--accent-light-blue), #60a5fa, rgba(10, 14, 22, 0.8));
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 16px rgba(147, 197, 253, 0.2);
 }
 
 .avatar-image {
@@ -421,12 +423,12 @@ html, body {
 
 .status-badge {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 18px;
-  height: 18px;
+  bottom: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: #101622;
+  background: #0d121c;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -434,11 +436,11 @@ html, body {
 }
 
 .status-dot {
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #4ade80;
-  box-shadow: 0 0 8px rgba(74, 222, 128, 0.7);
+  box-shadow: 0 0 6px rgba(74, 222, 128, 0.7);
 }
 
 .identity-section {
@@ -451,102 +453,102 @@ html, body {
 .handle-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   justify-content: center;
 }
 
 .user-handle {
-  font-size: 1.85rem;
+  font-size: 1.65rem;
   font-weight: 700;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.3px;
   color: #fff;
 }
 
 .verified-icon {
   color: var(--accent-soft-blue);
-  font-size: 1.15rem;
-  filter: drop-shadow(0 0 8px rgba(147, 197, 253, 0.4));
+  font-size: 1.05rem;
+  filter: drop-shadow(0 0 6px rgba(147, 197, 253, 0.4));
 }
 
-/* Guns.lol Style Badges Row */
+/* Guns.lol Compact Badges */
 .badges-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   flex-wrap: wrap;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .badge {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  letter-spacing: 0.3px;
-  background: rgba(16, 22, 34, 0.65);
+  gap: 4px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.2px;
+  background: rgba(14, 18, 28, 0.6);
 }
 
 .badge-blue {
   color: var(--accent-light-blue);
-  border-color: rgba(147, 197, 253, 0.3);
-  background: rgba(147, 197, 253, 0.12);
+  border-color: rgba(147, 197, 253, 0.28);
+  background: rgba(147, 197, 253, 0.1);
 }
 
 .badge-purple {
   color: #c084fc;
-  border-color: rgba(192, 132, 252, 0.3);
-  background: rgba(192, 132, 252, 0.1);
+  border-color: rgba(192, 132, 252, 0.28);
+  background: rgba(192, 132, 252, 0.08);
 }
 
 .badge-pink {
   color: #f472b6;
-  border-color: rgba(244, 114, 182, 0.3);
-  background: rgba(244, 114, 182, 0.1);
+  border-color: rgba(244, 114, 182, 0.28);
+  background: rgba(244, 114, 182, 0.08);
 }
 
 .badge-slate {
   color: var(--text-dim);
-  border-color: rgba(148, 163, 184, 0.2);
-  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.18);
+  background: rgba(148, 163, 184, 0.06);
 }
 
-/* User Bio - Guns.lol aesthetic quote */
+/* User Bio */
 .bio-container {
-  margin-top: 14px;
-  max-width: 480px;
+  margin-top: 10px;
+  max-width: 440px;
 }
 
 .user-bio {
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 500;
   font-style: italic;
-  line-height: 1.5;
+  line-height: 1.45;
   color: #e2e8f0;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
 }
 
 /* ==========================================================================
-   SOCIAL BUTTONS GRID (GUNS.LOL STYLE CARDS)
+   SOCIAL BUTTONS GRID (GUNS.LOL RECTANGULAR CARDS)
    ========================================================================== */
 .social-links-grid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 20px;
+  gap: 8px;
+  margin-top: 16px;
 }
 
 .social-btn {
-  background: rgba(16, 22, 34, 0.55);
+  background: rgba(14, 19, 30, 0.55);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
-  padding: 10px 14px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -557,12 +559,12 @@ html, body {
 .social-btn-inner {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-align: left;
 }
 
 .social-icon {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -574,26 +576,26 @@ html, body {
 }
 
 .social-platform {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #fff;
   line-height: 1.2;
 }
 
 .social-handle {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-dim);
 }
 
 .external-icon {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-dim);
-  opacity: 0.6;
+  opacity: 0.5;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .social-btn:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 .social-btn:hover .external-icon {
@@ -605,51 +607,51 @@ html, body {
 .discord-btn .social-icon { color: var(--brand-discord); }
 .discord-btn:hover {
   background: rgba(88, 101, 242, 0.12);
-  border-color: rgba(88, 101, 242, 0.45);
-  box-shadow: 0 4px 16px rgba(88, 101, 242, 0.2);
+  border-color: rgba(88, 101, 242, 0.4);
+  box-shadow: 0 4px 14px rgba(88, 101, 242, 0.18);
 }
 
 /* GitHub */
 .github-btn .social-icon { color: var(--brand-github); }
 .github-btn:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.08);
 }
 
 /* YouTube */
 .youtube-btn .social-icon { color: var(--brand-youtube); }
 .youtube-btn:hover {
   background: rgba(239, 68, 68, 0.12);
-  border-color: rgba(239, 68, 68, 0.45);
-  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.18);
 }
 
 /* ==========================================================================
-   INTEGRATED MUSIC PLAYER (GUNS.LOL SIGNATURE WIDGET)
+   INTEGRATED MUSIC PLAYER (COMPACT GUNS.LOL WIDGET)
    ========================================================================== */
 .music-card {
-  margin: 0 24px 22px 24px;
-  padding: 14px 16px;
-  background: rgba(10, 15, 24, 0.75);
+  margin: 0 20px 18px 20px;
+  padding: 12px 14px;
+  background: rgba(10, 14, 22, 0.7);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  gap: 10px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .music-card-main {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .track-artwork-wrap {
   position: relative;
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   border-radius: var(--radius-md);
   overflow: hidden;
   flex-shrink: 0;
@@ -670,28 +672,28 @@ html, body {
 .track-meta {
   display: flex;
   align-items: baseline;
-  gap: 8px;
-  margin-bottom: 6px;
+  gap: 6px;
+  margin-bottom: 5px;
   overflow: hidden;
   white-space: nowrap;
 }
 
 .track-title {
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   color: #fff;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
 .track-artist {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   color: var(--text-dim);
 }
 
 .track-scrubber {
   width: 100%;
-  height: 5px;
+  height: 4px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -713,15 +715,15 @@ html, body {
   justify-content: space-between;
   margin-top: 5px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--text-dim);
 }
 
 .sound-wave {
   display: flex;
   align-items: flex-end;
-  gap: 3px;
-  height: 11px;
+  gap: 2.5px;
+  height: 10px;
 }
 
 .sound-wave span {
@@ -741,27 +743,27 @@ html, body {
 
 @keyframes bounce-bar {
   0% { height: 3px; opacity: 0.4; }
-  100% { height: 11px; opacity: 1; }
+  100% { height: 10px; opacity: 1; }
 }
 
 .track-controls {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .ctrl-btn {
   background: transparent;
   border: none;
   color: var(--text-dim);
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   transition: var(--transition-smooth);
 }
 
@@ -774,21 +776,21 @@ html, body {
   background: rgba(147, 197, 253, 0.12);
   border: 1px solid var(--card-border);
   color: var(--accent-light-blue);
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
 }
 
 .ctrl-btn.main-play-btn:hover {
   background: var(--accent-soft-blue);
-  color: #080c14;
+  color: #070a10;
 }
 
 /* Volume Slider inside Music Card */
 .player-volume-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding-top: 8px;
+  gap: 8px;
+  padding-top: 6px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -797,7 +799,7 @@ html, body {
   border: none;
   color: var(--text-dim);
   cursor: pointer;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   transition: color 0.2s;
   display: flex;
   align-items: center;
@@ -811,7 +813,7 @@ html, body {
   flex: 1;
   -webkit-appearance: none;
   appearance: none;
-  height: 4px;
+  height: 3.5px;
   background: rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-full);
   outline: none;
@@ -821,12 +823,12 @@ html, body {
 .vol-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   background: var(--accent-light-blue);
   cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
   transition: transform 0.15s ease;
 }
 
@@ -837,9 +839,9 @@ html, body {
 
 .vol-percentage {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-dim);
-  min-width: 28px;
+  min-width: 26px;
   text-align: right;
 }
 
@@ -847,17 +849,18 @@ html, body {
    SEGMENTED CONTROL NAVIGATION TABS
    ========================================================================== */
 .segmented-nav-wrap {
-  padding: 0 24px;
-  margin-bottom: 20px;
+  padding: 0 20px;
+  margin-bottom: 16px;
+  width: 100%;
 }
 
 .segmented-tabs {
   display: flex;
-  background: rgba(10, 15, 24, 0.6);
-  padding: 4px;
-  border-radius: var(--radius-lg);
+  background: rgba(10, 14, 22, 0.55);
+  padding: 3px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--card-border);
-  gap: 4px;
+  gap: 3px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -871,15 +874,15 @@ html, body {
   background: transparent;
   border: none;
   color: var(--text-dim);
-  padding: 8px 12px;
+  padding: 7px 10px;
   font-family: var(--font-main);
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 6px;
   cursor: pointer;
   transition: var(--transition-smooth);
   white-space: nowrap;
@@ -894,8 +897,7 @@ html, body {
   color: #fff;
   background: rgba(147, 197, 253, 0.14);
   font-weight: 600;
-  border: 1px solid rgba(147, 197, 253, 0.25);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(147, 197, 253, 0.22);
 }
 
 .tab-pill.active i {
@@ -904,8 +906,8 @@ html, body {
 
 /* Tab View Container */
 .tab-view-container {
-  padding: 0 24px 24px 24px;
-  min-height: 380px;
+  padding: 0 20px 20px 20px;
+  width: 100%;
 }
 
 .tab-panel {
@@ -918,7 +920,7 @@ html, body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -926,17 +928,17 @@ html, body {
    1. TERMINAL WINDOW
    ========================================================================== */
 .terminal-card {
-  background: #0b1019;
+  background: #090e17;
   border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   font-family: var(--font-mono);
 }
 
 .terminal-header {
-  background: #0f1522;
-  padding: 10px 14px;
+  background: #0e1420;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -945,12 +947,12 @@ html, body {
 
 .window-buttons {
   display: flex;
-  gap: 6px;
+  gap: 5px;
 }
 
 .win-btn {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
 }
 .win-btn.red { background: rgba(248, 113, 113, 0.7); }
@@ -958,7 +960,7 @@ html, body {
 .win-btn.green { background: rgba(147, 197, 253, 0.7); }
 
 .terminal-host {
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   color: var(--text-dim);
 }
 
@@ -967,7 +969,7 @@ html, body {
   border: none;
   color: var(--text-dim);
   cursor: pointer;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   transition: color 0.2s;
 }
 
@@ -976,20 +978,20 @@ html, body {
 }
 
 .terminal-screen {
-  padding: 16px;
-  font-size: 0.82rem;
-  line-height: 1.6;
-  max-height: 420px;
+  padding: 14px;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  max-height: 380px;
   overflow-y: auto;
 }
 
 .term-row {
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 
 .prompt-user {
   color: var(--accent-soft-blue);
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .prompt-text {
@@ -1000,9 +1002,9 @@ html, body {
 .terminal-neofetch {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 16px;
-  margin: 12px 0 16px 0;
-  padding: 12px;
+  gap: 14px;
+  margin: 10px 0 14px 0;
+  padding: 10px;
   background: rgba(0, 0, 0, 0.25);
   border-radius: var(--radius-sm);
   border: 1px dashed rgba(147, 197, 253, 0.15);
@@ -1011,13 +1013,13 @@ html, body {
 .neofetch-ascii pre {
   color: var(--accent-sky);
   font-weight: 500;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   line-height: 1.2;
 }
 
 .neofetch-table div {
   margin-bottom: 3px;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
 }
 
 .prop-key {
@@ -1038,24 +1040,24 @@ html, body {
 .terminal-welcome-alert {
   background: rgba(147, 197, 253, 0.08);
   border-left: 3px solid var(--accent-soft-blue);
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  margin: 14px 0;
+  margin: 12px 0;
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 8px;
   color: #e2e8f0;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
 }
 
 .terminal-welcome-alert i {
   color: var(--accent-soft-blue);
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .terminal-welcome-alert code {
   background: rgba(255, 255, 255, 0.08);
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 4px;
   color: var(--accent-light-blue);
 }
@@ -1063,8 +1065,8 @@ html, body {
 .term-input-row {
   display: flex;
   align-items: center;
-  margin-top: 12px;
-  padding-top: 10px;
+  margin-top: 10px;
+  padding-top: 8px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -1075,7 +1077,7 @@ html, body {
   outline: none;
   color: #fff;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
 }
 
 .cli-input::placeholder {
@@ -1088,41 +1090,41 @@ html, body {
 .skills-card-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 10px;
 }
 
 .skill-item {
-  background: rgba(12, 17, 26, 0.55);
+  background: rgba(12, 16, 26, 0.55);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
-  padding: 12px 16px;
+  padding: 10px 14px;
   transition: var(--transition-smooth);
 }
 
 .skill-item:hover {
-  background: rgba(16, 22, 34, 0.8);
-  border-color: rgba(147, 197, 253, 0.28);
-  transform: translateX(3px);
+  background: rgba(15, 20, 32, 0.8);
+  border-color: rgba(147, 197, 253, 0.25);
+  transform: translateX(2px);
 }
 
 .skill-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 7px;
+  margin-bottom: 6px;
 }
 
 .skill-label {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   color: #fff;
 }
 
 .skill-label i {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .ps-accent { color: var(--skill-ps) !important; }
@@ -1136,7 +1138,7 @@ html, body {
 .skill-value {
   font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
 }
 
 .skill-bar-track {
@@ -1145,7 +1147,7 @@ html, body {
   background: rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-full);
   overflow: hidden;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 .skill-bar-fill {
@@ -1164,7 +1166,7 @@ html, body {
 .css-fill { background: linear-gradient(90deg, #2563eb, var(--skill-css)); }
 
 .skill-caption {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   color: var(--text-dim);
 }
 
@@ -1173,12 +1175,12 @@ html, body {
    ========================================================================== */
 .media-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .media-card-box {
-  background: rgba(12, 17, 26, 0.65);
+  background: rgba(12, 16, 26, 0.65);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -1188,9 +1190,9 @@ html, body {
 }
 
 .media-card-box:hover {
-  transform: translateY(-4px);
-  border-color: rgba(147, 197, 253, 0.3);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+  transform: translateY(-3px);
+  border-color: rgba(147, 197, 253, 0.28);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
 }
 
 .media-thumb-wrap {
@@ -1214,14 +1216,14 @@ html, body {
 
 .tag-badge {
   position: absolute;
-  top: 7px;
-  right: 7px;
-  font-size: 0.64rem;
+  top: 6px;
+  right: 6px;
+  font-size: 0.62rem;
   font-weight: 600;
-  padding: 3px 8px;
+  padding: 2px 7px;
   border-radius: var(--radius-full);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   letter-spacing: 0.3px;
   background: rgba(11, 16, 26, 0.85);
 }
@@ -1239,28 +1241,28 @@ html, body {
 .dark-tag { color: #c084fc; border-color: rgba(192, 132, 252, 0.35); }
 
 .media-meta {
-  padding: 10px 12px;
+  padding: 8px 10px;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .media-heading {
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #fff;
-  line-height: 1.3;
-  margin-bottom: 3px;
+  line-height: 1.25;
+  margin-bottom: 2px;
 }
 
 .media-subtext {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-dim);
 }
 
 /* Crushes */
 .crush-cards-grid {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .crush-thumb {
@@ -1274,32 +1276,32 @@ html, body {
 }
 
 .crush-quote-line {
-  margin-top: 6px;
-  font-size: 0.74rem;
+  margin-top: 5px;
+  font-size: 0.7rem;
   font-style: italic;
   color: var(--text-muted);
   border-left: 2px solid #f472b6;
-  padding-left: 7px;
+  padding-left: 6px;
 }
 
 /* ==========================================================================
    CARD FOOTER
    ========================================================================== */
 .card-footer {
-  padding: 14px 24px;
-  background: rgba(10, 15, 22, 0.6);
+  padding: 12px 20px;
+  background: rgba(9, 13, 20, 0.6);
   border-top: 1px solid var(--card-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   color: var(--text-dim);
 }
 
 .footer-brand {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .footer-dot {
@@ -1309,36 +1311,39 @@ html, body {
 .footer-meta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 /* ==========================================================================
    RESPONSIVE DESIGN
    ========================================================================== */
-@media (max-width: 600px) {
+@media (max-width: 520px) {
   .profile-header {
-    padding: 0 16px 16px 16px;
+    padding: 0 14px 14px 14px;
   }
   .card-banner {
-    height: 140px;
+    height: 130px;
   }
   .avatar-container {
-    width: 90px;
-    height: 90px;
+    width: 84px;
+    height: 84px;
   }
   .social-links-grid {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 7px;
   }
   .music-card {
-    margin: 0 16px 18px 16px;
-    padding: 12px;
+    margin: 0 14px 14px 14px;
+    padding: 10px;
   }
   .segmented-nav-wrap {
-    padding: 0 16px;
+    padding: 0 14px;
   }
   .tab-view-container {
-    padding: 0 16px 20px 16px;
+    padding: 0 14px 16px 14px;
+  }
+  .media-cards-grid {
+    grid-template-columns: 1fr;
   }
   .terminal-neofetch {
     grid-template-columns: 1fr;
