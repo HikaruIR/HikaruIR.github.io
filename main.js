@@ -434,7 +434,7 @@ Playlist Tracks:
       this.vy = -Math.random() * 0.5 - 0.2;
       this.radius = Math.random() * 2 + 0.8;
       this.alpha = Math.random() * 0.5 + 0.2;
-      this.color = Math.random() > 0.5 ? '#00f2fe' : '#9d4edd';
+      this.color = Math.random() > 0.5 ? '#bfdbfe' : '#93c5fd';
     }
     update() {
       this.x += this.vx;
