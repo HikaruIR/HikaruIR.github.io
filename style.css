@@ -1,12 +1,13 @@
 /* ==========================================================================
-   HIKARUIR - AUTHENTIC PROFILE RECTANGLE & CRISP BACKGROUND
+   HIKARUIR - LANDSCAPE RECTANGLE PROFILE (GUNS.LOL WIDE STYLE)
+   Wide Top/Bottom Edge • Zero Background Blur • Compact Volume Slider
    ========================================================================== */
 
 :root {
-  /* Soft Light Blue Minimal / Frost Palette */
+  /* Soft Light Blue Theme Baseline */
   --bg-dark: #070a10;
-  --card-bg: rgba(10, 14, 22, 0.68);
-  --card-border: rgba(186, 215, 245, 0.12);
+  --card-bg: rgba(10, 14, 22, 0.72);
+  --card-border: rgba(186, 215, 245, 0.14);
   --card-glow: rgba(147, 197, 253, 0.06);
 
   /* Primary Soft Blue Accents */
@@ -36,7 +37,7 @@
   --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --radius-card: 20px;
+  --radius-card: 22px;
   --radius-lg: 14px;
   --radius-md: 10px;
   --radius-sm: 6px;
@@ -54,18 +55,21 @@
 
 html, body {
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   background-color: var(--bg-dark);
   color: var(--text-main);
   font-family: var(--font-main);
   overflow-x: hidden;
   position: relative;
   -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: rgba(8, 12, 20, 0.6);
@@ -151,10 +155,10 @@ html, body {
 }
 
 .enter-avatar-preview {
-  width: 68px;
-  height: 68px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  padding: 2px;
+  padding: 2.5px;
   background: linear-gradient(135deg, var(--accent-light-blue), rgba(147, 197, 253, 0.3));
   box-shadow: 0 0 20px rgba(147, 197, 253, 0.25);
 }
@@ -168,7 +172,7 @@ html, body {
 
 .enter-prompt {
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: 1.05rem;
   letter-spacing: 3px;
   color: #fff;
   text-shadow: 0 0 10px rgba(147, 197, 253, 0.5);
@@ -182,7 +186,7 @@ html, body {
 }
 
 .enter-subtext {
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   color: var(--text-dim);
   display: flex;
   align-items: center;
@@ -191,7 +195,7 @@ html, body {
 }
 
 /* ==========================================================================
-   BACKGROUND & PARTICLES (LOW BLUR - CRISP ARTWORK)
+   BACKGROUND (ZERO BLUR - 100% CRISP SHARP ARTWORK)
    ========================================================================== */
 .bg-wrapper {
   position: fixed;
@@ -203,29 +207,30 @@ html, body {
 
 .bg-image {
   position: absolute;
-  inset: -10px;
+  inset: 0;
   background-image: url('assets/images/background.jpg');
   background-size: cover;
   background-position: center;
-  /* REDUCED BLUR FROM 14px TO 2px FOR CRISP VISUALS */
-  filter: blur(2px) brightness(0.42) saturate(1.05);
-  transform: scale(1.02);
+  /* ZERO BLUR - 100% CRISP */
+  filter: none;
+  transform: scale(1);
 }
 
 .bg-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(10, 15, 24, 0.45) 0%, rgba(6, 9, 14, 0.88) 100%);
+  /* Dark translucent tint so wallpaper is crystal clear yet text is readable */
+  background: radial-gradient(circle at 50% 30%, rgba(8, 12, 20, 0.45) 0%, rgba(5, 7, 12, 0.82) 100%);
 }
 
 .scanlines {
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(18, 24, 38, 0) 50%, rgba(0, 0, 0, 0.12) 50%);
+  background: linear-gradient(rgba(18, 24, 38, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
   background-size: 100% 4px;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.25;
+  opacity: 0.2;
   transition: opacity 0.3s ease;
 }
 
@@ -247,8 +252,9 @@ html, body {
 .top-nav {
   position: relative;
   z-index: 10;
-  max-width: 510px;
-  margin: 20px auto 0 auto;
+  max-width: 820px;
+  width: 100%;
+  margin: 18px auto 0 auto;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -259,7 +265,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(12, 16, 26, 0.6);
+  background: rgba(12, 16, 26, 0.65);
   backdrop-filter: blur(14px);
   border: 1px solid var(--card-border);
   padding: 5px 12px;
@@ -290,7 +296,7 @@ html, body {
 }
 
 .icon-btn {
-  background: rgba(12, 16, 26, 0.6);
+  background: rgba(12, 16, 26, 0.65);
   backdrop-filter: blur(14px);
   border: 1px solid var(--card-border);
   color: var(--text-dim);
@@ -314,7 +320,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(12, 16, 26, 0.6);
+  background: rgba(12, 16, 26, 0.65);
   backdrop-filter: blur(14px);
   border: 1px solid var(--card-border);
   padding: 5px 10px;
@@ -324,13 +330,14 @@ html, body {
 }
 
 /* ==========================================================================
-   MAIN PROFILE WRAPPER & RECTANGLE GEOMETRY (GUNS.LOL PROPORTIONS)
+   MAIN LANDSCAPE RECTANGLE (WIDE TOP/BOTTOM, SHORT SIDES)
    ========================================================================== */
 .profile-wrapper {
   position: relative;
   z-index: 10;
-  max-width: 510px; /* CLASSIC GUNS.LOL RECTANGLE WIDTH */
-  margin: 14px auto 50px auto;
+  max-width: 820px; /* WIDE LANDSCAPE ORIENTATION */
+  width: 100%;
+  margin: 12px auto 40px auto;
   padding: 0 16px;
   display: flex;
   flex-direction: column;
@@ -340,27 +347,27 @@ html, body {
 .glass-card {
   width: 100%;
   background: var(--card-bg);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-card);
-  box-shadow: 0 24px 48px -8px rgba(0, 0, 0, 0.7), 0 0 30px var(--card-glow);
+  box-shadow: 0 24px 50px -8px rgba(0, 0, 0, 0.75), 0 0 35px var(--card-glow);
   overflow: hidden;
   transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.15s ease-out;
 }
 
 .glass-card:hover {
-  border-color: rgba(147, 197, 253, 0.25);
-  box-shadow: 0 28px 56px -8px rgba(0, 0, 0, 0.78), 0 0 40px rgba(147, 197, 253, 0.1);
+  border-color: rgba(147, 197, 253, 0.28);
+  box-shadow: 0 28px 60px -8px rgba(0, 0, 0, 0.8), 0 0 45px rgba(147, 197, 253, 0.1);
 }
 
 /* ==========================================================================
-   CARD BANNER (FLUSH SLEEK HEADER)
+   CARD BANNER (WIDE HORIZONTAL HEADER)
    ========================================================================== */
 .card-banner {
   position: relative;
   width: 100%;
-  height: 150px;
+  height: 140px;
   overflow: hidden;
 }
 
@@ -380,14 +387,14 @@ html, body {
 .banner-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 14, 22, 0.02) 0%, rgba(10, 14, 22, 0.7) 75%, var(--card-bg) 100%);
+  background: linear-gradient(180deg, rgba(10, 14, 22, 0.05) 0%, rgba(10, 14, 22, 0.75) 75%, var(--card-bg) 100%);
 }
 
 /* ==========================================================================
    PROFILE HEADER & IDENTITY
    ========================================================================== */
 .profile-header {
-  padding: 0 22px 18px 22px;
+  padding: 0 24px 18px 24px;
   position: relative;
   margin-top: -50px;
   display: flex;
@@ -458,7 +465,7 @@ html, body {
 }
 
 .user-handle {
-  font-size: 1.65rem;
+  font-size: 1.7rem;
   font-weight: 700;
   letter-spacing: -0.3px;
   color: #fff;
@@ -466,28 +473,28 @@ html, body {
 
 .verified-icon {
   color: var(--accent-soft-blue);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   filter: drop-shadow(0 0 6px rgba(147, 197, 253, 0.4));
 }
 
-/* Guns.lol Compact Badges */
+/* Badges Row */
 .badges-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
   flex-wrap: wrap;
   margin-top: 6px;
 }
 
 .badge {
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  padding: 3px 8px;
+  padding: 3px 9px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   letter-spacing: 0.2px;
@@ -518,14 +525,14 @@ html, body {
   background: rgba(148, 163, 184, 0.06);
 }
 
-/* User Bio */
+/* User Bio Quote */
 .bio-container {
   margin-top: 10px;
-  max-width: 440px;
+  max-width: 520px;
 }
 
 .user-bio {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 500;
   font-style: italic;
   line-height: 1.45;
@@ -534,13 +541,13 @@ html, body {
 }
 
 /* ==========================================================================
-   SOCIAL BUTTONS GRID (GUNS.LOL RECTANGULAR CARDS)
+   SOCIAL BUTTONS GRID (WIDE 3-COLUMNS)
    ========================================================================== */
 .social-links-grid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 10px;
   margin-top: 16px;
 }
 
@@ -548,7 +555,7 @@ html, body {
   background: rgba(14, 19, 30, 0.55);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
-  padding: 8px 12px;
+  padding: 8px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -559,12 +566,12 @@ html, body {
 .social-btn-inner {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   text-align: left;
 }
 
 .social-icon {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -576,19 +583,19 @@ html, body {
 }
 
 .social-platform {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #fff;
   line-height: 1.2;
 }
 
 .social-handle {
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   color: var(--text-dim);
 }
 
 .external-icon {
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   color: var(--text-dim);
   opacity: 0.5;
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -603,7 +610,6 @@ html, body {
   transform: translate(2px, -2px);
 }
 
-/* Discord */
 .discord-btn .social-icon { color: var(--brand-discord); }
 .discord-btn:hover {
   background: rgba(88, 101, 242, 0.12);
@@ -611,7 +617,6 @@ html, body {
   box-shadow: 0 4px 14px rgba(88, 101, 242, 0.18);
 }
 
-/* GitHub */
 .github-btn .social-icon { color: var(--brand-github); }
 .github-btn:hover {
   background: rgba(255, 255, 255, 0.08);
@@ -619,7 +624,6 @@ html, body {
   box-shadow: 0 4px 14px rgba(255, 255, 255, 0.08);
 }
 
-/* YouTube */
 .youtube-btn .social-icon { color: var(--brand-youtube); }
 .youtube-btn:hover {
   background: rgba(239, 68, 68, 0.12);
@@ -628,17 +632,19 @@ html, body {
 }
 
 /* ==========================================================================
-   INTEGRATED MUSIC PLAYER (COMPACT GUNS.LOL WIDGET)
+   MUSIC PLAYER (COMPACT VOLUME SLIDER)
    ========================================================================== */
 .music-card {
-  margin: 0 20px 18px 20px;
-  padding: 12px 14px;
+  margin: 0 24px 18px 24px;
+  padding: 12px 16px;
   background: rgba(10, 14, 22, 0.7);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
@@ -646,12 +652,14 @@ html, body {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex: 1;
+  min-width: 260px;
 }
 
 .track-artwork-wrap {
   position: relative;
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-md);
   overflow: hidden;
   flex-shrink: 0;
@@ -785,13 +793,15 @@ html, body {
   color: #070a10;
 }
 
-/* Volume Slider inside Music Card */
+/* COMPACT SHORT VOLUME SLIDER (FIXED NOT LONG) */
 .player-volume-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-top: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(14, 19, 30, 0.6);
+  border: 1px solid var(--card-border);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
 }
 
 .vol-btn {
@@ -799,7 +809,7 @@ html, body {
   border: none;
   color: var(--text-dim);
   cursor: pointer;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   transition: color 0.2s;
   display: flex;
   align-items: center;
@@ -810,11 +820,12 @@ html, body {
 }
 
 .vol-slider {
-  flex: 1;
+  width: 50px !important;  /* SHORT AND COMPACT VOLUME SLIDER */
+  max-width: 50px;
   -webkit-appearance: none;
   appearance: none;
   height: 3.5px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-full);
   outline: none;
   cursor: pointer;
@@ -823,8 +834,8 @@ html, body {
 .vol-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 11px;
-  height: 11px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--accent-light-blue);
   cursor: pointer;
@@ -849,7 +860,7 @@ html, body {
    SEGMENTED CONTROL NAVIGATION TABS
    ========================================================================== */
 .segmented-nav-wrap {
-  padding: 0 20px;
+  padding: 0 24px;
   margin-bottom: 16px;
   width: 100%;
 }
@@ -857,10 +868,10 @@ html, body {
 .segmented-tabs {
   display: flex;
   background: rgba(10, 14, 22, 0.55);
-  padding: 3px;
+  padding: 4px;
   border-radius: var(--radius-md);
   border: 1px solid var(--card-border);
-  gap: 3px;
+  gap: 4px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -874,9 +885,9 @@ html, body {
   background: transparent;
   border: none;
   color: var(--text-dim);
-  padding: 7px 10px;
+  padding: 8px 12px;
   font-family: var(--font-main);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 500;
   border-radius: var(--radius-sm);
   display: inline-flex;
@@ -906,7 +917,7 @@ html, body {
 
 /* Tab View Container */
 .tab-view-container {
-  padding: 0 20px 20px 20px;
+  padding: 0 24px 22px 24px;
   width: 100%;
 }
 
@@ -1002,9 +1013,9 @@ html, body {
 .terminal-neofetch {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 14px;
+  gap: 16px;
   margin: 10px 0 14px 0;
-  padding: 10px;
+  padding: 12px;
   background: rgba(0, 0, 0, 0.25);
   border-radius: var(--radius-sm);
   border: 1px dashed rgba(147, 197, 253, 0.15);
@@ -1013,13 +1024,13 @@ html, body {
 .neofetch-ascii pre {
   color: var(--accent-sky);
   font-weight: 500;
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   line-height: 1.2;
 }
 
 .neofetch-table div {
   margin-bottom: 3px;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
 }
 
 .prop-key {
@@ -1047,7 +1058,7 @@ html, body {
   align-items: flex-start;
   gap: 8px;
   color: #e2e8f0;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
 }
 
 .terminal-welcome-alert i {
@@ -1089,7 +1100,7 @@ html, body {
    ========================================================================== */
 .skills-card-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
@@ -1175,8 +1186,8 @@ html, body {
    ========================================================================== */
 .media-cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 
 .media-card-box {
@@ -1277,7 +1288,7 @@ html, body {
 
 .crush-quote-line {
   margin-top: 5px;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-style: italic;
   color: var(--text-muted);
   border-left: 2px solid #f472b6;
@@ -1288,7 +1299,7 @@ html, body {
    CARD FOOTER
    ========================================================================== */
 .card-footer {
-  padding: 12px 20px;
+  padding: 12px 24px;
   background: rgba(9, 13, 20, 0.6);
   border-top: 1px solid var(--card-border);
   display: flex;
@@ -1317,12 +1328,24 @@ html, body {
 /* ==========================================================================
    RESPONSIVE DESIGN
    ========================================================================== */
-@media (max-width: 520px) {
+@media (max-width: 768px) {
+  .top-nav, .profile-wrapper {
+    max-width: 100%;
+  }
+  .skills-card-list {
+    grid-template-columns: 1fr;
+  }
+  .media-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
   .profile-header {
     padding: 0 14px 14px 14px;
   }
   .card-banner {
-    height: 130px;
+    height: 120px;
   }
   .avatar-container {
     width: 84px;

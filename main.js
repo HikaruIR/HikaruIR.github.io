@@ -1,13 +1,20 @@
 /* ==========================================================================
    HIKARUIR - MAIN SHOWCASE LOGIC
+   Default Track: JVKE - this is what winter feels like
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
 
   // ---------------------------------------------------------------------------
-  // 1. PLAYLIST & AUDIO SETUP
+  // 1. PLAYLIST & AUDIO SETUP (Default: JVKE)
   // ---------------------------------------------------------------------------
   const playlist = [
+    {
+      title: 'this is what winter feels like',
+      artist: 'JVKE',
+      src: 'assets/music/winter_feels_like.m4a',
+      art: 'assets/images/song_jvke.jpg'
+    },
     {
       title: 'Here With Me',
       artist: 'd4vd',
@@ -19,12 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
       artist: 'Epic Cinematic',
       src: 'assets/music/story_of_warrior.mp3',
       art: 'assets/images/song_warrior.jpg'
-    },
-    {
-      title: 'this is what winter feels like',
-      artist: 'JVKE',
-      src: 'assets/music/winter_feels_like.m4a',
-      art: 'assets/images/song_jvke.jpg'
     }
   ];
 
@@ -56,42 +57,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateVolumeUI(val) {
     const pct = Math.round(val * 100);
-    volumePct.textContent = `${pct}%`;
-    volumeSlider.value = val;
+    if (volumePct) volumePct.textContent = `${pct}%`;
+    if (volumeSlider) volumeSlider.value = val;
 
     if (val === 0) {
-      volumeIcon.className = 'fa-solid fa-volume-xmark';
+      if (volumeIcon) volumeIcon.className = 'fa-solid fa-volume-xmark';
     } else if (val < 0.5) {
-      volumeIcon.className = 'fa-solid fa-volume-low';
+      if (volumeIcon) volumeIcon.className = 'fa-solid fa-volume-low';
     } else {
-      volumeIcon.className = 'fa-solid fa-volume-high';
+      if (volumeIcon) volumeIcon.className = 'fa-solid fa-volume-high';
     }
   }
 
   audio.volume = savedVolume;
   updateVolumeUI(savedVolume);
 
-  volumeSlider.addEventListener('input', (e) => {
-    const val = parseFloat(e.target.value);
-    audio.volume = val;
-    savedVolume = val > 0 ? val : savedVolume;
-    isMuted = val === 0;
-    updateVolumeUI(val);
-  });
+  if (volumeSlider) {
+    volumeSlider.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      audio.volume = val;
+      savedVolume = val > 0 ? val : savedVolume;
+      isMuted = val === 0;
+      updateVolumeUI(val);
+    });
+  }
 
-  volumeToggleBtn.addEventListener('click', () => {
-    if (audio.volume > 0) {
-      savedVolume = audio.volume;
-      audio.volume = 0;
-      isMuted = true;
-      updateVolumeUI(0);
-    } else {
-      const restore = savedVolume > 0 ? savedVolume : 0.7;
-      audio.volume = restore;
-      isMuted = false;
-      updateVolumeUI(restore);
-    }
-  });
+  if (volumeToggleBtn) {
+    volumeToggleBtn.addEventListener('click', () => {
+      if (audio.volume > 0) {
+        savedVolume = audio.volume;
+        audio.volume = 0;
+        isMuted = true;
+        updateVolumeUI(0);
+      } else {
+        const restore = savedVolume > 0 ? savedVolume : 0.7;
+        audio.volume = restore;
+        isMuted = false;
+        updateVolumeUI(restore);
+      }
+    });
+  }
 
   function loadTrack(idx) {
     currentTrackIdx = idx;
@@ -178,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.currentTime = seekTime;
   });
 
+  // Default load first track (which is JVKE)
   loadTrack(0);
 
   // ---------------------------------------------------------------------------
@@ -283,9 +289,9 @@ Location: Cyberspace`,
     music: () => `Now Playing: "${playlist[currentTrackIdx].title}" by ${playlist[currentTrackIdx].artist}
 Volume: ${Math.round(audio.volume * 100)}%
 Playlist Tracks:
-  1. d4vd - Here With Me
-  2. Epic - Story of Warrior
-  3. JVKE - this is what winter feels like`,
+  1. JVKE - this is what winter feels like (Default)
+  2. d4vd - Here With Me
+  3. Epic - Story of Warrior`,
 
     games: () => `Favorite Games:
   1. Counter-Strike 2 (Competitive FPS)
@@ -434,7 +440,6 @@ Playlist Tracks:
       cursorDot.style.top = `${mouseY}px`;
     }
 
-    // 3D Tilt on profile card
     if (profileCard && window.innerWidth > 900) {
       const rect = profileCard.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
@@ -448,8 +453,8 @@ Playlist Tracks:
       );
 
       if (isInside) {
-        const rotateX = -(y / rect.height) * 3;
-        const rotateY = (x / rect.width) * 3;
+        const rotateX = -(y / rect.height) * 2;
+        const rotateY = (x / rect.width) * 2;
         profileCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       } else {
         profileCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
@@ -457,7 +462,6 @@ Playlist Tracks:
     }
   });
 
-  // Smooth Ring Follower loop
   function updateCursorRing() {
     if (cursorRing) {
       ringX += (mouseX - ringX) * 0.18;
@@ -469,7 +473,6 @@ Playlist Tracks:
   }
   updateCursorRing();
 
-  // Hover expansion on interactive elements
   const interactives = document.querySelectorAll('a, button, input, .social-btn, .media-card-box');
   interactives.forEach(el => {
     el.addEventListener('mouseenter', () => {
@@ -481,8 +484,8 @@ Playlist Tracks:
     });
     el.addEventListener('mouseleave', () => {
       if (cursorRing) {
-        cursorRing.style.width = '32px';
-        cursorRing.style.height = '32px';
+        cursorRing.style.width = '30px';
+        cursorRing.style.height = '30px';
         cursorRing.style.borderColor = 'rgba(147, 197, 253, 0.4)';
       }
     });
@@ -503,7 +506,7 @@ Playlist Tracks:
     });
 
     const particles = [];
-    const particleCount = 38;
+    const particleCount = 35;
 
     class Particle {
       constructor() {
@@ -512,10 +515,10 @@ Playlist Tracks:
       reset() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.25;
-        this.vy = -Math.random() * 0.35 - 0.15;
-        this.radius = Math.random() * 1.6 + 0.6;
-        this.alpha = Math.random() * 0.35 + 0.15;
+        this.vx = (Math.random() - 0.5) * 0.2;
+        this.vy = -Math.random() * 0.3 - 0.1;
+        this.radius = Math.random() * 1.5 + 0.5;
+        this.alpha = Math.random() * 0.3 + 0.15;
         this.color = Math.random() > 0.5 ? '#bfdbfe' : '#93c5fd';
       }
       update() {
@@ -530,7 +533,7 @@ Playlist Tracks:
         ctx.save();
         ctx.globalAlpha = this.alpha;
         ctx.fillStyle = this.color;
-        ctx.shadowBlur = 5;
+        ctx.shadowBlur = 4;
         ctx.shadowColor = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
