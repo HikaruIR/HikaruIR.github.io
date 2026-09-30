@@ -17,7 +17,7 @@
 </head>
 <body>
 
-  <!-- Click to Enter Screen (Iconic cyber style) -->
+  <!-- Click to Enter Screen -->
   <div id="enter-screen" class="enter-screen">
     <div class="enter-content">
       <div class="enter-pulse-ring"></div>
@@ -36,7 +36,7 @@
     <canvas id="particles-canvas"></canvas>
   </div>
 
-  <!-- Custom Cursor Glow -->
+  <!-- Ambient Cursor Glow -->
   <div class="cursor-glow" id="cursor-glow"></div>
 
   <!-- Top Global Controls -->
@@ -46,9 +46,16 @@
       <span class="sys-clock" id="sys-clock">00:00:00 UTC</span>
     </div>
     <div class="top-actions">
-      <button class="top-btn" id="volume-toggle" title="Toggle Sound">
-        <i class="fa-solid fa-volume-high" id="volume-icon"></i>
-      </button>
+      <!-- Volume Slider Popover / Pill -->
+      <div class="volume-control-wrap">
+        <button class="top-btn" id="volume-toggle" title="Mute / Unmute">
+          <i class="fa-solid fa-volume-high" id="volume-icon"></i>
+        </button>
+        <div class="volume-slider-box">
+          <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.7" title="Volume Slider">
+          <span id="volume-pct">70%</span>
+        </div>
+      </div>
       <button class="top-btn" id="scanline-toggle" title="Toggle CRT Scanlines">
         <i class="fa-solid fa-tv"></i>
       </button>
@@ -98,7 +105,7 @@
           </p>
         </div>
 
-        <!-- Social Links (cyber style button pill row) -->
+        <!-- Social Links With Authentic Colors -->
         <div class="social-row">
           <a href="https://discord.gg/RgrXHQayCG" target="_blank" rel="noopener noreferrer" class="social-chip discord-chip" title="Join Discord">
             <i class="fa-brands fa-discord"></i>
@@ -115,7 +122,7 @@
         </div>
       </div>
 
-      <!-- Music Player Widget (cyber style) -->
+      <!-- Music Player Widget -->
       <div class="music-widget" id="music-widget">
         <div class="music-art-wrap">
           <img src="assets/images/song_d4vd.jpg" alt="Track Art" class="music-art" id="player-art">
@@ -236,7 +243,7 @@
                   <i class="fa-solid fa-palette skill-icon ps-color"></i>
                   <span class="skill-title">Adobe Photoshop</span>
                 </div>
-                <span class="skill-pct">97%</span>
+                <span class="skill-pct ps-color">97%</span>
               </div>
               <div class="skill-progress-track">
                 <div class="skill-progress-bar ps-bar" style="--target-width: 97%;"></div>
@@ -251,7 +258,7 @@
                   <i class="fa-solid fa-video skill-icon pr-color"></i>
                   <span class="skill-title">Adobe Premiere Pro</span>
                 </div>
-                <span class="skill-pct">89%</span>
+                <span class="skill-pct pr-color">89%</span>
               </div>
               <div class="skill-progress-track">
                 <div class="skill-progress-bar pr-bar" style="--target-width: 89%;"></div>
@@ -266,7 +273,7 @@
                   <i class="fa-brands fa-java skill-icon java-color"></i>
                   <span class="skill-title">Java</span>
                 </div>
-                <span class="skill-pct">80%</span>
+                <span class="skill-pct java-color">80%</span>
               </div>
               <div class="skill-progress-track">
                 <div class="skill-progress-bar java-bar" style="--target-width: 80%;"></div>
@@ -281,7 +288,7 @@
                   <i class="fa-solid fa-wand-magic-sparkles skill-icon ae-color"></i>
                   <span class="skill-title">Adobe After Effects</span>
                 </div>
-                <span class="skill-pct">76%</span>
+                <span class="skill-pct ae-color">76%</span>
               </div>
               <div class="skill-progress-track">
                 <div class="skill-progress-bar ae-bar" style="--target-width: 76%;"></div>
@@ -296,7 +303,7 @@
                   <i class="fa-brands fa-js skill-icon js-color"></i>
                   <span class="skill-title">JavaScript</span>
                 </div>
-                <span class="skill-pct">67%</span>
+                <span class="skill-pct js-color">67%</span>
               </div>
               <div class="skill-progress-track">
                 <div class="skill-progress-bar js-bar" style="--target-width: 67%;"></div>
@@ -311,7 +318,7 @@
                   <i class="fa-brands fa-python skill-icon py-color"></i>
                   <span class="skill-title">Python</span>
                 </div>
-                <span class="skill-pct">45%</span>
+                <span class="skill-pct py-color">45%</span>
               </div>
               <div class="skill-progress-track">
                 <div class="skill-progress-bar py-bar" style="--target-width: 45%;"></div>
@@ -326,7 +333,7 @@
                   <i class="fa-brands fa-css3-alt skill-icon css-color"></i>
                   <span class="skill-title">CSS3 & Styling</span>
                 </div>
-                <span class="skill-pct">23%</span>
+                <span class="skill-pct css-color">23%</span>
               </div>
               <div class="skill-progress-track">
                 <div class="skill-progress-bar css-bar" style="--target-width: 23%;"></div>
@@ -344,7 +351,7 @@
             <div class="media-card">
               <div class="media-poster">
                 <img src="assets/images/game_cs2.jpg" alt="Counter-Strike 2" loading="lazy">
-                <span class="media-badge">Competitive</span>
+                <span class="media-badge cs2-badge">Competitive</span>
               </div>
               <div class="media-details">
                 <h3 class="media-title">Counter-Strike 2</h3>
@@ -355,7 +362,7 @@
             <div class="media-card">
               <div class="media-poster">
                 <img src="assets/images/game_rdr2.jpg" alt="Red Dead Redemption 2" loading="lazy">
-                <span class="media-badge">Masterpiece</span>
+                <span class="media-badge rdr-badge">Masterpiece</span>
               </div>
               <div class="media-details">
                 <h3 class="media-title">Red Dead Redemption 2</h3>
@@ -366,7 +373,7 @@
             <div class="media-card">
               <div class="media-poster">
                 <img src="assets/images/game_minecraft.jpg" alt="Minecraft" loading="lazy">
-                <span class="media-badge">Sandbox</span>
+                <span class="media-badge mc-badge">Sandbox</span>
               </div>
               <div class="media-details">
                 <h3 class="media-title">Minecraft</h3>
@@ -377,7 +384,7 @@
             <div class="media-card">
               <div class="media-poster">
                 <img src="assets/images/game_nfs_unbound.jpg" alt="NFS Unbound" loading="lazy">
-                <span class="media-badge">Racing</span>
+                <span class="media-badge nfs-badge">Racing</span>
               </div>
               <div class="media-details">
                 <h3 class="media-title">NFS Unbound</h3>
@@ -388,7 +395,7 @@
             <div class="media-card">
               <div class="media-poster">
                 <img src="assets/images/game_farcry5.jpg" alt="Far Cry 5" loading="lazy">
-                <span class="media-badge">Action</span>
+                <span class="media-badge fc-badge">Action</span>
               </div>
               <div class="media-details">
                 <h3 class="media-title">Far Cry 5</h3>
@@ -399,7 +406,7 @@
             <div class="media-card">
               <div class="media-poster">
                 <img src="assets/images/game_ghostoftsushima.jpg" alt="Ghost of Tsushima" loading="lazy">
-                <span class="media-badge">Samurai</span>
+                <span class="media-badge got-badge">Samurai</span>
               </div>
               <div class="media-details">
                 <h3 class="media-title">Ghost of Tsushima</h3>

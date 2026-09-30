@@ -1,5 +1,5 @@
 /* ==========================================================================
-   HIKARUIR - CYBERCORE SHOWCASE MAIN LOGIC
+   HIKARUIR - SHOWCASE MAIN LOGIC
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentTrackIdx = 0;
   let isPlaying = false;
   let isMuted = false;
-  let previousVolume = 0.7;
+  let savedVolume = 0.7;
 
   const audio = document.getElementById('audio-element');
   const playerArt = document.getElementById('player-art');
@@ -46,8 +46,52 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentTimeEl = document.getElementById('current-time');
   const totalDurationEl = document.getElementById('total-duration');
   const musicWidget = document.getElementById('music-widget');
+  
+  // Volume Controls
   const volumeToggleBtn = document.getElementById('volume-toggle');
   const volumeIcon = document.getElementById('volume-icon');
+  const volumeSlider = document.getElementById('volume-slider');
+  const volumePct = document.getElementById('volume-pct');
+
+  function updateVolumeUI(val) {
+    const pct = Math.round(val * 100);
+    volumePct.textContent = `${pct}%`;
+    volumeSlider.value = val;
+
+    if (val === 0) {
+      volumeIcon.className = 'fa-solid fa-volume-xmark';
+    } else if (val < 0.5) {
+      volumeIcon.className = 'fa-solid fa-volume-low';
+    } else {
+      volumeIcon.className = 'fa-solid fa-volume-high';
+    }
+  }
+
+  // Initialize Volume
+  audio.volume = savedVolume;
+  updateVolumeUI(savedVolume);
+
+  volumeSlider.addEventListener('input', (e) => {
+    const val = parseFloat(e.target.value);
+    audio.volume = val;
+    savedVolume = val > 0 ? val : savedVolume;
+    isMuted = val === 0;
+    updateVolumeUI(val);
+  });
+
+  volumeToggleBtn.addEventListener('click', () => {
+    if (audio.volume > 0) {
+      savedVolume = audio.volume;
+      audio.volume = 0;
+      isMuted = true;
+      updateVolumeUI(0);
+    } else {
+      const restore = savedVolume > 0 ? savedVolume : 0.7;
+      audio.volume = restore;
+      isMuted = false;
+      updateVolumeUI(restore);
+    }
+  });
 
   function loadTrack(idx) {
     currentTrackIdx = idx;
@@ -131,36 +175,23 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.currentTime = seekTime;
   });
 
-  // Top Volume Toggle
-  audio.volume = previousVolume;
-  volumeToggleBtn.addEventListener('click', () => {
-    if (isMuted) {
-      audio.volume = previousVolume || 0.7;
-      isMuted = false;
-      volumeIcon.className = 'fa-solid fa-volume-high';
-    } else {
-      previousVolume = audio.volume;
-      audio.volume = 0;
-      isMuted = true;
-      volumeIcon.className = 'fa-solid fa-volume-xmark';
-    }
-  });
-
   // Initialize First Track
   loadTrack(0);
 
   // ---------------------------------------------------------------------------
-  // 2. ENTER SCREEN (CYBERCORE CLICK TO ENTER)
+  // 2. ENTER SCREEN
   // ---------------------------------------------------------------------------
   const enterScreen = document.getElementById('enter-screen');
-  enterScreen.addEventListener('click', () => {
-    enterScreen.classList.add('fade-out');
-    playTrack();
-    animateSkills();
-    setTimeout(() => {
-      enterScreen.remove();
-    }, 900);
-  });
+  if (enterScreen) {
+    enterScreen.addEventListener('click', () => {
+      enterScreen.classList.add('fade-out');
+      playTrack();
+      animateSkills();
+      setTimeout(() => {
+        enterScreen.remove();
+      }, 900);
+    });
+  }
 
   // ---------------------------------------------------------------------------
   // 3. TAB NAVIGATION & ANIMATIONS
@@ -208,7 +239,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const diff = Math.floor((Date.now() - startTime) / 1000);
     const mins = Math.floor(diff / 60);
     const secs = diff % 60;
-    termUptime.textContent = `${mins}m ${secs}s (active session)`;
+    if (termUptime) {
+      termUptime.textContent = `${mins}m ${secs}s (active session)`;
+    }
   }, 1000);
 
   const commandHistory = [];
@@ -244,6 +277,7 @@ Philosophy: "Precision in editing, elegance in code."`,
   [CSS3]           23% | Modern Styling, Flex/Grid`,
 
     music: () => `Now Playing: "${playlist[currentTrackIdx].title}" by ${playlist[currentTrackIdx].artist}
+Volume: ${Math.round(audio.volume * 100)}%
 Playlist Tracks:
   1. d4vd - Here With Me
   2. Epic - Story of Warrior
@@ -275,68 +309,67 @@ Playlist Tracks:
     date: () => new Date().toUTCString(),
 
     clear: () => {
-      const promptLine = termBody.querySelector('.prompt-line');
       const termOutput = document.getElementById('term-output');
-      termOutput.innerHTML = '';
+      if (termOutput) termOutput.innerHTML = '';
       return '';
     }
   };
 
-  termInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const cmdRaw = termInput.value.trim();
-      if (!cmdRaw) return;
+  if (termInput) {
+    termInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cmdRaw = termInput.value.trim();
+        if (!cmdRaw) return;
 
-      commandHistory.push(cmdRaw);
-      historyIdx = commandHistory.length;
-
-      const cmd = cmdRaw.toLowerCase();
-      termInput.value = '';
-
-      // Print prompt and command
-      const cmdLine = document.createElement('div');
-      cmdLine.className = 'term-line prompt-line';
-      cmdLine.innerHTML = `<span class="term-prompt">guest@hikaru:~$</span> <span class="term-cmd">${escapeHtml(cmdRaw)}</span>`;
-      
-      const interactiveRow = termBody.querySelector('.term-interactive-line');
-      termBody.insertBefore(cmdLine, interactiveRow);
-
-      // Execute command
-      if (cmd === 'clear') {
-        terminalCommands.clear();
-      } else {
-        const outDiv = document.createElement('div');
-        outDiv.className = 'term-line';
-        outDiv.style.color = '#cbd5e1';
-        outDiv.style.whiteSpace = 'pre-wrap';
-        outDiv.style.marginBottom = '12px';
-
-        if (terminalCommands[cmd]) {
-          outDiv.textContent = terminalCommands[cmd]();
-        } else if (cmd.startsWith('echo ')) {
-          outDiv.textContent = cmdRaw.substring(5);
-        } else {
-          outDiv.innerHTML = `<span style="color:#ff5f56;">command not found: ${escapeHtml(cmdRaw)}. Type <span style="color:var(--accent-cyan);">'help'</span> for list of commands.</span>`;
-        }
-        termBody.insertBefore(outDiv, interactiveRow);
-      }
-
-      termBody.scrollTop = termBody.scrollHeight;
-    } else if (e.key === 'ArrowUp') {
-      if (historyIdx > 0) {
-        historyIdx--;
-        termInput.value = commandHistory[historyIdx];
-      }
-    } else if (e.key === 'ArrowDown') {
-      if (historyIdx < commandHistory.length - 1) {
-        historyIdx++;
-        termInput.value = commandHistory[historyIdx];
-      } else {
+        commandHistory.push(cmdRaw);
         historyIdx = commandHistory.length;
+
+        const cmd = cmdRaw.toLowerCase();
         termInput.value = '';
+
+        const cmdLine = document.createElement('div');
+        cmdLine.className = 'term-line prompt-line';
+        cmdLine.innerHTML = `<span class="term-prompt">guest@hikaru:~$</span> <span class="term-cmd">${escapeHtml(cmdRaw)}</span>`;
+        
+        const interactiveRow = termBody.querySelector('.term-interactive-line');
+        termBody.insertBefore(cmdLine, interactiveRow);
+
+        if (cmd === 'clear') {
+          terminalCommands.clear();
+        } else {
+          const outDiv = document.createElement('div');
+          outDiv.className = 'term-line';
+          outDiv.style.color = '#cbd5e1';
+          outDiv.style.whiteSpace = 'pre-wrap';
+          outDiv.style.marginBottom = '12px';
+
+          if (terminalCommands[cmd]) {
+            outDiv.textContent = terminalCommands[cmd]();
+          } else if (cmd.startsWith('echo ')) {
+            outDiv.textContent = cmdRaw.substring(5);
+          } else {
+            outDiv.innerHTML = `<span style="color:#f87171;">command not found: ${escapeHtml(cmdRaw)}. Type <span style="color:var(--accent-soft-blue);">'help'</span> for list of commands.</span>`;
+          }
+          termBody.insertBefore(outDiv, interactiveRow);
+        }
+
+        termBody.scrollTop = termBody.scrollHeight;
+      } else if (e.key === 'ArrowUp') {
+        if (historyIdx > 0) {
+          historyIdx--;
+          termInput.value = commandHistory[historyIdx];
+        }
+      } else if (e.key === 'ArrowDown') {
+        if (historyIdx < commandHistory.length - 1) {
+          historyIdx++;
+          termInput.value = commandHistory[historyIdx];
+        } else {
+          historyIdx = commandHistory.length;
+          termInput.value = '';
+        }
       }
-    }
-  });
+    });
+  }
 
   function escapeHtml(text) {
     const div = document.createElement('div');
@@ -345,30 +378,34 @@ Playlist Tracks:
   }
 
   // Copy Terminal Output
-  terminalCopyBtn.addEventListener('click', () => {
-    const textToCopy = termBody.innerText;
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      terminalCopyBtn.innerHTML = '<i class="fa-solid fa-check" style="color:var(--accent-green);"></i>';
-      setTimeout(() => {
-        terminalCopyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-      }, 1800);
+  if (terminalCopyBtn) {
+    terminalCopyBtn.addEventListener('click', () => {
+      const textToCopy = termBody.innerText;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        terminalCopyBtn.innerHTML = '<i class="fa-solid fa-check" style="color:var(--accent-soft-blue);"></i>';
+        setTimeout(() => {
+          terminalCopyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        }, 1800);
+      });
     });
-  });
+  }
 
   // ---------------------------------------------------------------------------
   // 5. CRT SCANLINE TOGGLE & TOP CLOCK
   // ---------------------------------------------------------------------------
   const scanlineToggle = document.getElementById('scanline-toggle');
   const scanlines = document.querySelector('.scanlines');
-  scanlineToggle.addEventListener('click', () => {
-    scanlines.classList.toggle('disabled');
-  });
+  if (scanlineToggle && scanlines) {
+    scanlineToggle.addEventListener('click', () => {
+      scanlines.classList.toggle('disabled');
+    });
+  }
 
   const sysClock = document.getElementById('sys-clock');
   function updateClock() {
     const now = new Date();
     const utcStr = now.toISOString().substring(11, 19) + ' UTC';
-    sysClock.textContent = utcStr;
+    if (sysClock) sysClock.textContent = utcStr;
   }
   updateClock();
   setInterval(updateClock, 1000);
@@ -380,11 +417,12 @@ Playlist Tracks:
   const profileCard = document.getElementById('profile-card');
 
   window.addEventListener('mousemove', (e) => {
-    cursorGlow.style.left = `${e.clientX}px`;
-    cursorGlow.style.top = `${e.clientY}px`;
+    if (cursorGlow) {
+      cursorGlow.style.left = `${e.clientX}px`;
+      cursorGlow.style.top = `${e.clientY}px`;
+    }
 
-    // 3D Tilt on card
-    if (window.innerWidth > 900) {
+    if (profileCard && window.innerWidth > 900) {
       const rect = profileCard.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
@@ -410,65 +448,66 @@ Playlist Tracks:
   // 7. PARTICLES BACKGROUND CANVAS
   // ---------------------------------------------------------------------------
   const canvas = document.getElementById('particles-canvas');
-  const ctx = canvas.getContext('2d');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
 
-  let width = (canvas.width = window.innerWidth);
-  let height = (canvas.height = window.innerHeight);
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
 
-  window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
+    const particles = [];
+    const particleCount = 40;
 
-  const particles = [];
-  const particleCount = 45;
-
-  class Particle {
-    constructor() {
-      this.reset();
-    }
-    reset() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.4;
-      this.vy = -Math.random() * 0.5 - 0.2;
-      this.radius = Math.random() * 2 + 0.8;
-      this.alpha = Math.random() * 0.5 + 0.2;
-      this.color = Math.random() > 0.5 ? '#bfdbfe' : '#93c5fd';
-    }
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+    class Particle {
+      constructor() {
         this.reset();
-        this.y = height + 10;
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = -Math.random() * 0.4 - 0.15;
+        this.radius = Math.random() * 1.8 + 0.6;
+        this.alpha = Math.random() * 0.4 + 0.15;
+        this.color = Math.random() > 0.5 ? '#bfdbfe' : '#93c5fd';
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+          this.reset();
+          this.y = height + 10;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
       }
     }
-    draw() {
-      ctx.save();
-      ctx.globalAlpha = this.alpha;
-      ctx.fillStyle = this.color;
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
     }
-  }
 
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
+    function renderParticles() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(renderParticles);
+    }
+    renderParticles();
   }
-
-  function renderParticles() {
-    ctx.clearRect(0, 0, width, height);
-    particles.forEach(p => {
-      p.update();
-      p.draw();
-    });
-    requestAnimationFrame(renderParticles);
-  }
-  renderParticles();
 
 });

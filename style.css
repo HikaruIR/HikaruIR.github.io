@@ -1,22 +1,34 @@
 /* ==========================================================================
-   HIKARUIR - SOFT LIGHT BLUE AESTHETIC SHOWCASE
+   HIKARUIR - SOFT LIGHT BLUE PROFILE WITH BALANCED AUTHENTIC ACCENTS
    ========================================================================== */
 
 :root {
-  /* Soft Light Blue Minimal / Frost Palette */
+  /* Soft Light Blue Theme Baseline */
   --bg-dark: #0b0f17;
   --bg-surface: #101622;
   --card-bg: rgba(16, 22, 34, 0.78);
   --card-border: rgba(186, 215, 245, 0.14);
   --card-glow: rgba(147, 197, 253, 0.08);
   
-  /* Soft Blue Primary Accents */
+  /* Primary Soft Blue Accents */
   --accent-soft-blue: #93c5fd;     /* Pastel baby blue */
-  --accent-light-blue: #bfdbfe;    /* Very soft icy blue */
-  --accent-slate-blue: #60a5fa;    /* Balanced sky blue */
-  --accent-deep-blue: #3b82f6;     /* Subtle accent */
-  --accent-frost: #e0f2fe;         /* Frost highlight */
-  
+  --accent-light-blue: #bfdbfe;    /* Soft ice blue */
+  --accent-slate-blue: #60a5fa;    /* Sky blue */
+  --accent-frost: #e0f2fe;         /* Frost white-blue */
+
+  /* Authentic Balanced Identity Colors */
+  --brand-discord: #5865f2;
+  --brand-github: #f1f5f9;
+  --brand-youtube: #ef4444;
+
+  --skill-ps: #38bdf8;
+  --skill-pr: #c084fc;
+  --skill-java: #f59e0b;
+  --skill-ae: #a855f7;
+  --skill-js: #eab308;
+  --skill-py: #38bdf8;
+  --skill-css: #3b82f6;
+
   --text-main: #f8fafc;
   --text-muted: #cbd5e1;
   --text-dim: #94a3b8;
@@ -66,7 +78,7 @@ html, body {
 }
 
 /* ==========================================================================
-   ENTER SCREEN (SOFT FROST OVERLAY)
+   ENTER SCREEN
    ========================================================================== */
 .enter-screen {
   position: fixed;
@@ -189,7 +201,6 @@ html, body {
   height: 100%;
 }
 
-/* Soft Cursor Ambient Glow */
 .cursor-glow {
   position: fixed;
   width: 420px;
@@ -204,7 +215,7 @@ html, body {
 }
 
 /* ==========================================================================
-   TOP BAR CONTROLS
+   TOP BAR CONTROLS & VOLUME SLIDER
    ========================================================================== */
 .top-bar {
   position: relative;
@@ -251,13 +262,29 @@ html, body {
   gap: 10px;
 }
 
-.top-btn {
+/* Volume Control Pill */
+.volume-control-wrap {
+  display: flex;
+  align-items: center;
   background: rgba(16, 22, 34, 0.65);
   backdrop-filter: blur(16px);
   border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+  padding: 2px 10px 2px 2px;
+  gap: 8px;
+  transition: var(--transition-smooth);
+}
+
+.volume-control-wrap:hover {
+  border-color: rgba(147, 197, 253, 0.35);
+}
+
+.top-btn {
+  background: transparent;
+  border: none;
   color: var(--text-dim);
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -268,8 +295,59 @@ html, body {
 
 .top-btn:hover {
   color: var(--text-main);
+}
+
+.volume-slider-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 72px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  outline: none;
+  cursor: pointer;
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-light-blue);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+#volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  background: #fff;
+}
+
+#volume-pct {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  min-width: 26px;
+}
+
+.top-actions > .top-btn {
+  background: rgba(16, 22, 34, 0.65);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  width: 36px;
+  height: 36px;
+}
+
+.top-actions > .top-btn:hover {
   border-color: var(--accent-soft-blue);
-  box-shadow: 0 0 12px rgba(147, 197, 253, 0.25);
   transform: translateY(-2px);
 }
 
@@ -329,7 +407,7 @@ html, body {
   object-fit: cover;
   object-position: center;
   transition: transform 0.6s ease;
-  filter: saturate(0.9);
+  filter: saturate(0.95);
 }
 
 .card-banner:hover .banner-img {
@@ -362,26 +440,25 @@ html, body {
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   letter-spacing: 0.3px;
-  color: var(--text-main);
-  background: rgba(16, 24, 38, 0.6);
+  background: rgba(16, 24, 38, 0.7);
 }
 
 .badge-cyber {
-  background: rgba(147, 197, 253, 0.15);
   color: var(--accent-light-blue);
-  border-color: rgba(147, 197, 253, 0.3);
+  border-color: rgba(147, 197, 253, 0.35);
+  background: rgba(147, 197, 253, 0.12);
 }
 
 .badge-dev {
-  background: rgba(96, 165, 250, 0.15);
-  color: var(--accent-soft-blue);
-  border-color: rgba(96, 165, 250, 0.3);
+  color: #c084fc;
+  border-color: rgba(192, 132, 252, 0.3);
+  background: rgba(192, 132, 252, 0.1);
 }
 
 .badge-editor {
-  background: rgba(224, 242, 254, 0.12);
-  color: var(--accent-frost);
-  border-color: rgba(224, 242, 254, 0.25);
+  color: #f472b6;
+  border-color: rgba(244, 114, 182, 0.3);
+  background: rgba(244, 114, 182, 0.1);
 }
 
 /* ==========================================================================
@@ -399,7 +476,7 @@ html, body {
   height: 104px;
   border-radius: 50%;
   padding: 3px;
-  background: linear-gradient(135deg, var(--accent-light-blue), var(--accent-slate-blue), rgba(16, 22, 34, 0.8));
+  background: linear-gradient(135deg, var(--accent-light-blue), #60a5fa, rgba(16, 22, 34, 0.8));
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 20px rgba(147, 197, 253, 0.2);
   margin-bottom: 14px;
 }
@@ -420,9 +497,9 @@ html, body {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--accent-soft-blue);
+  background: #4ade80;
   border: 3px solid #101622;
-  box-shadow: 0 0 8px rgba(147, 197, 253, 0.6);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
 }
 
 .profile-identity {
@@ -475,7 +552,9 @@ html, body {
   max-width: 580px;
 }
 
-/* Social Row (Soft chips) */
+/* ==========================================================================
+   SOCIAL ROW - DISTINCT BRAND COLORS
+   ========================================================================== */
 .social-row {
   display: flex;
   gap: 10px;
@@ -499,17 +578,47 @@ html, body {
 
 .social-chip i {
   font-size: 0.95rem;
-  color: var(--accent-soft-blue);
+  transition: transform 0.2s ease;
 }
 
-.discord-chip:hover,
-.github-chip:hover,
-.youtube-chip:hover {
-  background: rgba(147, 197, 253, 0.12);
-  border-color: var(--accent-soft-blue);
+.social-chip:hover i {
+  transform: scale(1.1);
+}
+
+/* Discord */
+.discord-chip i {
+  color: var(--brand-discord);
+}
+.discord-chip:hover {
+  background: rgba(88, 101, 242, 0.15);
+  border-color: rgba(88, 101, 242, 0.5);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(147, 197, 253, 0.15);
+  box-shadow: 0 4px 15px rgba(88, 101, 242, 0.2);
+}
+
+/* GitHub */
+.github-chip i {
+  color: var(--brand-github);
+}
+.github-chip:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* YouTube */
+.youtube-chip i {
+  color: var(--brand-youtube);
+}
+.youtube-chip:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
 }
 
 /* ==========================================================================
@@ -585,7 +694,7 @@ html, body {
 .music-progress-fill {
   width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-slate-blue), var(--accent-soft-blue));
+  background: linear-gradient(90deg, #60a5fa, var(--accent-soft-blue));
   border-radius: var(--radius-full);
   transition: width 0.1s linear;
 }
@@ -768,7 +877,6 @@ html, body {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: rgba(147, 197, 253, 0.3);
 }
 .dot.red { background: rgba(248, 113, 113, 0.7); }
 .dot.yellow { background: rgba(251, 191, 36, 0.7); }
@@ -898,7 +1006,7 @@ html, body {
 }
 
 /* ==========================================================================
-   2. SKILLS SHOWCASE
+   2. SKILLS SHOWCASE - AUTHENTIC COLOR ACCENTS
    ========================================================================== */
 .skills-grid {
   display: grid;
@@ -934,9 +1042,17 @@ html, body {
 }
 
 .skill-icon {
-  font-size: 1.1rem;
-  color: var(--accent-soft-blue);
+  font-size: 1.15rem;
 }
+
+/* Authentic Skill Colors */
+.ps-color { color: var(--skill-ps) !important; }
+.pr-color { color: var(--skill-pr) !important; }
+.java-color { color: var(--skill-java) !important; }
+.ae-color { color: var(--skill-ae) !important; }
+.js-color { color: var(--skill-js) !important; }
+.py-color { color: var(--skill-py) !important; }
+.css-color { color: var(--skill-css) !important; }
 
 .skill-title {
   font-weight: 600;
@@ -948,7 +1064,6 @@ html, body {
   font-family: var(--font-mono);
   font-weight: 600;
   font-size: 0.86rem;
-  color: var(--accent-light-blue);
 }
 
 .skill-progress-track {
@@ -964,9 +1079,16 @@ html, body {
   width: 0%;
   height: 100%;
   border-radius: var(--radius-full);
-  background: linear-gradient(90deg, #60a5fa, #93c5fd);
   transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.ps-bar { background: linear-gradient(90deg, #0284c7, var(--skill-ps)); }
+.pr-bar { background: linear-gradient(90deg, #9333ea, var(--skill-pr)); }
+.java-bar { background: linear-gradient(90deg, #d97706, var(--skill-java)); }
+.ae-bar { background: linear-gradient(90deg, #7e22ce, var(--skill-ae)); }
+.js-bar { background: linear-gradient(90deg, #ca8a04, var(--skill-js)); }
+.py-bar { background: linear-gradient(90deg, #0284c7, #38bdf8); }
+.css-bar { background: linear-gradient(90deg, #2563eb, var(--skill-css)); }
 
 .skill-desc {
   font-size: 0.78rem;
@@ -1025,21 +1147,26 @@ html, body {
   font-weight: 500;
   padding: 3px 8px;
   border-radius: var(--radius-full);
-  background: rgba(11, 16, 26, 0.85);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(147, 197, 253, 0.2);
-  color: var(--accent-light-blue);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
   letter-spacing: 0.4px;
+  background: rgba(11, 16, 26, 0.85);
 }
 
-.media-badge.romance,
-.media-badge.comedy,
-.media-badge.shonen,
-.media-badge.dark {
-  background: rgba(16, 24, 38, 0.85);
-  color: var(--accent-light-blue);
-  border-color: rgba(147, 197, 253, 0.25);
-}
+/* Game Badges with authentic character */
+.cs2-badge { color: #f59e0b; border-color: rgba(245, 158, 11, 0.35); }
+.rdr-badge { color: #ef4444; border-color: rgba(239, 68, 68, 0.35); }
+.mc-badge { color: #22c55e; border-color: rgba(34, 197, 94, 0.35); }
+.nfs-badge { color: #38bdf8; border-color: rgba(56, 189, 248, 0.35); }
+.fc-badge { color: #eab308; border-color: rgba(234, 179, 8, 0.35); }
+.got-badge { color: #cbd5e1; border-color: rgba(203, 213, 225, 0.35); }
+
+/* Anime Badges */
+.media-badge.romance { color: #f472b6; border-color: rgba(244, 114, 182, 0.35); }
+.media-badge.comedy { color: #38bdf8; border-color: rgba(56, 189, 248, 0.35); }
+.media-badge.shonen { color: #fb923c; border-color: rgba(251, 146, 60, 0.35); }
+.media-badge.dark { color: #c084fc; border-color: rgba(192, 132, 252, 0.35); }
 
 .media-details {
   padding: 12px 14px;
@@ -1071,9 +1198,9 @@ html, body {
 }
 
 .crush-badge {
-  background: rgba(147, 197, 253, 0.18) !important;
-  border-color: rgba(147, 197, 253, 0.35) !important;
-  color: var(--accent-frost) !important;
+  background: rgba(244, 114, 182, 0.15) !important;
+  border-color: rgba(244, 114, 182, 0.35) !important;
+  color: #f472b6 !important;
 }
 
 .crush-quote {
@@ -1081,7 +1208,7 @@ html, body {
   font-size: 0.76rem;
   font-style: italic;
   color: var(--text-muted);
-  border-left: 2px solid var(--accent-soft-blue);
+  border-left: 2px solid #f472b6;
   padding-left: 8px;
 }
 
@@ -1151,5 +1278,8 @@ html, body {
   }
   .neofetch-ascii {
     display: none;
+  }
+  #volume-slider {
+    width: 50px;
   }
 }
