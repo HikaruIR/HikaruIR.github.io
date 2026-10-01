@@ -154,54 +154,52 @@
       </div>
 
       <!-- Integrated Guns.lol Style Music Player -->
-      <div class="music-card" id="music-widget">
-        <div class="music-card-main">
-          
-          <div class="track-artwork-wrap">
-            <img src="assets/images/song_d4vd.jpg" alt="Track Art" id="player-art" class="track-artwork">
-            <div class="vinyl-spinner"></div>
-          </div>
+      <div class="music-card minimal-player" id="music-widget">
+        <div class="track-artwork-wrap">
+          <img src="assets/images/song_d4vd.jpg" alt="Track Art" id="player-art" class="track-artwork">
+          <div class="vinyl-spinner"></div>
+        </div>
 
-          <div class="track-details">
-            <div class="track-meta">
-              <span class="track-title" id="player-title">Here With Me</span>
-              <span class="track-artist" id="player-artist">d4vd</span>
-            </div>
-            
+        <div class="track-details">
+          <div class="track-meta">
+            <span class="track-title" id="player-title">Here With Me</span>
+            <span class="track-meta-divider">•</span>
+            <span class="track-artist" id="player-artist">d4vd</span>
+          </div>
+          
+          <div class="track-progress-row">
+            <span id="current-time" class="time-label">0:00</span>
             <div class="track-scrubber" id="progress-container">
               <div class="scrubber-bar" id="progress-fill"></div>
             </div>
-
-            <div class="track-times">
-              <span id="current-time">0:00</span>
-              <div class="sound-wave" id="visualizer-bars">
-                <span></span><span></span><span></span><span></span><span></span>
-              </div>
-              <span id="total-duration">4:02</span>
-            </div>
+            <span id="total-duration" class="time-label">4:02</span>
           </div>
-
-          <div class="track-controls">
-            <button class="ctrl-btn" id="prev-track" title="Previous Track"><i class="fa-solid fa-backward-step"></i></button>
-            <button class="ctrl-btn main-play-btn" id="play-pause" title="Play / Pause"><i class="fa-solid fa-play" id="play-icon"></i></button>
-            <button class="ctrl-btn" id="next-track" title="Next Track"><i class="fa-solid fa-forward-step"></i></button>
-          </div>
-
         </div>
 
-        <!-- Integrated Volume Slider Bar inside Music Player -->
-        <div class="player-volume-row">
+        <div class="sound-wave" id="visualizer-bars">
+          <span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="track-controls">
+          <button class="ctrl-btn" id="prev-track" title="Previous Track"><i class="fa-solid fa-backward-step"></i></button>
+          <button class="ctrl-btn main-play-btn" id="play-pause" title="Play / Pause"><i class="fa-solid fa-play" id="play-icon"></i></button>
+          <button class="ctrl-btn" id="next-track" title="Next Track"><i class="fa-solid fa-forward-step"></i></button>
+        </div>
+
+        <!-- Minimalist Hover Volume Widget -->
+        <div class="player-volume-wrap" id="volume-widget">
           <button class="vol-btn" id="volume-toggle" title="Mute/Unmute">
             <i class="fa-solid fa-volume-high" id="volume-icon"></i>
           </button>
-          <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.7" class="vol-slider" title="Adjust Volume">
-          <span id="volume-pct" class="vol-percentage">70%</span>
+          <div class="volume-slider-popover">
+            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.7" class="vol-slider" title="Adjust Volume">
+            <span id="volume-pct" class="vol-percentage">70%</span>
+          </div>
         </div>
 
         <audio id="audio-element" preload="auto"></audio>
       </div>
 
-      <!-- Segmented Control Navigation Tabs -->
       <div class="segmented-nav-wrap">
         <nav class="segmented-tabs" role="tablist">
           <button class="tab-pill active" data-tab="terminal-tab">
