@@ -493,58 +493,113 @@ html, body {
 .verified-icon:hover {
   transform: scale(1.2) rotate(6deg);
 }
-.badges-row {
+/* ==========================================================================
+   DISCORD-STYLE ICON BADGES (NO TEXT CLUTTER)
+   ========================================================================== */
+.discord-badges-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 8px;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(147, 197, 253, 0.15);
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.discord-badge {
+  position: relative;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: 6px;
+  border-radius: 50%;
+  font-size: 0.86rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 }
 
-.badge {
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 4px 11px;
-  border-radius: var(--radius-full);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(147, 197, 253, 0.18);
-  letter-spacing: 0.3px;
-  background: rgba(14, 20, 32, 0.65);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s;
+.discord-badge:hover {
+  transform: translateY(-2px) scale(1.15);
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.badge:hover {
-  transform: translateY(-2px) scale(1.06);
-  border-color: rgba(147, 197, 253, 0.45);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 15px rgba(147, 197, 253, 0.28);
+/* Badge Individual Colors & Glow */
+.discord-badge.badge-verified {
+  color: #60a5fa;
+  border-color: rgba(96, 165, 250, 0.3);
 }
-.badge-blue {
-  color: var(--accent-light-blue);
-  border-color: rgba(147, 197, 253, 0.28);
-  background: rgba(147, 197, 253, 0.1);
+.discord-badge.badge-verified:hover {
+  border-color: #60a5fa;
+  filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.8));
 }
 
-.badge-purple {
+.discord-badge.badge-dev {
+  color: #57f287;
+  border-color: rgba(87, 242, 135, 0.3);
+}
+.discord-badge.badge-dev:hover {
+  border-color: #57f287;
+  filter: drop-shadow(0 0 10px rgba(87, 242, 135, 0.8));
+}
+
+.discord-badge.badge-vfx {
   color: #c084fc;
-  border-color: rgba(192, 132, 252, 0.28);
-  background: rgba(192, 132, 252, 0.08);
+  border-color: rgba(192, 132, 252, 0.3);
+}
+.discord-badge.badge-vfx:hover {
+  border-color: #c084fc;
+  filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.8));
 }
 
-.badge-pink {
-  color: #f472b6;
-  border-color: rgba(244, 114, 182, 0.28);
-  background: rgba(244, 114, 182, 0.08);
+.discord-badge.badge-age {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.3);
+}
+.discord-badge.badge-age:hover {
+  border-color: #fbbf24;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.8));
 }
 
-.badge-slate {
-  color: var(--text-dim);
-  border-color: rgba(148, 163, 184, 0.18);
-  background: rgba(148, 163, 184, 0.06);
+/* Discord Style Floating Tooltip */
+.discord-badge[data-tooltip] {
+  position: relative;
+}
+
+.discord-badge[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(9, 13, 22, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-family: var(--font-main);
+  padding: 5px 9px;
+  border-radius: 6px;
+  border: 1px solid rgba(147, 197, 253, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 1000;
+}
+
+.discord-badge[data-tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* User Bio Quote */
