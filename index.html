@@ -211,6 +211,9 @@
           <button class="tab-pill active" data-tab="terminal-tab">
             <i class="fa-solid fa-terminal"></i> Terminal
           </button>
+          <button class="tab-pill" data-tab="projects-tab">
+            <i class="fa-solid fa-code-fork"></i> Projects
+          </button>
           <button class="tab-pill" data-tab="skills-tab">
             <i class="fa-solid fa-bolt"></i> Skills
           </button>
@@ -262,7 +265,7 @@
                     </div>
                     <div class="term-grid-col">
                       <div class="term-spec"><span class="prop-key">Uptime:</span> <span class="prop-val" id="term-uptime">Online</span></div>
-                      <div class="term-spec"><span class="prop-key">Focus:</span> <span class="prop-val">Video Editing & Dev</span></div>
+                      <div class="term-spec"><span class="prop-key">Latest:</span> <a href="https://github.com/HikaruIR/HiteEmojiCloner" target="_blank" style="color:var(--accent-soft-blue);text-decoration:none;font-weight:600;">HiteEmojiCloner <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.6rem;"></i></a></div>
                       <div class="term-spec"><span class="prop-key">Audio:</span> <span class="prop-val" id="term-nowplaying">d4vd - Here With Me</span></div>
                       <div class="term-spec"><span class="prop-key">Status:</span> <span class="prop-val highlight"><i class="fa-solid fa-circle" style="font-size:0.5rem;color:#4ade80;margin-right:4px;"></i>Active</span></div>
                     </div>
@@ -282,6 +285,54 @@
                 <input type="text" id="term-input" class="cli-input" placeholder="type 'help' or command..." autocomplete="off" spellcheck="false">
               </div>
 
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Projects Tab -->
+        <div class="tab-panel" id="projects-tab">
+          <div class="projects-list">
+            
+            <div class="project-glass-card">
+              <div class="project-header">
+                <div class="project-identity">
+                  <div class="project-icon-box">
+                    <i class="fa-solid fa-clone"></i>
+                  </div>
+                  <div>
+                    <div class="project-title-row">
+                      <h3 class="project-name">HiteEmojiCloner</h3>
+                      <span class="project-tag release-tag">v1.0 Release</span>
+                      <span class="project-tag python-tag"><i class="fa-brands fa-python"></i> Python 3.10+</span>
+                    </div>
+                    <span class="project-subtitle">High-Speed Discord Emoji & Sticker Migration Utility</span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="project-desc">
+                A streamlined, high-performance Discord tool to clone, migrate, and wipe emojis and stickers across servers with automated rate-limit handling, token safety, and dark minimalist terminal aesthetics.
+              </p>
+
+              <div class="project-features-chips">
+                <span class="feat-chip"><i class="fa-solid fa-bolt"></i> Auto Rate-Limit Bypass</span>
+                <span class="feat-chip"><i class="fa-brands fa-windows"></i> Standalone Windows EXE</span>
+                <span class="feat-chip"><i class="fa-solid fa-shield-halved"></i> Zero Python Setup Needed</span>
+                <span class="feat-chip"><i class="fa-solid fa-icons"></i> Full Emoji & Sticker Support</span>
+              </div>
+
+              <div class="project-actions">
+                <a href="https://github.com/HikaruIR/HiteEmojiCloner" target="_blank" rel="noopener noreferrer" class="proj-btn gh-proj-btn">
+                  <i class="fa-brands fa-github"></i>
+                  <span>View Repository</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square mini-ext"></i>
+                </a>
+                <a href="https://github.com/HikaruIR/HiteEmojiCloner/releases/latest" target="_blank" rel="noopener noreferrer" class="proj-btn dl-proj-btn">
+                  <i class="fa-solid fa-download"></i>
+                  <span>Download HiteEmojiCloner.exe</span>
+                </a>
+              </div>
             </div>
 
           </div>
