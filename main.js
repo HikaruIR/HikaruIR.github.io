@@ -81,13 +81,13 @@
      2. Playlist & Audio Player
      -------------------------------------------------------------------------- */
   const playlist = [
-    { title: "Summertime Sadness", file: "musics/Summertime Sadness   keyløud Lonely Night Ari.m4a" },
-    { title: "Cigarettes out the Window", file: "musics/Cigarettes out the Window   TV Girl.mp3" },
-    { title: "Devil in Disguise", file: "musics/Devil in Disguise   Marino.mp3" },
-    { title: "her", file: "musics/her   JVKE.mp3" },
-    { title: "Stan", file: "musics/Stan   Eminem, Dido.mp3" },
-    { title: "Story of warrior", file: "musics/Story of warrior.mp3" },
-    { title: "Sweater Weather", file: "musics/Sweater Weather (Official Video)   The Neighbourhood.m4a" }
+    { title: "Summertime Sadness", file: "musics/summertime-sadness.m4a" },
+    { title: "Cigarettes out the Window", file: "musics/cigarettes.mp3" },
+    { title: "Devil in Disguise", file: "musics/devil.mp3" },
+    { title: "her", file: "musics/her.mp3" },
+    { title: "Stan", file: "musics/stan.mp3" },
+    { title: "Story of warrior", file: "musics/warrior.mp3" },
+    { title: "Sweater Weather", file: "musics/sweater-weather.m4a" }
   ];
 
   let currentTrackIdx = 0;

@@ -4,9 +4,8 @@
 
 :root {
   --bg-dark: #070707;
-  --card-bg: rgba(16, 16, 18, 0.58);
-  --card-border: rgba(255, 255, 255, 0.09);
-  --card-glow: rgba(0, 0, 0, 0.75);
+  --card-bg: rgba(18, 18, 20, 0.45);
+  --card-border: rgba(255, 255, 255, 0.08);
   --accent-pink: #ff2a85;
   --text-main: #f0f0f3;
   --text-muted: #8e8e93;
@@ -91,7 +90,7 @@ html, body {
   inset: -20px;
   background-image: 
     linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.65)),
-    url('picture/Background.jpg.jpg');
+    url('picture/background.jpg');
   background-size: cover;
   background-position: center center;
   filter: grayscale(100%) contrast(120%) brightness(55%);
@@ -162,7 +161,7 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   Page Container & Card
+   Page Container & Card (Frameless Floating Layout)
    -------------------------------------------------------------------------- */
 .page-container {
   position: relative;
@@ -175,7 +174,7 @@ html, body {
   padding: 16px;
 }
 
-.card-wrap {
+.profile-stack {
   width: 100%;
   max-width: 460px;
   display: flex;
@@ -186,31 +185,17 @@ html, body {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Outer Profile Card Inner Wrapper */
-.profile-card-inner {
-  width: 100%;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 18px;
-  gap: 12px;
-}
-
 /* --------------------------------------------------------------------------
-   Profile Banner
+   Profile Banner (Subtle floating header)
    -------------------------------------------------------------------------- */
 .profile-banner-wrap {
   position: relative;
   width: 100%;
-  height: 145px;
+  height: 140px;
+  border-radius: 18px;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  margin-bottom: -60px; /* Overlap with avatar */
 }
 
 .banner-img {
@@ -222,44 +207,41 @@ html, body {
   transition: var(--transition-smooth);
 }
 
-.profile-card-inner:hover .banner-img {
-  transform: scale(1.03);
-}
-
-.banner-overlay {
+.banner-fade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(16,16,18,0.85) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(7,7,7,0.85) 100%);
 }
 
 /* --------------------------------------------------------------------------
-   Avatar Section (Bigger Size & No Horns)
+   Avatar Section (Frameless, Clean Circle, Bigger Size)
    -------------------------------------------------------------------------- */
 .avatar-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: -70px; /* Overlap with banner */
   position: relative;
-  z-index: 5;
+  z-index: 10;
 }
 
 .avatar-halo {
   position: relative;
-  width: 135px;
-  height: 135px;
-  margin-bottom: 10px;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 12px;
 }
 
-.avatar-frame {
+.avatar-circle {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 255, 255, 0.12);
-  background: #000;
+  /* NO borders, NO boxy frames */
+  border: none;
+  outline: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  background: transparent;
 }
 
 .avatar-img {
@@ -267,6 +249,7 @@ html, body {
   height: 100%;
   object-fit: cover;
   filter: contrast(108%);
+  display: block;
   transition: var(--transition-smooth);
 }
 
@@ -277,7 +260,7 @@ html, body {
 .avatar-badge {
   position: absolute;
   bottom: 4px;
-  left: 4px;
+  left: 6px;
   width: 28px;
   height: 28px;
   background: rgba(14, 14, 18, 0.95);
@@ -334,25 +317,25 @@ html, body {
    Presence / Activity Card
    -------------------------------------------------------------------------- */
 .presence-card {
-  width: 90%;
-  max-width: 320px;
-  background: rgba(22, 22, 26, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 14px;
+  width: 100%;
+  max-width: 310px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 16px;
   padding: 10px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transition: var(--transition-smooth);
 }
 
 .presence-card:hover {
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75);
 }
 
 .presence-avatar-wrap {
@@ -367,7 +350,7 @@ html, body {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: none;
 }
 
 .status-indicator {
@@ -436,7 +419,7 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-top: 4px;
+  margin: 2px 0;
 }
 
 .social-icon {
@@ -471,6 +454,7 @@ html, body {
    -------------------------------------------------------------------------- */
 .player-bar {
   width: 100%;
+  max-width: 440px;
   background: rgba(14, 14, 16, 0.65);
   border: 1px solid var(--card-border);
   backdrop-filter: blur(20px);
@@ -513,7 +497,7 @@ html, body {
   height: 38px;
   border-radius: 8px;
   object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: none;
   flex-shrink: 0;
 }
 
@@ -621,15 +605,12 @@ html, body {
    Responsive Mobile Adjustments
    -------------------------------------------------------------------------- */
 @media (max-width: 480px) {
-  .card-wrap {
+  .profile-stack {
     gap: 12px;
   }
   .avatar-halo {
-    width: 115px;
-    height: 115px;
-  }
-  .avatar-section {
-    margin-top: -55px;
+    width: 120px;
+    height: 120px;
   }
   .profile-name {
     font-size: 1.8rem;
