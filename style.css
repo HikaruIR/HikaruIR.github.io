@@ -4,11 +4,10 @@
 
 :root {
   --bg-dark: #070707;
-  --card-bg: rgba(18, 18, 20, 0.45);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-glow: rgba(0, 0, 0, 0.7);
+  --card-bg: rgba(16, 16, 18, 0.58);
+  --card-border: rgba(255, 255, 255, 0.09);
+  --card-glow: rgba(0, 0, 0, 0.75);
   --accent-pink: #ff2a85;
-  --accent-pink-glow: rgba(255, 42, 133, 0.65);
   --text-main: #f0f0f3;
   --text-muted: #8e8e93;
   --text-sub: #5c5c64;
@@ -91,8 +90,8 @@ html, body {
   position: absolute;
   inset: -20px;
   background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)),
-    url('picture/Background.jpg');
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.65)),
+    url('picture/Background.jpg.jpg');
   background-size: cover;
   background-position: center center;
   filter: grayscale(100%) contrast(120%) brightness(55%);
@@ -103,7 +102,7 @@ html, body {
 .bg-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.88) 100%);
+  background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.92) 100%);
 }
 
 .bg-scanline {
@@ -173,69 +172,84 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
 }
 
 .card-wrap {
   width: 100%;
-  max-width: 440px;
+  max-width: 460px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   perspective: 1000px;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Outer Profile Card Inner Wrapper */
+.profile-card-inner {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 18px;
+  gap: 12px;
+}
+
 /* --------------------------------------------------------------------------
-   Avatar Section
+   Profile Banner
+   -------------------------------------------------------------------------- */
+.profile-banner-wrap {
+  position: relative;
+  width: 100%;
+  height: 145px;
+  overflow: hidden;
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: contrast(110%) brightness(85%);
+  transition: var(--transition-smooth);
+}
+
+.profile-card-inner:hover .banner-img {
+  transform: scale(1.03);
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(16,16,18,0.85) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Avatar Section (Bigger Size & No Horns)
    -------------------------------------------------------------------------- */
 .avatar-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-top: -70px; /* Overlap with banner */
+  position: relative;
+  z-index: 5;
 }
 
 .avatar-halo {
   position: relative;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 12px;
-}
-
-/* Pink devil horns / spikes glowing accent */
-.pink-horns-glow {
-  position: absolute;
-  inset: -12px;
-  pointer-events: none;
-}
-
-.pink-horns-glow .horn {
-  position: absolute;
-  width: 16px;
-  height: 24px;
-  background: var(--accent-pink);
-  box-shadow: 0 0 16px var(--accent-pink), 0 0 30px var(--accent-pink-glow);
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  animation: hornPulse 3s infinite ease-in-out;
-}
-
-.pink-horns-glow .horn.left {
-  top: 0;
-  left: 12px;
-  transform: rotate(-30deg);
-}
-
-.pink-horns-glow .horn.right {
-  top: 0;
-  right: 12px;
-  transform: rotate(30deg);
-}
-
-@keyframes hornPulse {
-  0%, 100% { filter: drop-shadow(0 0 8px var(--accent-pink)); }
-  50% { filter: drop-shadow(0 0 16px #ff65a9) brightness(1.2); }
+  width: 135px;
+  height: 135px;
+  margin-bottom: 10px;
 }
 
 .avatar-frame {
@@ -243,8 +257,8 @@ html, body {
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 42, 133, 0.35);
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 255, 255, 0.12);
   background: #000;
 }
 
@@ -252,31 +266,30 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(85%) contrast(110%);
+  filter: contrast(108%);
   transition: var(--transition-smooth);
 }
 
 .avatar-halo:hover .avatar-img {
-  filter: grayscale(20%) contrast(115%);
   transform: scale(1.05);
 }
 
 .avatar-badge {
   position: absolute;
-  bottom: 0;
-  left: -2px;
-  width: 26px;
-  height: 26px;
+  bottom: 4px;
+  left: 4px;
+  width: 28px;
+  height: 28px;
   background: rgba(14, 14, 18, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: 12px;
   font-family: var(--font-serif);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.85);
 }
 
 .profile-name {
@@ -305,10 +318,10 @@ html, body {
   font-weight: 700;
   letter-spacing: 0.12em;
   color: #d1d1d6;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   padding: 4px 12px;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 .badge-pin {
@@ -321,31 +334,31 @@ html, body {
    Presence / Activity Card
    -------------------------------------------------------------------------- */
 .presence-card {
-  width: 100%;
-  max-width: 310px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-radius: 16px;
+  width: 90%;
+  max-width: 320px;
+  background: rgba(22, 22, 26, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 14px;
   padding: 10px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   transition: var(--transition-smooth);
 }
 
 .presence-card:hover {
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.65);
 }
 
 .presence-avatar-wrap {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   flex-shrink: 0;
 }
 
@@ -354,7 +367,6 @@ html, body {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  filter: grayscale(90%);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -424,7 +436,7 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin: 4px 0;
+  margin-top: 4px;
 }
 
 .social-icon {
@@ -435,7 +447,7 @@ html, body {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
   transition: var(--transition-smooth);
@@ -448,7 +460,7 @@ html, body {
 
 .social-icon:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.14);
   border-color: rgba(255, 255, 255, 0.35);
   transform: translateY(-3px) scale(1.08);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 12px rgba(255, 255, 255, 0.2);
@@ -459,8 +471,7 @@ html, body {
    -------------------------------------------------------------------------- */
 .player-bar {
   width: 100%;
-  max-width: 440px;
-  background: rgba(14, 14, 16, 0.55);
+  background: rgba(14, 14, 16, 0.65);
   border: 1px solid var(--card-border);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -502,8 +513,7 @@ html, body {
   height: 38px;
   border-radius: 8px;
   object-fit: cover;
-  filter: grayscale(80%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   flex-shrink: 0;
 }
 
@@ -551,7 +561,7 @@ html, body {
 }
 
 .progress-fill {
-  width: 15%;
+  width: 0%;
   height: 100%;
   background: #ffffff;
   border-radius: 4px;
@@ -612,7 +622,14 @@ html, body {
    -------------------------------------------------------------------------- */
 @media (max-width: 480px) {
   .card-wrap {
-    gap: 14px;
+    gap: 12px;
+  }
+  .avatar-halo {
+    width: 115px;
+    height: 115px;
+  }
+  .avatar-section {
+    margin-top: -55px;
   }
   .profile-name {
     font-size: 1.8rem;
