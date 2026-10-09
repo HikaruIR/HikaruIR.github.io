@@ -81,7 +81,7 @@
      2. Playlist & Audio Player
      -------------------------------------------------------------------------- */
   const playlist = [
-    { title: "Summertime Sadness", file: "musics/summertime-sadness.m4a" },
+    { title: "Summertime sadness", file: "musics/summertime-sadness.mp3" },
     { title: "Cigarettes out the Window", file: "musics/cigarettes.mp3" },
     { title: "Devil in Disguise", file: "musics/devil.mp3" },
     { title: "her", file: "musics/her.mp3" },
