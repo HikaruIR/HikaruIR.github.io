@@ -85,17 +85,24 @@ html, body {
   overflow: hidden;
 }
 
+.bg-img,
 .bg-image {
   position: absolute;
   inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  object-fit: cover;
+  object-position: center center;
   background-image: 
     linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.65)),
-    url('picture/background.jpg');
+    url('picture/bg.jpg');
   background-size: cover;
   background-position: center center;
   filter: grayscale(100%) contrast(120%) brightness(55%);
   transform: scale(1.03);
   transition: transform 0.5s ease-out;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .bg-vignette {

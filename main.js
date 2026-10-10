@@ -211,7 +211,7 @@
      3. 3D Card Parallax Tilt Effect
      -------------------------------------------------------------------------- */
   const card = document.getElementById('tilt-card');
-  const bgImage = document.querySelector('.bg-image');
+  const bgImage = document.querySelector('.bg-img, .bg-image');
 
   document.addEventListener('mousemove', (e) => {
     const { innerWidth, innerHeight } = window;
