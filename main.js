@@ -191,15 +191,60 @@
     }
   });
 
-  // Mute toggle
+  // Volume Controls
+  const volumeSlider = document.getElementById('volume-slider');
+  const btnVolMute = document.getElementById('btn-vol-mute');
+  const volIconHigh = document.getElementById('vol-icon-high');
+  const volIconMuted = document.getElementById('vol-icon-muted');
+
+  audio.volume = 0.75;
+
+  if (volumeSlider) {
+    volumeSlider.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      audio.volume = val;
+      if (val === 0) {
+        audio.muted = true;
+        volIconHigh.classList.add('hidden');
+        volIconMuted.classList.remove('hidden');
+      } else {
+        audio.muted = false;
+        volIconHigh.classList.remove('hidden');
+        volIconMuted.classList.add('hidden');
+      }
+    });
+  }
+
+  if (btnVolMute) {
+    btnVolMute.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      if (audio.muted) {
+        volIconHigh.classList.add('hidden');
+        volIconMuted.classList.remove('hidden');
+      } else {
+        volIconHigh.classList.remove('hidden');
+        volIconMuted.classList.add('hidden');
+        if (audio.volume === 0) {
+          audio.volume = 0.5;
+          if (volumeSlider) volumeSlider.value = 0.5;
+        }
+      }
+    });
+  }
+
+  // Mute toggle (top left button)
   audioToggle.addEventListener('click', () => {
     audio.muted = !audio.muted;
     if (audio.muted) {
       iconVolume.classList.add('hidden');
       iconMuted.classList.remove('hidden');
+      if (volIconHigh) volIconHigh.classList.add('hidden');
+      if (volIconMuted) volIconMuted.classList.remove('hidden');
     } else {
       iconVolume.classList.remove('hidden');
       iconMuted.classList.add('hidden');
+      if (volIconHigh) volIconHigh.classList.remove('hidden');
+      if (volIconMuted) volIconMuted.classList.add('hidden');
     }
   });
 
