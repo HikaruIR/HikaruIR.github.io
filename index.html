@@ -20,7 +20,7 @@
 
   <!-- Background Layer -->
   <div class="bg-wrapper">
-    <img src="picture/Background.jpg" alt="Background" class="bg-img" id="bg-image-el" />
+    <img src="picture/Background.jpg" onerror="this.onerror=null; this.src='picture/bg.jpg';" alt="Background" class="bg-img" id="bg-image-el" />
     <div class="bg-vignette"></div>
     <div class="bg-scanline"></div>
     <canvas id="particle-canvas"></canvas>
@@ -46,7 +46,7 @@
       
       <!-- Sleek Profile Banner -->
       <div class="profile-banner-wrap">
-        <img src="picture/Banner.jpg" alt="Profile Banner" class="banner-img" />
+        <img src="picture/banner.jpg" onerror="this.onerror=null; this.src='picture/Banner.jpg';" alt="Profile Banner" class="banner-img" />
         <div class="banner-fade"></div>
       </div>
 
@@ -54,7 +54,7 @@
       <section class="avatar-section">
         <div class="avatar-halo">
           <div class="avatar-circle">
-            <img src="picture/PFP.jpg" alt="Hikaru Avatar" class="avatar-img" />
+            <img src="picture/avatar.jpg" onerror="this.onerror=null; this.src='picture/PFP.jpg';" alt="Hikaru Avatar" class="avatar-img" />
           </div>
           <div class="avatar-badge">夜</div>
         </div>
@@ -73,7 +73,7 @@
       <!-- Discord / Activity Micro-Badge (USA tag removed) -->
       <section class="presence-card">
         <div class="presence-avatar-wrap">
-          <img src="picture/PFP.jpg" alt="Status Avatar" class="presence-avatar" />
+          <img src="picture/avatar.jpg" onerror="this.onerror=null; this.src='picture/PFP.jpg';" alt="Status Avatar" class="presence-avatar" />
           <span class="status-indicator online"></span>
         </div>
         <div class="presence-details">
@@ -109,7 +109,7 @@
         </div>
 
         <div class="player-track">
-          <img src="picture/PFP.jpg" alt="Track Art" class="track-thumb" />
+          <img src="picture/avatar.jpg" onerror="this.onerror=null; this.src='picture/PFP.jpg';" alt="Track Art" class="track-thumb" />
           <div class="track-info">
             <div class="track-title-wrap">
               <span class="track-title" id="track-title">500 Miles</span>
@@ -188,3 +188,4 @@
   <script src="main.js"></script>
 </body>
 </html>
+

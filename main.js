@@ -75,7 +75,7 @@
      2. Playlist & Audio Player
      -------------------------------------------------------------------------- */
   const playlist = [
-    { title: "500 Miles", artist: "New Track", file: "musics/500 Miles.mp3" },
+    { title: "500 Miles", artist: "Peter, Paul & Mary", file: "musics/500-miles.mp3", fallback: "musics/500 Miles.mp3" },
     { title: "Summertime Sadness", artist: "Lana Del Rey", file: "musics/summertime-sadness.mp3" },
     { title: "Cigarettes out the Window", artist: "TV Girl", file: "musics/cigarettes.mp3" },
     { title: "Devil in Disguise", artist: "Marino", file: "musics/devil.mp3" },
@@ -174,7 +174,8 @@
   function loadTrack(idx, autoPlay = true) {
     currentTrackIdx = (idx + playlist.length) % playlist.length;
     const track = playlist[currentTrackIdx];
-    audio.src = encodeURI(track.file);
+    audio.src = track.file;
+    audio.load();
     trackTitleEl.textContent = track.title;
     progressFill.style.width = '0%';
     currTimeEl.textContent = '0:00';
@@ -185,12 +186,23 @@
       if (playPromise !== undefined) {
         playPromise.then(() => {
           updatePlayButtonUI(true);
-        }).catch(() => {
+        }).catch((err) => {
+          console.warn('Audio play auto-policy:', err);
           updatePlayButtonUI(false);
         });
       }
     }
   }
+
+  // Audio fallback on error (e.g. if encoded url is needed)
+  audio.addEventListener('error', () => {
+    const track = playlist[currentTrackIdx];
+    if (track && track.fallback && audio.src !== encodeURI(track.fallback)) {
+      audio.src = encodeURI(track.fallback);
+      audio.load();
+      audio.play().catch(() => {});
+    }
+  });
 
   function updatePlayButtonUI(playing) {
     if (playing) {
@@ -323,7 +335,7 @@
 
   // Initialize track
   trackTitleEl.textContent = playlist[0].title;
-  audio.src = encodeURI(playlist[0].file);
+  audio.src = playlist[0].file;
   renderPlaylist();
 
   /* --------------------------------------------------------------------------
