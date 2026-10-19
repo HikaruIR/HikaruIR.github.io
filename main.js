@@ -1,16 +1,12 @@
 /**
- * Hikaru Bio Link / Info Page Logic
- * - Real playlist from local musics/ folder
- * - Particle engine (falling monochrome maple leaves)
- * - Timeline scrub & playback controls
- * - 3D Card Parallax Tilt
+ * Hikaru Aesthetic Profile - Modern Interactive Logic
  */
 
-(() => {
+(function () {
   'use strict';
 
   /* --------------------------------------------------------------------------
-     1. Canvas Particle System (Falling Maple Leaves / Embers)
+     1. Ambient Canvas Particles (Silver Gothic Dust & Embers)
      -------------------------------------------------------------------------- */
   const canvas = document.getElementById('particle-canvas');
   const ctx = canvas.getContext('2d');
@@ -23,49 +19,47 @@
     height = canvas.height = window.innerHeight;
   });
 
-  class Leaf {
+  class Particle {
     constructor() {
       this.reset(true);
     }
 
     reset(initial = false) {
       this.x = Math.random() * width;
-      this.y = initial ? Math.random() * height : -20;
-      this.size = Math.random() * 8 + 6;
-      this.speedY = Math.random() * 0.9 + 0.4;
-      this.speedX = Math.random() * 0.7 - 0.35;
-      this.angle = Math.random() * Math.PI * 2;
-      this.rotationSpeed = (Math.random() - 0.5) * 0.02;
-      this.opacity = Math.random() * 0.5 + 0.2;
+      this.y = initial ? Math.random() * height : height + 10;
+      this.size = Math.random() * 2.2 + 0.8;
+      this.speedY = Math.random() * 0.45 + 0.15;
+      this.speedX = (Math.random() - 0.5) * 0.35;
+      this.opacity = Math.random() * 0.55 + 0.15;
+      this.pulseSpeed = Math.random() * 0.02 + 0.005;
+      this.pulse = Math.random() * Math.PI;
     }
 
     update() {
-      this.y += this.speedY;
-      this.x += Math.sin(this.angle) * 0.8 + this.speedX;
-      this.angle += this.rotationSpeed;
+      this.y -= this.speedY;
+      this.x += this.speedX;
+      this.pulse += this.pulseSpeed;
 
-      if (this.y > height + 20 || this.x < -30 || this.x > width + 30) {
-        this.reset();
+      if (this.y < -10 || this.x < -10 || this.x > width + 10) {
+        this.reset(false);
       }
     }
 
     draw() {
+      const currentOpacity = Math.max(0.08, this.opacity * Math.sin(this.pulse));
       ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.angle);
-      ctx.fillStyle = `rgba(220, 220, 225, ${this.opacity})`;
-
+      ctx.fillStyle = `rgba(230, 235, 245, ${currentOpacity})`;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.45)';
       ctx.beginPath();
-      ctx.moveTo(0, -this.size);
-      ctx.bezierCurveTo(this.size * 0.8, -this.size * 0.5, this.size, 0, 0, this.size);
-      ctx.bezierCurveTo(-this.size, 0, -this.size * 0.8, -this.size * 0.5, 0, -this.size);
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
   }
 
-  const particleCount = 35;
-  const particles = Array.from({ length: particleCount }, () => new Leaf());
+  const particleCount = 42;
+  const particles = Array.from({ length: particleCount }, () => new Particle());
 
   function animateParticles() {
     ctx.clearRect(0, 0, width, height);
@@ -81,13 +75,14 @@
      2. Playlist & Audio Player
      -------------------------------------------------------------------------- */
   const playlist = [
-    { title: "Summertime sadness", file: "musics/summertime-sadness.mp3" },
-    { title: "Cigarettes out the Window", file: "musics/cigarettes.mp3" },
-    { title: "Devil in Disguise", file: "musics/devil.mp3" },
-    { title: "her", file: "musics/her.mp3" },
-    { title: "Stan", file: "musics/stan.mp3" },
-    { title: "Story of warrior", file: "musics/warrior.mp3" },
-    { title: "Sweater Weather", file: "musics/sweater-weather.m4a" }
+    { title: "500 Miles", artist: "New Track", file: "musics/500 Miles.mp3" },
+    { title: "Summertime Sadness", artist: "Lana Del Rey", file: "musics/summertime-sadness.mp3" },
+    { title: "Cigarettes out the Window", artist: "TV Girl", file: "musics/cigarettes.mp3" },
+    { title: "Devil in Disguise", artist: "Marino", file: "musics/devil.mp3" },
+    { title: "her", artist: "JVKE", file: "musics/her.mp3" },
+    { title: "Stan", artist: "Eminem ft. Dido", file: "musics/stan.mp3" },
+    { title: "Story of warrior", artist: "Epic Track", file: "musics/warrior.mp3" },
+    { title: "Sweater Weather", artist: "The Neighbourhood", file: "musics/sweater-weather.m4a" }
   ];
 
   let currentTrackIdx = 0;
@@ -106,9 +101,71 @@
   const totalTimeEl = document.getElementById('total-time');
   const progressFill = document.getElementById('progress-fill');
   const progressContainer = document.getElementById('progress-container');
+  const playerBar = document.querySelector('.player-bar');
+
+  // Playlist drawer elements
+  const btnPlaylistToggle = document.getElementById('btn-playlist-toggle');
+  const btnPlaylistClose = document.getElementById('btn-playlist-close');
+  const playlistDrawer = document.getElementById('playlist-drawer');
+  const playlistItemsList = document.getElementById('playlist-items');
+
+  function renderPlaylist() {
+    if (!playlistItemsList) return;
+    playlistItemsList.innerHTML = '';
+    playlist.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.className = `playlist-item ${index === currentTrackIdx ? 'active' : ''}`;
+      li.innerHTML = `
+        <div class="playlist-item-left">
+          <span class="playlist-track-num">${index + 1}</span>
+          <span class="playlist-track-name">${item.title}</span>
+        </div>
+        <span class="playlist-track-artist">${item.artist}</span>
+      `;
+      li.addEventListener('click', () => {
+        loadTrack(index, true);
+        if (playlistDrawer) playlistDrawer.classList.add('hidden');
+      });
+      playlistItemsList.appendChild(li);
+    });
+  }
+
+  function updatePlaylistActiveItem() {
+    if (!playlistItemsList) return;
+    const items = playlistItemsList.querySelectorAll('.playlist-item');
+    items.forEach((item, idx) => {
+      if (idx === currentTrackIdx) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  if (btnPlaylistToggle && playlistDrawer) {
+    btnPlaylistToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playlistDrawer.classList.toggle('hidden');
+    });
+  }
+
+  if (btnPlaylistClose && playlistDrawer) {
+    btnPlaylistClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playlistDrawer.classList.add('hidden');
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (playlistDrawer && !playlistDrawer.classList.contains('hidden')) {
+      if (!playlistDrawer.contains(e.target) && e.target !== btnPlaylistToggle) {
+        playlistDrawer.classList.add('hidden');
+      }
+    }
+  });
 
   function formatTime(secs) {
-    if (isNaN(secs)) return '0:00';
+    if (isNaN(secs) || secs < 0) return '0:00';
     const m = Math.floor(secs / 60);
     const s = Math.floor(secs % 60);
     return `${m}:${s < 10 ? '0' : ''}${s}`;
@@ -121,10 +178,17 @@
     trackTitleEl.textContent = track.title;
     progressFill.style.width = '0%';
     currTimeEl.textContent = '0:00';
+    updatePlaylistActiveItem();
     
     if (autoPlay) {
-      audio.play().catch(() => {});
-      updatePlayButtonUI(true);
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          updatePlayButtonUI(true);
+        }).catch(() => {
+          updatePlayButtonUI(false);
+        });
+      }
     }
   }
 
@@ -132,9 +196,11 @@
     if (playing) {
       iconPlay.classList.add('hidden');
       iconPause.classList.remove('hidden');
+      if (playerBar) playerBar.classList.add('playing');
     } else {
       iconPlay.classList.remove('hidden');
       iconPause.classList.add('hidden');
+      if (playerBar) playerBar.classList.remove('playing');
     }
   }
 
@@ -156,28 +222,33 @@
   });
 
   // Enter click
-  enterOverlay.addEventListener('click', () => {
-    enterOverlay.classList.add('fade-out');
-    loadTrack(0, true);
-  });
+  if (enterOverlay) {
+    enterOverlay.addEventListener('click', () => {
+      enterOverlay.classList.add('fade-out');
+      loadTrack(0, true);
+    });
+  }
 
   // Play / Pause
   btnPlay.addEventListener('click', (e) => {
     e.stopPropagation();
     if (audio.paused) {
-      audio.play().catch(() => {});
-      updatePlayButtonUI(true);
+      audio.play().then(() => {
+        updatePlayButtonUI(true);
+      }).catch(() => {});
     } else {
       audio.pause();
       updatePlayButtonUI(false);
     }
   });
 
-  btnNext.addEventListener('click', () => {
+  btnNext.addEventListener('click', (e) => {
+    e.stopPropagation();
     loadTrack(currentTrackIdx + 1, true);
   });
 
-  btnPrev.addEventListener('click', () => {
+  btnPrev.addEventListener('click', (e) => {
+    e.stopPropagation();
     loadTrack(currentTrackIdx - 1, true);
   });
 
@@ -233,38 +304,42 @@
   }
 
   // Mute toggle (top left button)
-  audioToggle.addEventListener('click', () => {
-    audio.muted = !audio.muted;
-    if (audio.muted) {
-      iconVolume.classList.add('hidden');
-      iconMuted.classList.remove('hidden');
-      if (volIconHigh) volIconHigh.classList.add('hidden');
-      if (volIconMuted) volIconMuted.classList.remove('hidden');
-    } else {
-      iconVolume.classList.remove('hidden');
-      iconMuted.classList.add('hidden');
-      if (volIconHigh) volIconHigh.classList.remove('hidden');
-      if (volIconMuted) volIconMuted.classList.add('hidden');
-    }
-  });
+  if (audioToggle) {
+    audioToggle.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      if (audio.muted) {
+        iconVolume.classList.add('hidden');
+        iconMuted.classList.remove('hidden');
+        if (volIconHigh) volIconHigh.classList.add('hidden');
+        if (volIconMuted) volIconMuted.classList.remove('hidden');
+      } else {
+        iconVolume.classList.remove('hidden');
+        iconMuted.classList.add('hidden');
+        if (volIconHigh) volIconHigh.classList.remove('hidden');
+        if (volIconMuted) volIconMuted.classList.add('hidden');
+      }
+    });
+  }
 
-  // Init first track title
+  // Initialize track
   trackTitleEl.textContent = playlist[0].title;
   audio.src = encodeURI(playlist[0].file);
+  renderPlaylist();
 
   /* --------------------------------------------------------------------------
      3. 3D Card Parallax Tilt Effect
      -------------------------------------------------------------------------- */
   const card = document.getElementById('tilt-card');
-  const bgImage = document.querySelector('.bg-img, .bg-image');
+  const bgImage = document.querySelector('.bg-img');
 
   document.addEventListener('mousemove', (e) => {
+    if (!card) return;
     const { innerWidth, innerHeight } = window;
     const x = (e.clientX / innerWidth - 0.5) * 2;
     const y = (e.clientY / innerHeight - 0.5) * 2;
 
-    const tiltX = -y * 8;
-    const tiltY = x * 8;
+    const tiltX = -y * 6;
+    const tiltY = x * 6;
 
     card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-2px)`;
     if (bgImage) {
@@ -273,6 +348,7 @@
   });
 
   document.addEventListener('mouseleave', () => {
+    if (!card) return;
     card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
     if (bgImage) {
       bgImage.style.transform = 'scale(1.03) translate(0, 0)';
@@ -283,8 +359,10 @@
      4. Persistent View Counter Simulation
      -------------------------------------------------------------------------- */
   const viewCountEl = document.getElementById('view-count');
-  let views = parseInt(localStorage.getItem('hikaru_views') || '3', 10);
-  views += 1;
-  localStorage.setItem('hikaru_views', views.toString());
-  viewCountEl.textContent = views;
+  if (viewCountEl) {
+    let views = parseInt(localStorage.getItem('hikaru_views') || '137', 10);
+    views += 1;
+    localStorage.setItem('hikaru_views', views.toString());
+    viewCountEl.textContent = views;
+  }
 })();

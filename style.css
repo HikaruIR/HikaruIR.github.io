@@ -1,19 +1,20 @@
 /* ==========================================================================
-   Hikaru Aesthetic Info Page - Style Sheet
+   Hikaru Aesthetic Info Page - Modernized Style Sheet
    ========================================================================== */
 
 :root {
-  --bg-dark: #070707;
-  --card-bg: rgba(18, 18, 20, 0.45);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --accent-pink: #ff2a85;
-  --text-main: #f0f0f3;
-  --text-muted: #8e8e93;
-  --text-sub: #5c5c64;
+  --bg-dark: #050507;
+  --card-bg: rgba(14, 14, 18, 0.55);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --accent-glow: rgba(255, 255, 255, 0.25);
+  --accent-green: #22c55e;
+  --text-main: #f4f4f6;
+  --text-muted: #9a9aa2;
+  --text-sub: #63636e;
   --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Cinzel', serif, cursive;
+  --font-serif: 'Cinzel', serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --transition-smooth: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *, *::before, *::after {
@@ -40,14 +41,14 @@ html, body {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(4, 4, 6, 0.92);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+  background: rgba(3, 3, 5, 0.94);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.75s;
 }
 
 .enter-overlay.fade-out {
@@ -57,20 +58,32 @@ html, body {
 }
 
 .enter-content {
-  text-align: center;
-  animation: pulseEnter 2s infinite ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: pulseEnter 2.4s infinite ease-in-out;
+}
+
+.enter-title {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  letter-spacing: 0.35em;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.75);
 }
 
 .enter-sub {
   font-family: var(--font-mono);
-  font-size: 0.95rem;
-  letter-spacing: 0.35em;
-  color: #fff;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  letter-spacing: 0.28em;
+  color: #a0a0ab;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
 @keyframes pulseEnter {
-  0%, 100% { opacity: 0.35; transform: scale(0.98); }
+  0%, 100% { opacity: 0.45; transform: scale(0.98); }
   50% { opacity: 1; transform: scale(1.02); }
 }
 
@@ -85,30 +98,23 @@ html, body {
   overflow: hidden;
 }
 
-.bg-img,
-.bg-image {
+.bg-img {
   position: absolute;
-  inset: -20px;
-  width: calc(100% + 40px);
-  height: calc(100% + 40px);
+  inset: -25px;
+  width: calc(100% + 50px);
+  height: calc(100% + 50px);
   object-fit: cover;
   object-position: center center;
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.65)),
-    url('picture/bg.jpg');
-  background-size: cover;
-  background-position: center center;
-  filter: grayscale(100%) contrast(120%) brightness(55%);
+  filter: grayscale(100%) contrast(125%) brightness(50%);
   transform: scale(1.03);
-  transition: transform 0.5s ease-out;
+  transition: transform 0.45s ease-out;
   pointer-events: none;
-  z-index: 0;
 }
 
 .bg-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.92) 100%);
+  background: radial-gradient(circle at center, rgba(0,0,0,0.2) 20%, rgba(3, 3, 5, 0.94) 100%);
 }
 
 .bg-scanline {
@@ -121,7 +127,7 @@ html, body {
     transparent 1px,
     transparent 3px
   );
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
 #particle-canvas {
@@ -133,25 +139,25 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   Top Audio Toggle
+   Top Controls
    -------------------------------------------------------------------------- */
 .audio-btn {
   position: fixed;
   top: 24px;
   left: 24px;
   z-index: 100;
-  background: rgba(20, 20, 24, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(18, 18, 22, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--text-muted);
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: var(--transition-smooth);
 }
 
@@ -162,13 +168,13 @@ html, body {
 
 .audio-btn:hover {
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.06);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: scale(1.08);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
 }
 
 /* --------------------------------------------------------------------------
-   Page Container & Card (Frameless Floating Layout)
+   Page Container & Card (Expanded & Elevated)
    -------------------------------------------------------------------------- */
 .page-container {
   position: relative;
@@ -178,31 +184,33 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 20px;
 }
 
 .profile-stack {
   width: 100%;
-  max-width: 460px;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   perspective: 1000px;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* --------------------------------------------------------------------------
-   Profile Banner (Subtle floating header)
+   Profile Banner (Expanded Gothic Chrome Presentation)
    -------------------------------------------------------------------------- */
 .profile-banner-wrap {
   position: relative;
   width: 100%;
-  height: 140px;
-  border-radius: 18px;
+  height: 185px;
+  border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  margin-bottom: -60px; /* Overlap with avatar */
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #09090c;
 }
 
 .banner-img {
@@ -210,14 +218,14 @@ html, body {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: contrast(110%) brightness(85%);
+  filter: contrast(115%) brightness(95%);
   transition: var(--transition-smooth);
 }
 
 .banner-fade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(7,7,7,0.85) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 0%, rgba(5, 5, 7, 0.75) 100%);
 }
 
 /* --------------------------------------------------------------------------
@@ -229,13 +237,14 @@ html, body {
   align-items: center;
   text-align: center;
   position: relative;
-  z-index: 10;
+  z-index: 15;
+  margin-top: -72px; /* Smooth banner overlap */
 }
 
 .avatar-halo {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 144px;
+  height: 144px;
   margin-bottom: 12px;
 }
 
@@ -244,52 +253,52 @@ html, body {
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  /* NO borders, NO boxy frames */
-  border: none;
-  outline: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 255, 255, 0.08);
+  background: #0d0d10;
+  transition: var(--transition-smooth);
 }
 
 .avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: contrast(108%);
   display: block;
   transition: var(--transition-smooth);
 }
 
-.avatar-halo:hover .avatar-img {
-  transform: scale(1.05);
+.avatar-halo:hover .avatar-circle {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.03);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 255, 255, 0.18);
 }
 
 .avatar-badge {
   position: absolute;
-  bottom: 4px;
-  left: 6px;
+  bottom: 2px;
+  right: 6px;
   width: 28px;
   height: 28px;
   background: rgba(14, 14, 18, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
   font-family: var(--font-serif);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
 }
 
 .profile-name {
-  font-family: 'Style Script', 'Playball', 'Alex Brush', cursive;
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   color: #ffffff;
-  text-shadow: 0 0 16px rgba(255, 255, 255, 0.45), 0 2px 8px rgba(0, 0, 0, 0.9);
-  margin-bottom: 0px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 2px 10px rgba(0, 0, 0, 0.95);
+  margin-bottom: 2px;
   line-height: 1.1;
 }
 
@@ -297,8 +306,8 @@ html, body {
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--text-muted);
-  letter-spacing: 0.02em;
-  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
 }
 
 .location-badge {
@@ -307,12 +316,13 @@ html, body {
   gap: 6px;
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #d1d1d6;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 4px 12px;
+  letter-spacing: 0.14em;
+  color: #e2e2e8;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 5px 14px;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
 }
 
 .badge-pin {
@@ -322,34 +332,34 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   Presence / Activity Card
+   Presence / Activity Card (Without USA badge)
    -------------------------------------------------------------------------- */
 .presence-card {
   width: 100%;
-  max-width: 310px;
+  max-width: 360px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-radius: 16px;
-  padding: 10px 14px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 18px;
+  padding: 11px 16px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  gap: 14px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: var(--transition-smooth);
 }
 
 .presence-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.22);
   transform: translateY(-2px);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
 }
 
 .presence-avatar-wrap {
   position: relative;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
 }
 
@@ -358,28 +368,27 @@ html, body {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: none;
 }
 
 .status-indicator {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
-  border: 2px solid #141416;
+  border: 2px solid #0e0e12;
 }
 
 .status-indicator.online {
-  background: #23a55a;
-  box-shadow: 0 0 6px rgba(35, 165, 90, 0.8);
+  background: var(--accent-green);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.85);
 }
 
 .presence-details {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   flex: 1;
 }
 
@@ -391,51 +400,32 @@ html, body {
 
 .presence-user {
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.96rem;
   color: #fff;
   letter-spacing: -0.01em;
 }
 
-.badge-flag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #4ade80;
-  background: rgba(74, 222, 128, 0.1);
-  padding: 2px 7px;
-  border-radius: 6px;
-  border: 1px solid rgba(74, 222, 128, 0.2);
-}
-
-.flag-icon {
-  width: 10px;
-  height: 10px;
-}
-
 .presence-status {
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
 }
 
 /* --------------------------------------------------------------------------
-   Socials Row (Bare glowing icons, no circle background)
+   Socials Row (Glowing minimalistic icons)
    -------------------------------------------------------------------------- */
 .socials-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  margin: 6px 0;
+  gap: 22px;
+  margin: 4px 0;
 }
 
 .social-icon {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.8);
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  backdrop-filter: none !important;
   width: auto;
   height: auto;
   display: inline-flex;
@@ -445,33 +435,35 @@ html, body {
 }
 
 .social-icon svg {
-  width: 22px;
-  height: 22px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.85));
 }
 
 .social-icon:hover {
   color: #ffffff;
   transform: translateY(-2px) scale(1.15);
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
 }
 
 /* --------------------------------------------------------------------------
-   Player Bar
+   Player Bar (Widened & Elevated with Equalizer & Playlist)
    -------------------------------------------------------------------------- */
 .player-bar {
   width: 100%;
-  max-width: 440px;
-  background: rgba(14, 14, 16, 0.65);
+  max-width: 530px;
+  background: rgba(14, 14, 18, 0.7);
   border: 1px solid var(--card-border);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 18px;
-  padding: 10px 14px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 20px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  gap: 14px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 20;
 }
 
 .player-views {
@@ -479,54 +471,93 @@ html, body {
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
-  padding-right: 6px;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding-right: 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: default;
 }
 
 .view-icon {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   stroke: var(--text-muted);
 }
 
 .player-track {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
   min-width: 0;
 }
 
 .track-thumb {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
   object-fit: cover;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   flex-shrink: 0;
 }
 
 .track-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   flex: 1;
   min-width: 0;
 }
 
 .track-title-wrap {
+  display: flex;
+  align-items: center;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .track-title {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #fff;
   letter-spacing: -0.01em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Sound Equalizer Bars */
+.eq-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+.eq-bar {
+  width: 2.5px;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 1px;
+  opacity: 0.6;
+  transition: height 0.15s ease;
+}
+
+.playing .eq-bars .eq-bar {
+  background: var(--accent-green);
+  opacity: 1;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.7);
+}
+
+.playing .eq-bars .eq-bar:nth-child(1) { animation: soundBar 0.55s infinite ease-in-out alternate; }
+.playing .eq-bars .eq-bar:nth-child(2) { animation: soundBar 0.85s infinite 0.2s ease-in-out alternate; }
+.playing .eq-bars .eq-bar:nth-child(3) { animation: soundBar 0.65s infinite 0.4s ease-in-out alternate; }
+.playing .eq-bars .eq-bar:nth-child(4) { animation: soundBar 0.75s infinite 0.1s ease-in-out alternate; }
+
+@keyframes soundBar {
+  0% { height: 3px; }
+  100% { height: 12px; }
 }
 
 .track-progress-wrap {
@@ -537,15 +568,15 @@ html, body {
 
 .time-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   color: var(--text-sub);
 }
 
 .progress-bar-container {
   flex: 1;
-  height: 4px;
+  height: 5px;
   background: rgba(255, 255, 255, 0.12);
-  border-radius: 4px;
+  border-radius: 5px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -555,14 +586,14 @@ html, body {
   width: 0%;
   height: 100%;
   background: #ffffff;
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width 0.1s linear;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
 }
 
 .progress-bar-container:hover .progress-fill {
-  background: var(--accent-pink);
-  box-shadow: 0 0 8px var(--accent-pink);
+  background: var(--accent-green);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.85);
 }
 
 .player-controls {
@@ -576,8 +607,8 @@ html, body {
   background: transparent;
   border: none;
   color: var(--text-muted);
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -587,12 +618,20 @@ html, body {
 }
 
 .ctrl-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
 }
 
 .ctrl-btn.main-ctrl {
   color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  width: 32px;
+  height: 32px;
+}
+
+.ctrl-btn.main-ctrl:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
 }
 
 .ctrl-btn:hover {
@@ -615,7 +654,7 @@ html, body {
 .volume-slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 55px;
+  width: 52px;
   height: 4px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 2px;
@@ -631,22 +670,155 @@ html, body {
 .volume-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   background: #ffffff;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
   cursor: pointer;
 }
 
 .volume-slider::-moz-range-thumb {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   background: #ffffff;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
   cursor: pointer;
   border: none;
+}
+
+/* --------------------------------------------------------------------------
+   Playlist Drawer Popover
+   -------------------------------------------------------------------------- */
+.playlist-drawer {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 500px;
+  background: rgba(12, 12, 16, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translate(-50%, 15px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.playlist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.playlist-title {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #fff;
+}
+
+.playlist-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.playlist-close:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.playlist-items {
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.playlist-items::-webkit-scrollbar {
+  width: 4px;
+}
+.playlist-items::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+}
+
+.playlist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.playlist-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.playlist-item.active {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.playlist-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.playlist-track-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-sub);
+  width: 16px;
+}
+
+.playlist-item.active .playlist-track-num {
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
+.playlist-track-name {
+  font-size: 0.82rem;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-item.active .playlist-track-name {
+  color: #fff;
+  font-weight: 600;
+}
+
+.playlist-track-artist {
+  font-size: 0.72rem;
+  color: var(--text-muted);
 }
 
 .hidden {
@@ -656,25 +828,39 @@ html, body {
 /* --------------------------------------------------------------------------
    Responsive Mobile Adjustments
    -------------------------------------------------------------------------- */
-@media (max-width: 480px) {
+@media (max-width: 580px) {
   .profile-stack {
-    gap: 12px;
+    max-width: 100%;
+    gap: 14px;
+  }
+  .profile-banner-wrap {
+    height: 140px;
+  }
+  .avatar-section {
+    margin-top: -55px;
   }
   .avatar-halo {
     width: 120px;
     height: 120px;
   }
   .profile-name {
-    font-size: 1.8rem;
+    font-size: 2.1rem;
   }
   .presence-card {
     max-width: 100%;
   }
   .player-bar {
-    padding: 8px 10px;
-    gap: 8px;
+    padding: 10px 12px;
+    gap: 10px;
   }
   .player-views {
     display: none;
+  }
+  .volume-control-wrap {
+    display: none;
+  }
+  .playlist-drawer {
+    width: 95%;
+    bottom: 75px;
   }
 }

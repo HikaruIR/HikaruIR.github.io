@@ -6,27 +6,28 @@
   <title>Hikaru // Info</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Style+Script&family=Playball&family=Alex+Brush&family=Cinzel:wght@600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Alex+Brush&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Ambient Audio Overlay (Click to enter) -->
   <div id="enter-overlay" class="enter-overlay">
     <div class="enter-content">
-      <span class="enter-sub">[ CLICK TO ENTER ]</span>
+      <span class="enter-title">HIKARU</span>
+      <span class="enter-sub">[ CLICK ANYWHERE TO ENTER ]</span>
     </div>
   </div>
 
   <!-- Background Layer -->
   <div class="bg-wrapper">
-    <img src="picture/bg.jpg" alt="Background" class="bg-img" id="bg-image-el" onerror="this.src='picture/Background.jpg.jpg'" />
+    <img src="picture/Background.jpg" alt="Background" class="bg-img" id="bg-image-el" />
     <div class="bg-vignette"></div>
     <div class="bg-scanline"></div>
     <canvas id="particle-canvas"></canvas>
   </div>
 
   <!-- Audio Toggle Top Left -->
-  <button id="audio-toggle" class="audio-btn" aria-label="Toggle Audio">
+  <button id="audio-toggle" class="audio-btn" aria-label="Toggle Audio" title="Mute / Unmute">
     <svg id="icon-volume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
       <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
@@ -45,15 +46,15 @@
       
       <!-- Sleek Profile Banner -->
       <div class="profile-banner-wrap">
-        <img src="picture/banner.jpg" alt="Profile Banner" class="banner-img" />
+        <img src="picture/Banner.jpg" alt="Profile Banner" class="banner-img" />
         <div class="banner-fade"></div>
       </div>
 
-      <!-- Avatar (Frameless, clean circle) -->
+      <!-- Avatar Section -->
       <section class="avatar-section">
         <div class="avatar-halo">
           <div class="avatar-circle">
-            <img src="picture/avatar.jpg" alt="Hikaru Avatar" class="avatar-img" />
+            <img src="picture/PFP.jpg" alt="Hikaru Avatar" class="avatar-img" />
           </div>
           <div class="avatar-badge">夜</div>
         </div>
@@ -69,25 +70,21 @@
         </div>
       </section>
 
-      <!-- Discord / Activity Micro-Badge -->
+      <!-- Discord / Activity Micro-Badge (USA tag removed) -->
       <section class="presence-card">
         <div class="presence-avatar-wrap">
-          <img src="picture/avatar.jpg" alt="Status Avatar" class="presence-avatar" />
+          <img src="picture/PFP.jpg" alt="Status Avatar" class="presence-avatar" />
           <span class="status-indicator online"></span>
         </div>
         <div class="presence-details">
           <div class="presence-head">
             <span class="presence-user">hikaru.mp4</span>
-            <span class="badge-flag">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="flag-icon"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
-              USA
-            </span>
           </div>
           <span class="presence-status">Not seen 5 hours ago</span>
         </div>
       </section>
 
-      <!-- Social Links (Clean bare glowing icons, no circle background) -->
+      <!-- Social Links (Clean glowing icons) -->
       <nav class="socials-row">
         <a href="https://discord.gg/ZztbZfDGD" target="_blank" rel="noopener" class="social-icon" title="Discord" aria-label="Discord">
           <svg viewBox="0 0 24 24" fill="currentColor">
@@ -101,9 +98,9 @@
         </a>
       </nav>
 
-      <!-- Music Player Bar with Volume Slider -->
+      <!-- Music Player Bar -->
       <footer class="player-bar">
-        <div class="player-views">
+        <div class="player-views" title="Total Views">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="view-icon">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
@@ -112,10 +109,16 @@
         </div>
 
         <div class="player-track">
-          <img src="picture/avatar.jpg" alt="Track Art" class="track-thumb" />
+          <img src="picture/PFP.jpg" alt="Track Art" class="track-thumb" />
           <div class="track-info">
             <div class="track-title-wrap">
-              <span class="track-title" id="track-title">Summertime sadness</span>
+              <span class="track-title" id="track-title">500 Miles</span>
+              <div class="eq-bars" id="eq-bars">
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+              </div>
             </div>
             <div class="track-progress-wrap">
               <span id="curr-time" class="time-label">0:00</span>
@@ -128,20 +131,30 @@
         </div>
 
         <div class="player-controls">
-          <button id="btn-prev" class="ctrl-btn" aria-label="Previous Track">
+          <button id="btn-playlist-toggle" class="ctrl-btn" aria-label="Open Playlist" title="Playlist">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+          </button>
+          <button id="btn-prev" class="ctrl-btn" aria-label="Previous Track" title="Previous">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"></line></svg>
           </button>
-          <button id="btn-play" class="ctrl-btn main-ctrl" aria-label="Play/Pause">
+          <button id="btn-play" class="ctrl-btn main-ctrl" aria-label="Play/Pause" title="Play">
             <svg id="icon-play" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             <svg id="icon-pause" class="hidden" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
           </button>
-          <button id="btn-next" class="ctrl-btn" aria-label="Next Track">
+          <button id="btn-next" class="ctrl-btn" aria-label="Next Track" title="Next">
             <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"></line></svg>
           </button>
 
           <!-- Volume Control -->
           <div class="volume-control-wrap">
-            <button id="btn-vol-mute" class="ctrl-btn" aria-label="Toggle Mute">
+            <button id="btn-vol-mute" class="ctrl-btn" aria-label="Toggle Mute" title="Mute">
               <svg id="vol-icon-high" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
@@ -156,6 +169,18 @@
           </div>
         </div>
       </footer>
+
+      <!-- Sleek Playlist Drawer Popover -->
+      <div id="playlist-drawer" class="playlist-drawer hidden">
+        <div class="playlist-header">
+          <span class="playlist-title">PLAYLIST (8 Tracks)</span>
+          <button id="btn-playlist-close" class="playlist-close" aria-label="Close Playlist">&times;</button>
+        </div>
+        <ul id="playlist-items" class="playlist-items">
+          <!-- Populated by main.js -->
+        </ul>
+      </div>
+
     </div>
   </main>
 
