@@ -1,191 +1,498 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hikaru // Info</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Hikaru — Personal Profile</title>
+
+  <!-- SEO & Social Sharing Metadata -->
+  <meta name="description" content="Hikaru — Personal Profile. Gaming • Coding • Digital Projects.">
+  <meta name="keywords" content="Hikaru, HikaruIR, Developer, Gaming, Profile">
+  <meta name="author" content="Hikaru">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <!-- Open Graph / Discord Embed Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hikaru — Personal Profile">
+  <meta property="og:description" content="Not sure about that🍃 — Gaming • Coding • Digital Projects">
+  <meta property="og:image" content="avatar.jpg">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Hikaru — Personal Profile">
+  <meta property="twitter:description" content="Not sure about that🍃 — Gaming • Coding • Digital Projects">
+  <meta property="twitter:image" content="avatar.jpg">
+
+  <!-- Minimal Monochrome SVG Favicon (Black, Gray, White) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%230a0a0a'/%3E%3Cpath d='M30 25 V75 M70 25 V75 M30 50 H70' stroke='%23ffffff' stroke-width='10' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts: Space Grotesk & Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Alex+Brush&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ===================================================================
+       ★ HIKARU PROFILE CONFIGURATION ★
+       Monochrome Minimalist Setup (Black, Gray, White, Slate)
+       =================================================================== -->
+  <script>
+    window.HIKARU_CONFIG = {
+      // Identity & Bio
+      name: "Hikaru",
+      username: "HikaruIR",
+      bio: "Not sure about that🍃",
+      location: "IRAN",
+      
+      // Media Assets (relative paths for GitHub Pages)
+      avatar: "avatar.jpg",
+      background: "background.jpg",
+
+      // Weather Effect:
+      // "alternate" = Changes automatically between Snow and Rain on each page refresh
+      // "snow"      = Always snow
+      // "rain"      = Always rain
+      // "off"       = No particles (clean background)
+      effect: "alternate",
+
+      // Social & Community Links
+      discordUrl: "https://discord.gg/vYa9e5HCw",
+      githubUrl: "https://github.com/HikaruIR",
+      telegramUrl: "https://t.me/hikaru_mp4",
+      youtubeUrl: "https://www.youtube.com/@Mamad214-11",
+      instagramUrl: "https://instagram.com/",
+
+      // Music Playlist
+      // The audio plays right after clicking the entrance screen
+      playlist: [
+        {
+          title: "Far from Any Road",
+          artist: "The Handsome Family",
+          src: "music.mp3"
+        },
+        {
+          title: "Army Dreamers",
+          artist: "Kate Bush",
+          src: "music2.mp3"
+        }
+      ],
+
+      // Statistics (Real visits only, no fake numbers)
+      stats: {
+        projectsCount: "4"
+      }
+    };
+  </script>
 </head>
 <body>
-  <!-- Ambient Audio Overlay (Click to enter) -->
-  <div id="enter-overlay" class="enter-overlay">
+
+  <!-- Dynamic Animated Weather Canvas (Snow / Rain in Monochrome) -->
+  <canvas id="weather-canvas" aria-hidden="true"></canvas>
+
+  <!-- Background Media & Atmospheric Overlays (Pure Dark / Monochrome) -->
+  <div id="bg-media" class="bg-media" aria-hidden="true"></div>
+  <div class="bg-gradient-overlay" aria-hidden="true"></div>
+  <div class="bg-radial-glow" id="mouse-glow" aria-hidden="true"></div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+
+  <!-- Custom Cursor (Desktop only - Monochrome) -->
+  <div id="cursor-dot" class="custom-cursor dot" aria-hidden="true"></div>
+  <div id="cursor-ring" class="custom-cursor ring" aria-hidden="true"></div>
+
+  <!-- ===================================================================
+       1. INITIAL ENTER SCREEN (guns.lol minimal style)
+       =================================================================== -->
+  <section id="enter-screen" class="enter-screen" role="dialog" aria-label="Welcome Entrance Screen">
     <div class="enter-content">
-      <span class="enter-title">HIKARU</span>
-      <span class="enter-sub">[ CLICK ANYWHERE TO ENTER ]</span>
-    </div>
-  </div>
-
-  <!-- Background Layer -->
-  <div class="bg-wrapper">
-    <img src="picture/Background.jpg" onerror="this.onerror=null; this.src='picture/bg.jpg';" alt="Background" class="bg-img" id="bg-image-el" />
-    <div class="bg-vignette"></div>
-    <div class="bg-scanline"></div>
-    <canvas id="particle-canvas"></canvas>
-  </div>
-
-  <!-- Audio Toggle Top Left -->
-  <button id="audio-toggle" class="audio-btn" aria-label="Toggle Audio" title="Mute / Unmute">
-    <svg id="icon-volume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-    </svg>
-    <svg id="icon-muted" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <line x1="23" y1="9" x2="17" y2="15"></line>
-      <line x1="17" y1="9" x2="23" y2="15"></line>
-    </svg>
-  </button>
-
-  <!-- Main Profile Container -->
-  <main class="page-container">
-    <div class="profile-stack" id="tilt-card">
-      
-      <!-- Sleek Profile Banner -->
-      <div class="profile-banner-wrap">
-        <img src="picture/banner.jpg" onerror="this.onerror=null; this.src='picture/Banner.jpg';" alt="Profile Banner" class="banner-img" />
-        <div class="banner-fade"></div>
+      <div class="enter-monogram" aria-hidden="true">
+        <span>H</span>
       </div>
+      <h1 class="enter-title">Hikaru</h1>
+      <p class="enter-subtitle">[ click to enter ]</p>
+      <div class="enter-audio-hint">
+        <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <span>audio enabled on click</span>
+      </div>
+    </div>
+  </section>
 
-      <!-- Avatar Section -->
-      <section class="avatar-section">
-        <div class="avatar-halo">
-          <div class="avatar-circle">
-            <img src="picture/avatar.jpg" onerror="this.onerror=null; this.src='picture/PFP.jpg';" alt="Hikaru Avatar" class="avatar-img" />
+  <!-- ===================================================================
+       2. MAIN PROFILE APPLICATION WRAPPER
+       =================================================================== -->
+  <main id="main-wrapper" class="main-wrapper hidden" aria-label="Main Profile Page">
+
+    <!-- Top Floating Quick Controls -->
+    <header class="top-bar">
+      <div class="quick-controls">
+        <!-- Weather effect toggle (Snow / Rain / Off) -->
+        <button id="weather-toggle" class="control-btn" title="Toggle Weather Effect (Snow / Rain / Off)" aria-label="Toggle Weather Effect">
+          <span class="control-icon" id="weather-icon">❄️</span>
+          <span class="control-label" id="weather-label">Snow</span>
+        </button>
+
+        <!-- Audio mute/unmute quick toggle -->
+        <button id="quick-mute-toggle" class="control-btn" title="Toggle Audio (M)" aria-label="Toggle Audio">
+          <svg id="quick-audio-icon" class="control-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+          <span class="control-label" id="quick-audio-label">Sound On</span>
+        </button>
+
+        <!-- Share profile button -->
+        <button id="share-btn" class="control-btn" title="Copy profile link" aria-label="Copy Profile Link">
+          <svg class="control-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+            <polyline points="16 6 12 2 8 6"></polyline>
+            <line x1="12" y1="2" x2="12" y2="15"></line>
+          </svg>
+          <span class="control-label">Share</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Centered Guns.lol Style Profile Card -->
+    <article id="profile-card" class="profile-card">
+
+      <!-- Profile Header / Identity Section -->
+      <header class="profile-header">
+        <div class="avatar-container">
+          <div class="avatar-wrapper">
+            <img id="profile-avatar" class="avatar-img" src="avatar.jpg" alt="Hikaru's Avatar" loading="eager">
           </div>
-          <div class="avatar-badge">夜</div>
         </div>
 
-        <h1 class="profile-name">Hikaru</h1>
-        <p class="profile-tagline">Poor Iranian</p>
+        <div class="identity-info">
+          <div class="name-badge-row">
+            <h2 id="profile-name" class="profile-name">Hikaru</h2>
+            <!-- Minimalist Sparkle Badge -->
+            <span class="verified-badge" title="Hikaru">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="badge-svg">
+                <path d="M12 2l2.4 6.6L21 11l-5.4 4.4L17 22l-5-3.8L7 22l1.4-6.6L3 11l6.6-2.4L12 2z"/>
+              </svg>
+            </span>
+          </div>
 
-        <div class="location-badge">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="badge-pin">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-          <span>IRAN</span>
+          <div class="sub-identity-row">
+            <span id="profile-username" class="profile-handle">@HikaruIR</span>
+            <span class="identity-separator">•</span>
+            <span class="location-badge">
+              <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span id="profile-location">IRAN</span>
+            </span>
+          </div>
+
+          <!-- Bio -->
+          <p id="profile-bio" class="profile-bio">"Not sure about that🍃"</p>
+
+          <!-- Badges / Role Tags -->
+          <div class="tags-row">
+            <span class="tag-pill">Gaming</span>
+            <span class="tag-pill">Coding</span>
+            <span class="tag-pill">Digital Projects</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Real Statistics Section (Real visitor views, no fake numbers) -->
+      <section class="stats-grid" aria-label="Profile Statistics">
+        <div class="stat-card">
+          <span class="stat-number" id="stat-views">1</span>
+          <span class="stat-label">Profile Views</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <span class="stat-number" id="stat-projects">4</span>
+          <span class="stat-label">Projects</span>
         </div>
       </section>
 
-      <!-- Discord / Activity Micro-Badge (USA tag removed) -->
-      <section class="presence-card">
-        <div class="presence-avatar-wrap">
-          <img src="picture/avatar.jpg" onerror="this.onerror=null; this.src='picture/PFP.jpg';" alt="Status Avatar" class="presence-avatar" />
-          <span class="status-indicator online"></span>
-        </div>
-        <div class="presence-details">
-          <div class="presence-head">
-            <span class="presence-user">hikaru.mp4</span>
-          </div>
-          <span class="presence-status">Not seen 5 hours ago</span>
-        </div>
-      </section>
+      <!-- Interactive Social Links Grid (Monochrome) -->
+      <section class="socials-section" aria-label="Social Media Links">
+        <h3 class="section-title">Connections</h3>
+        <div class="socials-grid">
 
-      <!-- Social Links (Clean glowing icons) -->
-      <nav class="socials-row">
-        <a href="https://discord.gg/ZztbZfDGD" target="_blank" rel="noopener" class="social-icon" title="Discord" aria-label="Discord">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-          </svg>
-        </a>
-        <a href="https://github.com/HikaruIR" target="_blank" rel="noopener" class="social-icon" title="GitHub" aria-label="GitHub">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-          </svg>
-        </a>
-      </nav>
-
-      <!-- Music Player Bar -->
-      <footer class="player-bar">
-        <div class="player-views" title="Total Views">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="view-icon">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-          <span id="view-count">3</span>
-        </div>
-
-        <div class="player-track">
-          <img src="picture/avatar.jpg" onerror="this.onerror=null; this.src='picture/PFP.jpg';" alt="Track Art" class="track-thumb" />
-          <div class="track-info">
-            <div class="track-title-wrap">
-              <span class="track-title" id="track-title">500 Miles</span>
-              <div class="eq-bars" id="eq-bars">
-                <span class="eq-bar"></span>
-                <span class="eq-bar"></span>
-                <span class="eq-bar"></span>
-                <span class="eq-bar"></span>
-              </div>
+          <!-- Discord -->
+          <a id="link-discord" href="https://discord.gg/vYa9e5HCw" target="_blank" rel="noopener noreferrer" class="social-item">
+            <div class="social-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="social-svg">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+              </svg>
             </div>
-            <div class="track-progress-wrap">
-              <span id="curr-time" class="time-label">0:00</span>
-              <div class="progress-bar-container" id="progress-container">
-                <div class="progress-fill" id="progress-fill"></div>
-              </div>
-              <span id="total-time" class="time-label">0:00</span>
+            <div class="social-details">
+              <span class="social-title">Discord</span>
+              <span class="social-subtitle">discord.gg/vYa9e5HCw</span>
             </div>
-          </div>
-        </div>
-
-        <div class="player-controls">
-          <button id="btn-playlist-toggle" class="ctrl-btn" aria-label="Open Playlist" title="Playlist">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="8" y1="6" x2="21" y2="6"></line>
-              <line x1="8" y1="12" x2="21" y2="12"></line>
-              <line x1="8" y1="18" x2="21" y2="18"></line>
-              <line x1="3" y1="6" x2="3.01" y2="6"></line>
-              <line x1="3" y1="12" x2="3.01" y2="12"></line>
-              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
             </svg>
-          </button>
-          <button id="btn-prev" class="ctrl-btn" aria-label="Previous Track" title="Previous">
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"></line></svg>
-          </button>
-          <button id="btn-play" class="ctrl-btn main-ctrl" aria-label="Play/Pause" title="Play">
-            <svg id="icon-play" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            <svg id="icon-pause" class="hidden" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-          </button>
-          <button id="btn-next" class="ctrl-btn" aria-label="Next Track" title="Next">
-            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"></line></svg>
-          </button>
+          </a>
 
-          <!-- Volume Control -->
-          <div class="volume-control-wrap">
-            <button id="btn-vol-mute" class="ctrl-btn" aria-label="Toggle Mute" title="Mute">
-              <svg id="vol-icon-high" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <!-- GitHub -->
+          <a id="link-github" href="https://github.com/HikaruIR" target="_blank" rel="noopener noreferrer" class="social-item">
+            <div class="social-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="social-svg">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+            </div>
+            <div class="social-details">
+              <span class="social-title">GitHub</span>
+              <span class="social-subtitle">@HikaruIR</span>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+
+          <!-- Telegram -->
+          <a id="link-telegram" href="https://t.me/hikaru_mp4" target="_blank" rel="noopener noreferrer" class="social-item">
+            <div class="social-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="social-svg">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.536-.194 1.006.131.837.945z"/>
+              </svg>
+            </div>
+            <div class="social-details">
+              <span class="social-title">Telegram</span>
+              <span class="social-subtitle">@hikaru_mp4</span>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+
+          <!-- YouTube -->
+          <a id="link-youtube" href="https://www.youtube.com/@Mamad214-11" target="_blank" rel="noopener noreferrer" class="social-item">
+            <div class="social-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="social-svg">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </div>
+            <div class="social-details">
+              <span class="social-title">YouTube</span>
+              <span class="social-subtitle">@Mamad214-11</span>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+
+          <!-- Instagram -->
+          <a id="link-instagram" href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="social-item">
+            <div class="social-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="social-svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </div>
+            <div class="social-details">
+              <span class="social-title">Instagram</span>
+              <span class="social-subtitle">Follow</span>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section class="projects-section" aria-label="Projects Showcase">
+        <h3 class="section-title">Projects</h3>
+        <div class="projects-grid">
+
+          <!-- Project 1: Discord Bots -->
+          <div class="project-card">
+            <div class="project-icon-wrap">
+              <svg class="project-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <div class="project-content">
+              <div class="project-header">
+                <h4 class="project-title">Discord Bots</h4>
+                <span class="project-tag">Active</span>
+              </div>
+              <p class="project-desc">Advanced multi-purpose Discord bots featuring moderation, custom commands & web dashboards.</p>
+            </div>
+          </div>
+
+          <!-- Project 2: Ocean CEO -->
+          <div class="project-card">
+            <div class="project-icon-wrap">
+              <svg class="project-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <div class="project-content">
+              <div class="project-header">
+                <h4 class="project-title">Ocean CEO</h4>
+                <span class="project-tag">Venture</span>
+              </div>
+              <p class="project-desc">Strategic digital venture, leadership operations, and community ecosystem architecture.</p>
+            </div>
+          </div>
+
+          <!-- Project 3: AI Tools -->
+          <div class="project-card">
+            <div class="project-icon-wrap">
+              <svg class="project-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <div class="project-content">
+              <div class="project-header">
+                <h4 class="project-title">AI Tools</h4>
+                <span class="project-tag">Research</span>
+              </div>
+              <p class="project-desc">Autonomous intelligent agents, prompt systems, and generative neural automation tools.</p>
+            </div>
+          </div>
+
+          <!-- Project 4: Web Projects -->
+          <div class="project-card">
+            <div class="project-icon-wrap">
+              <svg class="project-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <div class="project-content">
+              <div class="project-header">
+                <h4 class="project-title">Web Projects</h4>
+                <span class="project-tag">Design</span>
+              </div>
+              <p class="project-desc">Ultra-fast, aesthetic modern web applications built with dark cyber minimalism.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Music Player Bar (guns.lol Minimalist Style) -->
+      <section class="music-player-card" id="music-player" aria-label="Background Music Player">
+        <!-- Hidden HTML5 Audio Element -->
+        <audio id="audio-element" preload="auto"></audio>
+
+        <div class="player-top-row">
+          <!-- Spinning Vinyl / Album Art -->
+          <div class="album-art-wrap" id="album-disc">
+            <div class="vinyl-disc">
+              <div class="vinyl-groove"></div>
+              <div class="vinyl-center"></div>
+            </div>
+          </div>
+
+          <!-- Song Meta & Visualizer -->
+          <div class="song-info">
+            <div class="song-title-row">
+              <span class="song-title" id="song-title">Far from Any Road</span>
+              <div class="audio-equalizer" id="audio-equalizer" aria-hidden="true">
+                <span class="eq-bar bar-1"></span>
+                <span class="eq-bar bar-2"></span>
+                <span class="eq-bar bar-3"></span>
+                <span class="eq-bar bar-4"></span>
+                <span class="eq-bar bar-5"></span>
+              </div>
+            </div>
+            <span class="song-artist" id="song-artist">The Handsome Family</span>
+          </div>
+
+          <!-- Controls: Prev, Play/Pause, Next -->
+          <div class="player-controls">
+            <button id="btn-prev" class="player-btn" title="Previous Track" aria-label="Previous Track">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="19 20 9 12 19 4 19 20"></polygon>
+                <line x1="5" y1="19" x2="5" y2="5"></line>
+              </svg>
+            </button>
+
+            <button id="btn-play-pause" class="player-btn main-play-btn" title="Play/Pause" aria-label="Play or Pause Track">
+              <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" class="hidden">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            </button>
+
+            <button id="btn-next" class="player-btn" title="Next Track" aria-label="Next Track">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                <line x1="19" y1="5" x2="19" y2="19"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive Scrubbing Bar -->
+        <div class="player-progress-container">
+          <span class="time-label" id="current-time">0:00</span>
+          <div class="progress-bar-wrap" id="progress-bar-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="progress-bar-fill"></div>
+              <div class="progress-thumb" id="progress-thumb"></div>
+            </div>
+          </div>
+          <span class="time-label" id="duration-time">0:00</span>
+        </div>
+
+        <!-- Bottom Row: Volume Slider & Track Indicator -->
+        <div class="player-bottom-row">
+          <div class="playlist-pill">
+            <span class="playlist-dot"></span>
+            <span id="track-indicator">Track 1 of 2</span>
+          </div>
+
+          <div class="volume-container">
+            <button id="volume-toggle-btn" class="volume-btn" title="Mute/Unmute" aria-label="Mute or Unmute">
+              <svg id="volume-svg-high" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
               </svg>
-              <svg id="vol-icon-muted" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <svg id="volume-svg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
                 <line x1="23" y1="9" x2="17" y2="15"></line>
                 <line x1="17" y1="9" x2="23" y2="15"></line>
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
               </svg>
             </button>
-            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.75" class="volume-slider" aria-label="Volume Slider" />
+            <input type="range" id="volume-slider" min="0" max="1" step="0.02" value="0.5" class="volume-range" aria-label="Volume Slider">
           </div>
         </div>
+      </section>
+
+      <!-- Profile Footer -->
+      <footer class="profile-footer">
+        <p class="footer-text">Hikaru • Personal Profile</p>
+        <span class="footer-credit">guns.lol aesthetic • minimal</span>
       </footer>
 
-      <!-- Sleek Playlist Drawer Popover -->
-      <div id="playlist-drawer" class="playlist-drawer hidden">
-        <div class="playlist-header">
-          <span class="playlist-title">PLAYLIST (8 Tracks)</span>
-          <button id="btn-playlist-close" class="playlist-close" aria-label="Close Playlist">&times;</button>
-        </div>
-        <ul id="playlist-items" class="playlist-items">
-          <!-- Populated by main.js -->
-        </ul>
-      </div>
-
-    </div>
+    </article>
   </main>
 
-  <audio id="audio-player" preload="auto"></audio>
+  <!-- Interactive Feedback Toast (Monochrome) -->
+  <div id="toast" class="toast" role="alert" aria-live="polite">
+    <span id="toast-message">Copied to clipboard!</span>
+  </div>
+
+  <!-- Main JavaScript Logic -->
   <script src="main.js"></script>
 </body>
 </html>
-
