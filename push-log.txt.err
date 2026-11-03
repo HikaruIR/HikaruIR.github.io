@@ -1,6 +1,0 @@
-Pushing to https://github.com/HikaruIR/HikaruIR.github.io.git
-POST git-receive-pack (56653632 bytes)
-error: RPC failed; curl 55 Send failure: Connection was reset
-send-pack: unexpected disconnect while reading sideband packet
-fatal: the remote end hung up unexpectedly
-Everything up-to-date
