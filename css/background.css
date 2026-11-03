@@ -1,0 +1,196 @@
+/* ============================================================================
+   LOVELY HIKARU — BACKGROUND SYSTEM
+   Poster / video / image background, darkening, CRT texture.
+   Values are injected by js/background.js from SITE.background.
+   ========================================================================== */
+
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #050505;
+  pointer-events: none;
+}
+
+/* still frame — also the fallback if video fails, and the reduced-motion view */
+.bg__poster {
+  position: absolute;
+  inset: -2%;
+  background-color: #0a0c0b;
+  background-image: url("../assets/backgrounds/poster.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: grayscale(0.25) contrast(1.02) brightness(0.9);
+  opacity: 1;
+  transition: opacity 1.2s var(--ease);
+}
+
+.bg__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(0.38) contrast(1.05) brightness(0.82) saturate(0.72);
+  opacity: 0;
+  transition: opacity 1.6s var(--ease);
+}
+
+.bg__video.is-loaded {
+  opacity: 1;
+}
+
+/* when an image/GIF is used as the background instead of a video */
+.bg.is-image .bg__poster {
+  filter: grayscale(0.2) contrast(1.02) brightness(0.88);
+}
+
+/* cursor spotlight — extremely subtle green bloom */
+.bg__spotlight {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    460px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(134, 224, 165, 0.055),
+    rgba(134, 224, 165, 0.018) 38%,
+    transparent 68%
+  );
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+}
+
+body.has-pointer .bg__spotlight {
+  opacity: 1;
+}
+
+/* darkening layer — strength from SITE.background.overlay */
+.bg__overlay {
+  position: absolute;
+  inset: 0;
+  background: #050505;
+  opacity: var(--bg-dim, 0.62);
+}
+
+/* faint technical grid, masked at the edges */
+.bg__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      to right,
+      rgba(236, 238, 233, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(236, 238, 233, 0.03) 1px, transparent 1px);
+  background-size: 88px 88px;
+  background-position: center;
+  opacity: 0.55;
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 42%,
+    #000 0%,
+    transparent 74%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 50% 42%,
+    #000 0%,
+    transparent 74%
+  );
+}
+
+/* CRT scanlines */
+.bg__scanlines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.016) 0,
+    rgba(255, 255, 255, 0.016) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.6;
+}
+
+/* animated film grain */
+.bg__grain {
+  position: absolute;
+  inset: -120px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.045;
+  animation: grain-shift 0.9s steps(4) infinite;
+  will-change: transform;
+}
+
+@keyframes grain-shift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(-3%, 2%, 0);
+  }
+  50% {
+    transform: translate3d(2%, -2%, 0);
+  }
+  75% {
+    transform: translate3d(-2%, -3%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* edge vignette */
+.bg__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      ellipse 82% 72% at 50% 46%,
+      transparent 32%,
+      rgba(5, 5, 5, 0.42) 78%,
+      rgba(5, 5, 5, 0.78) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(5, 5, 5, 0.55) 0%,
+      transparent 18%,
+      transparent 78%,
+      rgba(5, 5, 5, 0.65) 100%
+    );
+}
+
+/* readability dim behind the profile column */
+.stage::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    56% 48% at 50% 46%,
+    rgba(5, 5, 5, var(--focus-dim, 0.28)),
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+/* image mode: video hidden, poster shown */
+.bg.is-image .bg__video {
+  display: none;
+}
+
+/* feature switches from config */
+body.no-grain .bg__grain,
+body.no-scanlines .bg__scanlines,
+body.no-grid .bg__grid,
+body.no-spotlight .bg__spotlight {
+  display: none;
+}
+
+/* reduced motion: freeze the grain */
+@media (prefers-reduced-motion: reduce) {
+  .bg__grain {
+    animation: none;
+  }
+}

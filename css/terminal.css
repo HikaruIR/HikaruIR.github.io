@@ -1,0 +1,417 @@
+/* ============================================================================
+   LOVELY HIKARU — INTERACTIVE TERMINAL
+   ========================================================================== */
+
+.terminal-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.terminal-layer[hidden] {
+  display: none;
+}
+
+.terminal-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 4, 3, 0.7);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+}
+
+.terminal-layer.is-open .terminal-scrim {
+  opacity: 1;
+}
+
+.terminal {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  max-height: none;
+  display: flex;
+  flex-direction: column;
+  background: #060706;
+  border: 0;
+  box-shadow: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.terminal-layer.is-open .terminal {
+  opacity: 1;
+  transform: none;
+}
+
+/* full-screen surface: no floating-window chrome */
+.terminal::before,
+.terminal::after {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Window bar
+   -------------------------------------------------------------------------- */
+.terminal__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 46px;
+  flex: 0 0 auto;
+  padding: 0 clamp(16px, 4vw, 56px);
+  border-bottom: 1px solid var(--line);
+  background: rgba(10, 12, 11, 0.82);
+}
+
+.terminal__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.terminal__dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+}
+
+.terminal__dots i:first-child {
+  background: rgba(134, 224, 165, 0.4);
+  border-color: var(--green-line);
+}
+
+.terminal__title {
+  flex: 1;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.terminal__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminal__badge {
+  padding: 2px 6px;
+  border: 1px solid var(--line-soft);
+  color: var(--dim);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.terminal__close {
+  width: 26px;
+  height: 26px;
+}
+
+/* --------------------------------------------------------------------------
+   Body
+   -------------------------------------------------------------------------- */
+.terminal__body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px clamp(18px, 5vw, 80px) 12px;
+  background: radial-gradient(
+    120% 80% at 50% 0%,
+    rgba(134, 224, 165, 0.022),
+    transparent 62%
+  );
+}
+
+.terminal__banner,
+.terminal__output,
+.terminal__promptline {
+  width: 100%;
+  max-width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.terminal__ascii {
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.14;
+  letter-spacing: 0.02em;
+  white-space: pre;
+  overflow: hidden;
+  color: rgba(134, 224, 165, 0.24);
+  text-shadow: 0 0 22px rgba(134, 224, 165, 0.08);
+}
+
+.terminal__banner {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+.terminal__banner b {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.terminal__banner .dim {
+  color: var(--dim);
+  font-size: 11px;
+}
+
+.terminal__banner .accent {
+  color: var(--green);
+}
+
+.terminal__output {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 14px 2px 10px;
+  color: var(--fg-soft);
+  font-size: 13px;
+  line-height: 1.78;
+  letter-spacing: 0.01em;
+  scroll-behavior: smooth;
+}
+
+.term-line {
+  min-height: 1.78em;
+  overflow-wrap: anywhere;
+}
+
+.term-line--input {
+  color: var(--fg);
+  margin-top: 2px;
+}
+
+.term-line__ps1 {
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.term-line__cmd {
+  color: var(--fg);
+}
+
+.term-line--dim {
+  color: var(--muted);
+}
+
+.term-line--ok {
+  color: var(--green);
+}
+
+.term-line--err {
+  color: var(--err);
+}
+
+.term-line--accent {
+  color: var(--green);
+}
+
+.term-line--pre {
+  white-space: pre;
+  overflow-x: auto;
+  font-size: 10.5px;
+  line-height: 1.25;
+  color: #dfe4dd;
+}
+
+.term-line--gap {
+  min-height: 0.7em;
+}
+
+.term-line .dim {
+  color: var(--dim);
+}
+
+.term-line .muted {
+  color: var(--muted);
+}
+
+.term-line .accent,
+.term-line .ok {
+  color: var(--green);
+}
+
+.term-line .err {
+  color: var(--err);
+}
+
+.term-line.is-typing::after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 11px;
+  margin-left: 3px;
+  vertical-align: -1px;
+  background: var(--green);
+  animation: blink 1s steps(1) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Prompt / input
+   -------------------------------------------------------------------------- */
+.terminal__promptline {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex: 0 0 auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 13px;
+}
+
+.terminal__ps1 {
+  white-space: nowrap;
+  color: var(--muted);
+  cursor: text;
+}
+
+.ps1__user,
+.ps1__host {
+  color: var(--green);
+}
+
+.ps1__punct {
+  color: var(--dim);
+}
+
+.ps1__path {
+  color: var(--fg-soft);
+}
+
+.ps1__symbol {
+  margin-left: 2px;
+  color: var(--green);
+}
+
+.terminal__input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.terminal__input {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  caret-color: var(--green);
+}
+
+.terminal__input::placeholder {
+  color: transparent;
+}
+
+.terminal__input:focus {
+  outline: none;
+}
+
+.terminal__caret {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 8px;
+  height: 15px;
+  transform: translateY(-50%);
+  background: var(--green);
+  animation: blink 1.05s steps(1) infinite;
+  pointer-events: none;
+}
+
+.terminal__input:not(:placeholder-shown) + .terminal__caret {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Footer / hints
+   -------------------------------------------------------------------------- */
+.terminal__hints {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  padding: 10px clamp(18px, 5vw, 80px);
+  border-top: 1px solid var(--line);
+  background: rgba(10, 12, 11, 0.42);
+}
+
+.terminal__keys {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ghost);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.terminal__keys kbd {
+  font-size: 8.5px;
+  padding: 1px 4px;
+  color: var(--muted);
+}
+
+.terminal__chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.term-chip {
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  transition: color 0.2s ease, border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.term-chip:hover,
+.term-chip:focus-visible {
+  color: var(--green);
+  border-color: var(--green-line);
+  background: var(--green-soft);
+}
+
+/* body scroll lock while the terminal is open */
+body.terminal-open .topbar,
+body.terminal-open .player,
+body.terminal-open .colophon,
+body.terminal-open .playlist {
+  pointer-events: none;
+}

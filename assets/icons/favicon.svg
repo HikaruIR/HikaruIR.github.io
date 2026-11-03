@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HIKARU">
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#050505"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#86E0A5" stroke-opacity="0.55" stroke-width="2"/>
+  <path d="M19 22 30 32 19 42" fill="none" stroke="#86E0A5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M36 42h10" fill="none" stroke="#86E0A5" stroke-width="6" stroke-linecap="round"/>
+</svg>

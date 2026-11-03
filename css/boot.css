@@ -1,0 +1,468 @@
+/* ============================================================================
+   LOVELY HIKARU — BOOT / LOADING SCREEN
+   ========================================================================== */
+
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 5vw, 48px);
+  background: radial-gradient(
+      100% 80% at 50% -10%,
+      #0b100d 0%,
+      #050605 52%,
+      #050505 100%
+    );
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease),
+    visibility 0s linear 0.85s;
+}
+
+.boot.is-done {
+  opacity: 0;
+  transform: scale(1.015);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.boot__frame {
+  position: absolute;
+  inset: clamp(12px, 2.6vw, 30px);
+  border: 1px solid var(--line-soft);
+  pointer-events: none;
+}
+
+.boot__frame::before,
+.boot__frame::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 1px;
+  background: var(--green-line);
+  opacity: 0.7;
+}
+
+.boot__frame::before {
+  top: -1px;
+  left: 32px;
+}
+
+.boot__frame::after {
+  bottom: -1px;
+  right: 32px;
+}
+
+
+/* full-screen terminal chrome — matches the in-page terminal */
+.boot__bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 46px;
+  padding: 0 clamp(16px, 4vw, 56px);
+  border-bottom: 1px solid var(--line);
+  background: rgba(10, 12, 11, 0.82);
+}
+
+.boot__bar-title {
+  flex: 1;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.boot__bar-meta {
+  display: flex;
+  align-items: center;
+}
+
+.boot {
+  padding-top: clamp(70px, 8vw, 96px);
+}
+
+.boot__inner {
+  width: min(640px, 100%);
+  animation: fade-up 0.7s var(--ease) both;
+}
+
+.boot__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.boot__brand {
+  color: var(--fg-soft);
+  letter-spacing: 0.3em;
+}
+
+.boot__ver {
+  color: var(--ghost);
+  letter-spacing: 0.2em;
+}
+
+.boot__ascii {
+  margin: clamp(22px, 4vw, 34px) 0 0;
+  font-family: var(--mono);
+  font-size: clamp(7.5px, 1.9vw, 12.5px);
+  line-height: 1.12;
+  letter-spacing: 0.04em;
+  color: #dfe4dd;
+  white-space: pre;
+  overflow: hidden;
+  text-shadow: 0 0 26px rgba(236, 238, 233, 0.12),
+    0 0 70px rgba(134, 224, 165, 0.06);
+}
+
+.boot__sub {
+  margin-top: 14px;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.boot__sub .dim {
+  color: var(--ghost);
+}
+
+/* --------------------------------------------------------------------------
+   Log
+   -------------------------------------------------------------------------- */
+.boot__log {
+  margin-top: clamp(22px, 3.5vw, 32px);
+  min-height: 148px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 11.5px;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+}
+
+.boot__line {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: baseline;
+  color: var(--fg-soft);
+  animation: boot-line-in 0.28s var(--ease) both;
+}
+
+@keyframes boot-line-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.boot__stamp {
+  color: var(--ghost);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.boot__text {
+  overflow-wrap: anywhere;
+}
+
+.boot__tag {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.boot__tag.is-dim {
+  color: var(--dim);
+}
+
+.boot__line.is-ready {
+  color: var(--green);
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+.boot__line.is-ready .boot__text::before {
+  content: "> ";
+  color: var(--green);
+}
+
+.boot__caret-inline {
+  display: inline-block;
+  width: 7px;
+  height: 12px;
+  margin-left: 4px;
+  background: var(--green);
+  vertical-align: -1px;
+  animation: blink 1.05s steps(1) infinite;
+}
+
+.boot__line .boot__caret-inline {
+  background: var(--green);
+}
+
+/* --------------------------------------------------------------------------
+   Terminal gate
+   -------------------------------------------------------------------------- */
+.boot {
+  overflow-y: auto;
+}
+
+.boot__inner {
+  margin: auto;
+}
+
+.boot__gate {
+  margin-top: 24px;
+  animation: fade-up 0.6s var(--ease) both;
+}
+
+.boot__gate[hidden] {
+  display: none;
+}
+
+.boot__gate-output {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-height: 240px;
+  margin-bottom: 12px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.boot__gate-output:empty {
+  display: none;
+}
+
+.boot__gate-line {
+  color: var(--muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.boot__gate-line.is-dim {
+  color: var(--dim);
+}
+
+.boot__gate-line.is-accent {
+  color: var(--fg-soft);
+}
+
+.boot__gate-line.is-ok {
+  color: var(--green);
+}
+
+.boot__gate-line.is-err {
+  color: var(--err);
+}
+
+.boot__gate-line.is-input {
+  color: var(--fg);
+}
+
+.boot__promptline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  background: rgba(5, 6, 5, 0.55);
+  transition: border-color 0.25s ease, background-color 0.25s ease,
+    box-shadow 0.3s ease;
+}
+
+.boot__promptline:focus-within {
+  border-color: var(--green-line);
+  background: rgba(134, 224, 165, 0.03);
+  box-shadow: 0 0 30px rgba(134, 224, 165, 0.07);
+}
+
+.boot__ps1 {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  font-size: 12.5px;
+  white-space: nowrap;
+  cursor: text;
+}
+
+.boot__ps1 .ps1__user,
+.boot__ps1 .ps1__host {
+  color: var(--green);
+}
+
+.boot__ps1 .ps1__punct {
+  color: var(--dim);
+}
+
+.boot__ps1 .ps1__path {
+  color: var(--fg-soft);
+}
+
+.boot__ps1 .ps1__symbol {
+  margin-left: 2px;
+  color: var(--green);
+}
+
+.boot__inputwrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.boot__input {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+  caret-color: var(--green);
+}
+
+.boot__input:focus {
+  outline: none;
+}
+
+.boot__input::placeholder {
+  color: transparent;
+}
+
+.boot__input:disabled {
+  opacity: 0.6;
+}
+
+.boot__cursor {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 8px;
+  height: 16px;
+  transform: translateY(-50%);
+  background: var(--green);
+  animation: blink 1.05s steps(1) infinite;
+  pointer-events: none;
+}
+
+.boot__input:not(:placeholder-shown) + .boot__cursor {
+  display: none;
+}
+
+.boot__hint {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+}
+
+.boot__hint kbd {
+  margin: 0 1px;
+}
+
+.boot__cmd {
+  color: var(--green);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.boot__go {
+  margin-left: auto;
+  padding: 5px 12px;
+  border: 1px solid var(--green-line);
+  background: rgba(134, 224, 165, 0.045);
+  color: var(--fg-soft);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: color 0.22s ease, border-color 0.22s ease,
+    background-color 0.22s ease, box-shadow 0.25s ease;
+}
+
+.boot__go:hover,
+.boot__go:focus-visible {
+  color: var(--green);
+  border-color: var(--green);
+  background: var(--green-soft);
+  box-shadow: 0 0 22px rgba(134, 224, 165, 0.12);
+}
+
+.boot__note {
+  margin-top: 10px;
+  color: var(--ghost);
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Boot footer
+   -------------------------------------------------------------------------- */
+.boot__foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 clamp(16px, 4vw, 56px);
+  border-top: 1px solid var(--line);
+  background: rgba(8, 9, 8, 0.75);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ghost);
+}
+
+.boot__foot .dot {
+  margin-right: 7px;
+  vertical-align: 1px;
+}
+
+/* skip loading: no long typewriter for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .boot__line {
+    animation: none;
+  }
+}

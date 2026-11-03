@@ -1,0 +1,809 @@
+/* ============================================================================
+   LOVELY HIKARU — RESPONSIVE
+   Desktop → tablet → phone, plus short-viewport and touch adjustments.
+   ========================================================================== */
+
+/* viewport height fallbacks + safe areas */
+.stage {
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .player {
+    bottom: calc(var(--player-bottom) + env(safe-area-inset-bottom));
+  }
+
+  .playlist {
+    bottom: calc(
+      var(--player-h) + var(--player-bottom) + 12px + env(safe-area-inset-bottom)
+    );
+  }
+
+  .stage {
+    padding-bottom: calc(
+      var(--player-h) + var(--player-bottom) + 40px + env(safe-area-inset-bottom)
+    );
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Large desktop
+   -------------------------------------------------------------------------- */
+@media (max-width: 1500px) {
+  .colophon span:nth-child(n + 2) {
+    display: none;
+  }
+}
+
+@media (max-width: 1240px) {
+  .colophon {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .profile__rail {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .topbar__mid {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Tablet / small laptop — player becomes a compact console
+   -------------------------------------------------------------------------- */
+@media (max-width: 880px) {
+  :root {
+    --player-h: 124px;
+    --player-bottom: 14px;
+  }
+
+  .player {
+    height: auto;
+    min-height: var(--player-h);
+    grid-template-columns: 44px minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "art meta controls list"
+      "timeline timeline timeline timeline"
+      "volume volume volume volume";
+    align-items: center;
+    gap: 5px 10px;
+    padding: 12px 14px;
+  }
+
+  .player__art {
+    width: 44px;
+    height: 44px;
+  }
+
+  .player__eq {
+    display: none;
+  }
+
+  .player__controls {
+    gap: 2px;
+  }
+
+  .player__list-btn {
+    justify-self: end;
+  }
+
+  .player__timeline {
+    gap: 8px;
+  }
+
+  .player__time {
+    min-width: 29px;
+  }
+
+  .player__volume {
+    gap: 8px;
+  }
+
+  .player__volume .range {
+    width: auto;
+    flex: 1;
+  }
+
+  .profile__hint {
+    max-width: 460px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Small tablet
+   -------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  :root {
+    --gutter: 18px;
+    --topbar-h: 60px;
+  }
+
+  .topbar {
+    padding: 0 var(--gutter);
+  }
+
+  .brand__tag,
+  .term-btn__key {
+    display: none;
+  }
+
+  .profile {
+    padding: 10px 0 6px;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 24px;
+  }
+
+  .avatar__ring {
+    inset: -7px;
+  }
+
+  .profile__name {
+    font-size: clamp(38px, 9vw, 50px);
+    letter-spacing: 0.22em;
+    text-indent: 0.22em;
+  }
+
+  .profile__bio {
+    font-size: 14px;
+    padding: 0 8px;
+  }
+
+  .socials {
+    margin-top: 22px;
+    max-width: 460px;
+  }
+
+  .datastrip {
+    margin-top: 24px;
+    max-width: 460px;
+  }
+
+  .profile__hint {
+    margin-top: 18px;
+    font-size: 8px;
+    gap: 5px;
+  }
+
+  .colophon {
+    display: none;
+  }
+
+  .playlist {
+    width: calc(100% - 2 * var(--gutter));
+  }
+
+  /* boot */
+  .boot {
+    padding: 20px;
+  }
+
+  .boot__frame {
+    display: none;
+  }
+
+  .boot {
+    padding-top: 62px;
+  }
+
+  .boot__bar {
+    height: 44px;
+    padding: 0 14px;
+  }
+
+  .boot__foot {
+    height: 40px;
+    padding: 0 14px;
+  }
+
+  .boot__log {
+    min-height: 130px;
+    font-size: 10.5px;
+  }
+
+  .boot__line {
+    grid-template-columns: 54px minmax(0, 1fr) auto;
+    gap: 9px;
+  }
+
+  .boot__head {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+  }
+
+  .boot__ascii {
+    margin-top: 24px;
+    font-size: clamp(6.8px, 2.6vw, 10px);
+  }
+
+  .boot__sub {
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+  }
+
+  .boot__gate {
+    margin-top: 20px;
+  }
+
+  .boot__gate-output {
+    max-height: 118px;
+    font-size: 10.5px;
+  }
+
+  .boot__promptline {
+    min-height: 46px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .boot__ps1 {
+    font-size: 11.5px;
+  }
+
+  .boot__input {
+    font-size: 12.5px;
+  }
+
+  .boot__hint {
+    font-size: 9px;
+    gap: 6px;
+  }
+
+  .boot__foot {
+    left: 20px;
+    right: 20px;
+    bottom: 18px;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Phone
+   -------------------------------------------------------------------------- */
+@media (max-width: 560px) {
+  :root {
+    --gutter: 16px;
+    --player-h: 128px;
+    --player-bottom: 12px;
+  }
+
+  .brand {
+    font-size: 10px;
+    gap: 7px;
+  }
+
+  .term-btn {
+    height: 32px;
+    padding: 0 9px;
+    gap: 7px;
+  }
+
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .topbar {
+    gap: 8px;
+  }
+
+  .avatar {
+    width: 92px;
+    height: 92px;
+    margin-bottom: 22px;
+  }
+
+  .avatar__brackets {
+    inset: -14px;
+  }
+
+  .profile__eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.24em;
+  }
+
+  .profile__name {
+    margin-top: 11px;
+    font-size: clamp(34px, 11vw, 46px);
+  }
+
+  .profile__handle {
+    margin-top: 9px;
+    font-size: 10px;
+  }
+
+  .profile__bio {
+    margin-top: 15px;
+    max-width: 30ch;
+    font-size: 13.5px;
+  }
+
+  .chips {
+    margin-top: 18px;
+    gap: 6px;
+  }
+
+  .chip {
+    height: 24px;
+    padding: 0 9px;
+    font-size: 8px;
+    letter-spacing: 0.13em;
+  }
+
+  /* socials become icon + label tiles */
+  .socials {
+    margin-top: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .social {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    height: 64px;
+    padding: 8px 4px;
+    text-align: center;
+  }
+
+  .social__icon,
+  .social__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .social__text {
+    align-items: center;
+    gap: 0;
+  }
+
+  .social__label {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .social__handle,
+  .social__arrow {
+    display: none;
+  }
+
+  .datastrip {
+    margin-top: 22px;
+  }
+
+  .datastrip__cell {
+    padding: 9px 10px;
+    gap: 3px;
+  }
+
+  .datastrip__k {
+    font-size: 7px;
+    letter-spacing: 0.18em;
+  }
+
+  .datastrip__v {
+    font-size: 10px;
+  }
+
+  .profile__hint {
+    display: none;
+  }
+
+  /* player */
+  .player {
+    gap: 4px 8px;
+    padding: 11px 12px;
+  }
+
+  .player__controls .ctrl {
+    width: 26px;
+    height: 26px;
+  }
+
+  .ctrl--primary {
+    width: 38px;
+    height: 38px;
+  }
+
+  .player__title {
+    font-size: 11.5px;
+  }
+
+  .player__artist {
+    font-size: 9px;
+  }
+
+  .player__time {
+    font-size: 8.5px;
+    min-width: 26px;
+  }
+
+  .player__timeline {
+    gap: 6px;
+  }
+
+  .playlist {
+    width: calc(100% - 20px);
+    max-height: 52vh;
+  }
+
+  .playlist__foot {
+    display: none;
+  }
+
+  /* terminal goes full screen */
+  .terminal-layer {
+    padding: 0;
+  }
+
+  .terminal {
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .terminal::before,
+  .terminal::after {
+    display: none;
+  }
+
+  .terminal__bar {
+    height: 44px;
+    padding: 0 14px;
+  }
+
+  .terminal__bar {
+    height: 44px;
+  }
+
+  .terminal__badge {
+    display: none;
+  }
+
+  .terminal__body {
+    padding: 16px 14px 8px;
+  }
+
+  .terminal__banner {
+    font-size: 11px;
+  }
+
+  .terminal__ascii {
+    font-size: 8.5px;
+    margin-bottom: 8px;
+  }
+
+  .terminal__output {
+    font-size: 12.5px;
+  }
+
+  .terminal__hints {
+    padding: 10px 14px 12px;
+  }
+
+  .terminal__keys {
+    display: none;
+  }
+
+  .term-chip {
+    font-size: 8.5px;
+    padding: 4px 8px;
+  }
+
+  .terminal__promptline {
+    font-size: 12.5px;
+  }
+
+  .terminal__input {
+    font-size: 12.5px;
+  }
+
+  .term-line--pre {
+    font-size: 9.5px;
+  }
+
+  /* boot */
+  .boot__log {
+    min-height: 120px;
+  }
+
+  .boot__foot span:nth-child(2) {
+    display: none;
+  }
+
+  .boot__note {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .brand__word {
+    letter-spacing: 0.02em;
+  }
+
+  .profile__eyebrow {
+    letter-spacing: 0.18em;
+  }
+
+  .profile__name {
+    font-size: clamp(32px, 10.5vw, 40px);
+  }
+
+  .socials {
+    gap: 6px;
+  }
+
+  .social__label {
+    font-size: 7.5px;
+    letter-spacing: 0.06em;
+  }
+
+  .datastrip__cell {
+    padding: 8px;
+  }
+
+  .player__controls .ctrl {
+    width: 24px;
+  }
+
+  .ctrl--primary {
+    width: 36px;
+    height: 36px;
+  }
+
+  .boot__go {
+    margin-left: 0;
+    padding: 4px 10px;
+    font-size: 8.5px;
+  }
+
+  .boot__hint {
+    font-size: 8.5px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Short viewports (laptops / landscape phones)
+   -------------------------------------------------------------------------- */
+@media (max-height: 780px) and (min-width: 721px) {
+  .profile {
+    padding: 8px 0 4px;
+  }
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 20px;
+  }
+
+  .profile__name {
+    font-size: clamp(36px, 5.8vw, 50px);
+  }
+
+  .profile__bio {
+    margin-top: 14px;
+  }
+
+  .chips {
+    margin-top: 16px;
+  }
+
+  .socials {
+    margin-top: 20px;
+  }
+
+  .datastrip {
+    margin-top: 20px;
+  }
+
+  .profile__hint {
+    margin-top: 16px;
+  }
+}
+
+@media (max-height: 620px) {
+  .profile > .datastrip,
+  .profile > .profile__hint {
+    display: none;
+  }
+
+  .avatar {
+    margin-bottom: 18px;
+  }
+
+  .boot__log {
+    min-height: 108px;
+  }
+
+  .boot__ascii {
+    margin-top: 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Touch: no hover lifts / smaller targets stay valid
+   -------------------------------------------------------------------------- */
+@media (hover: none) {
+  .social:hover,
+  .social:focus-visible {
+    transform: none;
+  }
+
+  .avatar:hover .br {
+    transform: none;
+  }
+
+  .social:hover::before {
+    transform: scaleX(0);
+  }
+
+  .social:active {
+    background: rgba(134, 224, 165, 0.06);
+    border-color: rgba(134, 224, 165, 0.3);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Short phone viewports — keep the profile above the docked player
+   -------------------------------------------------------------------------- */
+@media (max-height: 700px) and (max-width: 560px) {
+  .avatar {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 16px;
+  }
+
+  .avatar__brackets {
+    inset: -12px;
+  }
+
+  .profile__name {
+    margin-top: 9px;
+    font-size: clamp(30px, 10vw, 38px);
+  }
+
+  .profile__bio {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+
+  .chips {
+    margin-top: 12px;
+  }
+
+  .socials {
+    margin-top: 14px;
+  }
+
+  .datastrip {
+    display: none;
+  }
+
+  .profile {
+    padding: 6px 0 2px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Roomy screens — a slightly larger profile plate
+   -------------------------------------------------------------------------- */
+@media (min-width: 901px) and (min-height: 821px) {
+  .profile {
+    width: min(660px, 100%);
+    padding: 22px 0 14px;
+  }
+
+  .avatar {
+    width: 128px;
+    height: 128px;
+    margin: 2px 0 30px;
+  }
+
+  .avatar__ring {
+    inset: -9px;
+  }
+
+  .avatar__brackets {
+    inset: -20px;
+  }
+
+  .profile__eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+  }
+
+  .profile__name {
+    margin-top: 16px;
+    font-size: clamp(48px, 4.7vw, 72px);
+    letter-spacing: 0.24em;
+    text-indent: 0.24em;
+  }
+
+  .profile__handle {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+
+  .profile__bio {
+    margin-top: 22px;
+    max-width: 38ch;
+    font-size: clamp(15px, 1.2vw, 18px);
+  }
+
+  .chips {
+    margin-top: 26px;
+    gap: 9px;
+  }
+
+  .chip {
+    height: 28px;
+    padding: 0 12px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+  }
+
+  .socials {
+    margin-top: 30px;
+    max-width: 600px;
+    gap: 12px;
+  }
+
+  .social {
+    height: 62px;
+    padding: 0 15px;
+    gap: 12px;
+  }
+
+  .social__icon,
+  .social__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .social__label {
+    font-size: 10.5px;
+  }
+
+  .social__handle {
+    font-size: 9.5px;
+  }
+
+  .datastrip {
+    margin-top: 32px;
+    max-width: 600px;
+  }
+
+  .datastrip__cell {
+    padding: 12px 16px;
+  }
+
+  .datastrip__k {
+    font-size: 8.5px;
+  }
+
+  .datastrip__v {
+    font-size: 12.5px;
+  }
+
+  .profile__hint {
+    margin-top: 26px;
+    font-size: 9px;
+  }
+}
