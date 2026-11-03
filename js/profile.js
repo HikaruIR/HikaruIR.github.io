@@ -284,6 +284,8 @@
 
     utils.on(document, 'hikaru:player:error', function (event) {
       var detail = event.detail || {};
+      // browser autoplay blocking is not a broken track
+      if (/blocked/i.test(String(detail.message || ''))) return;
       var pad = utils.pad2 || function (value) { return String(value).padStart(2, '0'); };
       if (typeof detail.index === 'number') {
         setText('data-track', pad(detail.index + 1) + ' · unavailable');
